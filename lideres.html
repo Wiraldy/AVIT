@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Líderes — A.V.I.T.</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a0f3d;--blue:#1a2ecc;--mid-blue:#2563eb;--light-blue:#3b82f6;--sky:#60a5fa;--pale:#dbeafe;--white:#ffffff;--gray:#f0f4ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:var(--white);color:var(--navy);}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,15,61,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(59,130,246,0.3);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--light-blue));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:13px;}
+.logo-text{color:white;font-weight:700;font-size:1.1rem;line-height:1.2;}
+.logo-text span{display:block;font-size:0.65rem;font-weight:400;color:var(--sky);letter-spacing:1px;}
+.nav-links{display:flex;align-items:center;gap:0.2rem;}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 14px;border-radius:6px;font-size:0.85rem;font-weight:500;transition:all 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:white;background:rgba(59,130,246,0.25);}
+.nav-access{background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white!important;padding:9px 20px!important;border-radius:8px!important;font-weight:600!important;}
+
+.page-hero{padding:130px 2rem 80px;background:linear-gradient(160deg,var(--navy),#0d1a6e 60%,#0a1a8a);position:relative;overflow:hidden;}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.06) 1px,transparent 1px);background-size:60px 60px;}
+.page-hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.25),transparent 70%);}
+.page-hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:2;text-align:center;}
+.page-tag{display:inline-block;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);color:var(--sky);font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:1.2rem;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);color:white;margin-bottom:1rem;}
+.page-hero h1 span{color:var(--sky);}
+.page-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:600px;margin:0 auto;line-height:1.8;}
+
+.section{padding:5rem 2rem;}
+.section-inner{max-width:1280px;margin:0 auto;}
+.section-tag{display:inline-block;background:var(--pale);color:var(--blue);font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:1rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);color:var(--navy);margin-bottom:1rem;}
+
+/* DIRECTOR */
+.director-section{background:var(--gray);}
+.director-card{background:linear-gradient(160deg,var(--navy),#0d1a8a);border-radius:24px;padding:3rem;display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center;max-width:900px;margin:3rem auto 0;}
+.director-avatar{width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--light-blue));display:flex;align-items:center;justify-content:center;font-size:5rem;border:4px solid rgba(255,255,255,0.2);}
+.director-info h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:white;margin-bottom:0.3rem;}
+.director-role{display:inline-block;background:rgba(59,130,246,0.3);color:var(--sky);font-size:0.75rem;font-weight:700;padding:5px 14px;border-radius:100px;margin-bottom:1rem;}
+.director-info p{color:rgba(255,255,255,0.75);line-height:1.8;font-size:0.9rem;}
+.director-num{color:rgba(255,255,255,0.4);font-size:0.8rem;margin-top:0.8rem;}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;margin-top:3rem;}
+.team-card{background:white;border:1px solid var(--pale);border-radius:20px;overflow:hidden;transition:all 0.3s;}
+.team-card:hover{box-shadow:0 12px 40px rgba(37,99,235,0.15);transform:translateY(-5px);border-color:var(--light-blue);}
+.team-header{height:180px;display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;}
+.team-num{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.3);color:white;font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:100px;font-family:monospace;}
+.team-body{padding:1.5rem;}
+.team-name{font-weight:800;font-size:1.1rem;color:var(--navy);margin-bottom:0.4rem;}
+.team-role{display:inline-block;background:var(--pale);color:var(--blue);font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:100px;margin-bottom:1rem;}
+.team-desc{color:#64748b;font-size:0.82rem;line-height:1.6;}
+.team-skills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem;}
+.skill-tag{background:#f1f5f9;color:#475569;font-size:0.68rem;font-weight:600;padding:3px 10px;border-radius:6px;}
+
+/* ORGANIGRAMA */
+.org-section{background:var(--gray);}
+.org-chart{max-width:900px;margin:3rem auto 0;display:flex;flex-direction:column;align-items:center;gap:0;}
+.org-level{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+.org-node{background:white;border:2px solid var(--pale);border-radius:14px;padding:1rem 1.5rem;text-align:center;min-width:160px;transition:all 0.2s;}
+.org-node:hover{border-color:var(--light-blue);box-shadow:0 5px 20px rgba(37,99,235,0.1);}
+.org-node.director{background:linear-gradient(135deg,var(--navy),var(--blue));border-color:transparent;color:white;min-width:200px;}
+.org-node.director .org-name{color:white;}
+.org-node.director .org-role{color:rgba(255,255,255,0.7);}
+.org-name{font-weight:700;font-size:0.85rem;color:var(--navy);}
+.org-role{font-size:0.72rem;color:#94a3b8;margin-top:0.2rem;}
+.org-connector{width:2px;height:30px;background:linear-gradient(var(--blue),var(--light-blue));margin:0 auto;}
+.org-connector-h{display:flex;align-items:flex-start;justify-content:center;}
+.org-line{width:60%;height:2px;background:linear-gradient(90deg,var(--blue),var(--light-blue));margin:0 auto;}
+
+footer{background:var(--navy);color:rgba(255,255,255,0.6);padding:3rem 2rem 1.5rem;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+.footer-brand p{margin-top:1rem;font-size:0.85rem;line-height:1.7;max-width:260px;}
+.footer-col h4{color:white;font-weight:700;font-size:0.9rem;margin-bottom:1rem;}
+.footer-col a{display:block;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;margin-bottom:0.5rem;transition:color 0.2s;}
+.footer-col a:hover{color:var(--sky);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;font-size:0.8rem;}
+.fade-up{opacity:0;transform:translateY(30px);transition:all 0.6s;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){.director-card{grid-template-columns:1fr;text-align:center;}.director-avatar{margin:0 auto;}.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.nav-links{display:none;}.footer-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;">
+      <div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="lideres.html" class="active">Líderes</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="avit_platform.html" class="nav-access">🔐 Acceder</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-tag">Equipo A.V.I.T.</div>
+    <h1>Nuestros <span>Líderes</span></h1>
+    <p>El equipo fundador y directivo que hace posible la misión de A.V.I.T. cada día. Profesionales comprometidos con la educación técnica global.</p>
+  </div>
+</div>
+
+<section class="section director-section">
+  <div class="section-inner">
+    <div class="fade-up" style="text-align:center;">
+      <span class="section-tag">Dirección General</span>
+      <h2 class="section-title">Liderazgo A.V.I.T.</h2>
+    </div>
+    <div class="director-card fade-up">
+      <div class="director-avatar">👩🏾‍🦱</div>
+      <div class="director-info">
+        <h2>Wiraldy Díaz</h2>
+        <div class="director-role">Directora General</div>
+        <p>Fundadora y máxima autoridad ejecutiva de A.V.I.T. Responsable de definir la estrategia global, liderar la gestión administrativa y asegurar la rentabilidad y cumplimiento de objetivos a largo plazo. Actúa como puente entre la junta directiva y las operaciones diarias.</p>
+        <div class="director-num">Colaborador #13 · Grupo 03</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-tag">Equipo Directivo</span>
+      <h2 class="section-title">Nuestro equipo</h2>
+    </div>
+    <div class="team-grid fade-up">
+      <div class="team-card">
+        <div class="team-header" style="background:linear-gradient(160deg,#0a0f3d,#1e40af);">
+          👨🏿‍💼<span class="team-num">#07</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Samuel de la Cruz</div>
+          <div class="team-role">Gerencia General (Manager)</div>
+          <div class="team-desc">Máximo órgano ejecutivo operativo. Responsable de la planificación estratégica, supervisión global de operaciones y liderazgo de la cultura organizacional de A.V.I.T.</div>
+          <div class="team-skills"><span class="skill-tag">Estrategia</span><span class="skill-tag">Liderazgo</span><span class="skill-tag">Operaciones</span></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-header" style="background:linear-gradient(160deg,#1e1b4b,#6d28d9);">
+          👩🏻‍💼<span class="team-num">#10</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Nathaly Del Jesús</div>
+          <div class="team-role">Departamento de Marketing</div>
+          <div class="team-desc">Encargada de impulsar el crecimiento, la visibilidad de la marca y la captación de clientes. Diseña y ejecuta campañas en Instagram, Facebook y otros canales digitales.</div>
+          <div class="team-skills"><span class="skill-tag">Marketing</span><span class="skill-tag">Redes Sociales</span><span class="skill-tag">Branding</span></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-header" style="background:linear-gradient(160deg,#065f46,#059669);">
+          👨🏾‍💻<span class="team-num">#29</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Anniel Santana</div>
+          <div class="team-role">Servicio al Cliente</div>
+          <div class="team-desc">Crea experiencias fluidas para los estudiantes. Resuelve retos técnicos, soluciona errores y brinda asistencia en las funciones de la plataforma con profesionalismo.</div>
+          <div class="team-skills"><span class="skill-tag">Atención al cliente</span><span class="skill-tag">Soporte</span><span class="skill-tag">CRM</span></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-header" style="background:linear-gradient(160deg,#0a1a3d,#1d4ed8);">
+          👨‍💻<span class="team-num">#08</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Joshua de la Cruz</div>
+          <div class="team-role">Dpto. de Contabilidad</div>
+          <div class="team-desc">Gestiona y controla los recursos económicos mediante registros precisos, cierres contables e informes financieros. Apoya la toma de decisiones estratégicas de la alta dirección.</div>
+          <div class="team-skills"><span class="skill-tag">Contabilidad</span><span class="skill-tag">Finanzas</span><span class="skill-tag">Reportes</span></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-header" style="background:linear-gradient(160deg,#7f1d1d,#dc2626);">
+          👩<span class="team-num">#04</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Darlín Candelario</div>
+          <div class="team-role">Recursos Humanos</div>
+          <div class="team-desc">Gestiona el ciclo completo de empleados: reclutamiento, selección, capacitación, nóminas y clima laboral. Alinea el talento humano con los objetivos de A.V.I.T.</div>
+          <div class="team-skills"><span class="skill-tag">RRHH</span><span class="skill-tag">Reclutamiento</span><span class="skill-tag">Gestión</span></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-header" style="background:linear-gradient(160deg,#134e4a,#0891b2);">
+          👩🏾‍🦱<span class="team-num">#WR</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Wiraldy Rosario</div>
+          <div class="team-role">Página Web</div>
+          <div class="team-desc">Responsable del mantenimiento, estabilidad y mejora continua de la plataforma digital de A.V.I.T. Garantiza que la experiencia técnica sea impecable para todos los usuarios.</div>
+          <div class="team-skills"><span class="skill-tag">Web</span><span class="skill-tag">Diseño</span><span class="skill-tag">Desarrollo</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section org-section">
+  <div class="section-inner">
+    <div class="fade-up" style="text-align:center;">
+      <span class="section-tag">Estructura</span>
+      <h2 class="section-title">Organigrama A.V.I.T.</h2>
+    </div>
+    <div class="org-chart fade-up">
+      <div class="org-level">
+        <div class="org-node director"><div class="org-name">Wiraldy Díaz</div><div class="org-role">Directora General</div></div>
+      </div>
+      <div class="org-connector"></div>
+      <div class="org-line"></div>
+      <div class="org-connector"></div>
+      <div class="org-level">
+        <div class="org-node"><div class="org-name">Samuel de la Cruz</div><div class="org-role">Gerencia General</div></div>
+      </div>
+      <div class="org-connector"></div>
+      <div class="org-line" style="width:80%;"></div>
+      <div class="org-connector"></div>
+      <div class="org-level" style="gap:1rem;">
+        <div class="org-node"><div class="org-name">Nathaly Del Jesús</div><div class="org-role">Marketing</div></div>
+        <div class="org-node"><div class="org-name">Anniel Santana</div><div class="org-role">Servicio al Cliente</div></div>
+        <div class="org-node"><div class="org-name">Joshua de la Cruz</div><div class="org-role">Contabilidad</div></div>
+        <div class="org-node"><div class="org-name">Darlín Candelario</div><div class="org-role">RRHH</div></div>
+        <div class="org-node"><div class="org-name">Wiraldy Rosario</div><div class="org-role">Página Web</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:linear-gradient(160deg,var(--navy),#0d1a8a);text-align:center;">
+  <div class="section-inner fade-up">
+    <h2 style="font-family:'Playfair Display',serif;font-size:2.2rem;color:white;margin-bottom:1rem;">¿Quieres ser parte del equipo?</h2>
+    <p style="color:rgba(255,255,255,0.7);margin-bottom:2rem;">Buscamos personas con conocimiento técnico, capacidad de enseñanza y valores sólidos.</p>
+    <a href="contacto.html" style="background:white;color:var(--navy);padding:14px 36px;border-radius:10px;text-decoration:none;font-weight:700;font-size:1rem;">Contáctanos →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;"><div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div></div>
+        <p>"Tu éxito empieza aquí." — Formamos profesionales técnicos para el mundo digital.</p>
+      </div>
+      <div class="footer-col"><h4>Navegación</h4><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="cursos.html">Cursos</a><a href="servicios.html">Servicios</a></div>
+      <div class="footer-col"><h4>Empresa</h4><a href="lideres.html">Líderes</a><a href="contacto.html">Contacto</a><a href="avit_platform.html">Portal de Acceso</a></div>
+      <div class="footer-col"><h4>Idiomas</h4><a href="#">Español</a><a href="#">English</a><a href="#">Português</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 A.V.I.T. Academia Virtual Internacional Técnica.</span><span>Grupo 03 — IPA</span></div>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosotros — A.V.I.T.</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a0f3d;--blue:#1a2ecc;--mid-blue:#2563eb;--light-blue:#3b82f6;--sky:#60a5fa;--pale:#dbeafe;--white:#ffffff;--gray:#f0f4ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:var(--white);color:var(--navy);}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,15,61,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(59,130,246,0.3);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--light-blue));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:13px;}
+.logo-text{color:white;font-weight:700;font-size:1.1rem;line-height:1.2;}
+.logo-text span{display:block;font-size:0.65rem;font-weight:400;color:var(--sky);letter-spacing:1px;}
+.nav-links{display:flex;align-items:center;gap:0.2rem;}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 14px;border-radius:6px;font-size:0.85rem;font-weight:500;transition:all 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:white;background:rgba(59,130,246,0.25);}
+.nav-access{background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white!important;padding:9px 20px!important;border-radius:8px!important;font-weight:600!important;}
+.nav-access:hover{box-shadow:0 4px 20px rgba(37,99,235,0.5);}
+
+.page-hero{padding:140px 2rem 80px;background:linear-gradient(160deg,var(--navy) 0%,#0d1a6e 60%,#0a1a8a 100%);position:relative;overflow:hidden;}
+.page-hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.3),transparent 70%);}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.06) 1px,transparent 1px);background-size:60px 60px;}
+.page-hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:2;}
+.page-tag{display:inline-block;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);color:var(--sky);font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:1.2rem;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.5rem);color:white;margin-bottom:1rem;}
+.page-hero h1 span{color:var(--sky);}
+.page-hero p{color:rgba(255,255,255,0.7);font-size:1.05rem;max-width:600px;line-height:1.8;}
+
+.section{padding:5rem 2rem;}
+.section-inner{max-width:1280px;margin:0 auto;}
+.section-tag{display:inline-block;background:var(--pale);color:var(--blue);font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:1rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);color:var(--navy);margin-bottom:1rem;}
+.section-subtitle{color:#64748b;font-size:1rem;line-height:1.7;max-width:600px;}
+
+/* MISION VISION */
+.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem;}
+.mv-card{border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;}
+.mv-card.mision{background:linear-gradient(160deg,var(--navy),#0d1a8a);}
+.mv-card.vision{background:linear-gradient(160deg,var(--blue),var(--mid-blue));}
+.mv-card::before{content:'';position:absolute;bottom:-40px;right:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.05);}
+.mv-label{color:rgba(255,255,255,0.5);font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;}
+.mv-card h3{font-family:'Playfair Display',serif;font-size:1.8rem;color:white;margin-bottom:1rem;}
+.mv-card p{color:rgba(255,255,255,0.8);line-height:1.8;font-size:0.95rem;}
+
+/* VALORES */
+.valores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.valor-card{background:white;border:1px solid var(--pale);border-radius:16px;padding:2rem;transition:all 0.3s;}
+.valor-card:hover{border-color:var(--light-blue);box-shadow:0 8px 30px rgba(37,99,235,0.12);transform:translateY(-4px);}
+.valor-icon{font-size:2rem;margin-bottom:1rem;}
+.valor-title{font-weight:700;color:var(--navy);font-size:1rem;margin-bottom:0.5rem;}
+.valor-text{color:#64748b;font-size:0.85rem;line-height:1.6;}
+
+/* LIDERES */
+.lideres-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2rem;margin-top:3rem;}
+.lider-card{background:white;border:1px solid var(--pale);border-radius:20px;overflow:hidden;transition:all 0.3s;text-align:center;}
+.lider-card:hover{box-shadow:0 10px 40px rgba(37,99,235,0.15);transform:translateY(-5px);}
+.lider-avatar{height:160px;background:linear-gradient(160deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;}
+.lider-avatar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:white;clip-path:ellipse(60% 100% at 50% 100%);}
+.lider-body{padding:1rem 1.5rem 1.5rem;}
+.lider-name{font-weight:800;color:var(--navy);font-size:1rem;margin-bottom:0.3rem;}
+.lider-role{display:inline-block;background:var(--pale);color:var(--blue);font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:100px;margin-bottom:0.8rem;}
+.lider-num{color:#94a3b8;font-size:0.78rem;}
+
+/* HISTORIA */
+.historia-section{background:var(--gray);}
+.historia-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3rem;}
+.historia-text p{color:#64748b;line-height:1.8;margin-bottom:1.2rem;font-size:0.95rem;}
+.timeline{display:flex;flex-direction:column;gap:1.5rem;}
+.tl-item{display:flex;gap:1.5rem;align-items:flex-start;}
+.tl-dot{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--mid-blue));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:0.8rem;flex-shrink:0;}
+.tl-content h4{font-weight:700;color:var(--navy);margin-bottom:0.3rem;}
+.tl-content p{color:#64748b;font-size:0.85rem;line-height:1.6;}
+
+/* IDIOMAS */
+.idiomas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1.2rem;margin-top:3rem;}
+.idioma-card{background:white;border:1px solid var(--pale);border-radius:14px;padding:1.5rem;text-align:center;transition:all 0.3s;}
+.idioma-card:hover{border-color:var(--light-blue);box-shadow:0 5px 20px rgba(37,99,235,0.1);}
+.idioma-flag{font-size:2.5rem;margin-bottom:0.8rem;display:block;}
+.idioma-name{font-weight:700;color:var(--navy);font-size:0.9rem;}
+.idioma-status{font-size:0.72rem;font-weight:600;margin-top:0.4rem;}
+.idioma-card.disponible .idioma-status{color:#16a34a;}
+.idioma-card.proximo .idioma-status{color:#d97706;}
+.idioma-card.proximo{opacity:0.7;}
+
+footer{background:var(--navy);color:rgba(255,255,255,0.6);padding:3rem 2rem 1.5rem;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+.footer-brand p{margin-top:1rem;font-size:0.85rem;line-height:1.7;max-width:260px;}
+.footer-col h4{color:white;font-weight:700;font-size:0.9rem;margin-bottom:1rem;}
+.footer-col a{display:block;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;margin-bottom:0.5rem;transition:color 0.2s;}
+.footer-col a:hover{color:var(--sky);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;font-size:0.8rem;}
+.fade-up{opacity:0;transform:translateY(30px);transition:all 0.6s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){.mv-grid,.historia-grid{grid-template-columns:1fr;}.valores-grid{grid-template-columns:1fr 1fr;}.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.valores-grid{grid-template-columns:1fr;}.nav-links{display:none;}.footer-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;">
+      <div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html" class="active">Nosotros</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="lideres.html">Líderes</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="avit_platform.html" class="nav-access">🔐 Acceder</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-tag">Sobre Nosotros</div>
+    <h1>Somos <span>A.V.I.T.</span></h1>
+    <p>Una academia virtual técnica fundada con la misión de democratizar el acceso a la educación tecnológica de calidad en cualquier rincón del mundo.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-tag">Misión & Visión</span>
+      <h2 class="section-title">Hacia dónde vamos</h2>
+    </div>
+    <div class="mv-grid fade-up">
+      <div class="mv-card mision">
+        <div class="mv-label">Misión</div>
+        <h3>Lo que hacemos</h3>
+        <p>Ofrecer cursos virtuales especializados y de alta calidad, disponibles en múltiples idiomas, para brindar oportunidades de aprendizaje flexibles y accesibles a personas en cualquier provincia o país, eliminando barreras geográficas, económicas y culturales.</p>
+      </div>
+      <div class="mv-card vision">
+        <div class="mv-label">Visión</div>
+        <h3>A dónde llegamos</h3>
+        <p>Ser la plataforma de educación virtual técnica más accesible, innovadora y elegida de América Latina y el mundo, conectando personas con el conocimiento que necesitan sin que la distancia o el costo sean un impedimento para su desarrollo profesional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section historia-section">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-tag">Nuestra Historia</span>
+      <h2 class="section-title">Cómo surgió la idea</h2>
+    </div>
+    <div class="historia-grid fade-up">
+      <div class="historia-text">
+        <p>A.V.I.T. nació como un proyecto de emprendimiento en el Instituto Politécnico de Azua Profesora Teresa Digna Feliz de Estrada (IPA), cuando un grupo de estudiantes identificó una necesidad real en su entorno: el acceso limitado a formación técnica de calidad en zonas remotas.</p>
+        <p>Lo que comenzó como una asignación académica se convirtió en una empresa real, sólida e innovadora, con un modelo de negocio sostenible y una visión de impacto nacional e internacional.</p>
+        <p>Hoy, A.V.I.T. opera como una plataforma con más de 45 cursos especializados, disponibles en 6 idiomas, atendiendo a estudiantes y empresas en múltiples países.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">1</div>
+          <div class="tl-content"><h4>La idea nace en el IPA</h4><p>Durante la materia de Emprendimiento, el Grupo 03 identifica la falta de cursos técnicos virtuales accesibles.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2</div>
+          <div class="tl-content"><h4>Constitución de la empresa</h4><p>Se formaliza la estructura organizacional, se definen roles y responsabilidades del equipo fundador.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">3</div>
+          <div class="tl-content"><h4>Lanzamiento de los primeros cursos</h4><p>Se lanza la primera línea de cursos: Desarrollo Web, Bases de Datos, Ciberseguridad y Diseño Gráfico.</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">4</div>
+          <div class="tl-content"><h4>Expansión multilingüe</h4><p>La plataforma se expande a 6 idiomas y más de 45 cursos disponibles para el mercado global.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-tag">Nuestros Valores</span>
+      <h2 class="section-title">Lo que nos define</h2>
+    </div>
+    <div class="valores-grid fade-up">
+      <div class="valor-card"><div class="valor-icon">⭐</div><div class="valor-title">Responsabilidad</div><div class="valor-text">Nuestros clientes reciben servicios de calidad y en el tiempo establecido, siempre.</div></div>
+      <div class="valor-card"><div class="valor-icon">🤝</div><div class="valor-title">Respeto</div><div class="valor-text">El trato a cada estudiante y colaborador es siempre profesional, respetuoso y amable.</div></div>
+      <div class="valor-card"><div class="valor-icon">👥</div><div class="valor-title">Compañerismo</div><div class="valor-text">En nuestro equipo existe un ambiente de respeto, amabilidad y apoyo mutuo constante.</div></div>
+      <div class="valor-card"><div class="valor-icon">🔍</div><div class="valor-title">Transparencia</div><div class="valor-text">Nos comprometemos a ofrecer un servicio honesto, sin información engañosa sobre lo que brindamos.</div></div>
+      <div class="valor-card"><div class="valor-icon">💪</div><div class="valor-title">Perseverancia</div><div class="valor-text">Siempre buscamos superar las adversidades que puedan afectar la disponibilidad de nuestros servicios.</div></div>
+      <div class="valor-card"><div class="valor-icon">🌈</div><div class="valor-title">Inclusión</div><div class="valor-text">Servicios para todo tipo de personas, sin importar su estatus social, país, idioma o identidad.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--gray);">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-tag">Idiomas Disponibles</span>
+      <h2 class="section-title">Aprende en tu idioma</h2>
+      <p class="section-subtitle">A.V.I.T. está comprometida con la inclusión global. Nuestros cursos están disponibles en múltiples idiomas y seguimos expandiendo.</p>
+    </div>
+    <div class="idiomas-grid fade-up">
+      <div class="idioma-card disponible"><span class="idioma-flag">🇪🇸</span><div class="idioma-name">Español</div><div class="idioma-status">✓ Disponible</div></div>
+      <div class="idioma-card disponible"><span class="idioma-flag">🇺🇸</span><div class="idioma-name">English</div><div class="idioma-status">✓ Disponible</div></div>
+      <div class="idioma-card disponible"><span class="idioma-flag">🇧🇷</span><div class="idioma-name">Português</div><div class="idioma-status">✓ Disponible</div></div>
+      <div class="idioma-card disponible"><span class="idioma-flag">🇫🇷</span><div class="idioma-name">Français</div><div class="idioma-status">✓ Disponible</div></div>
+      <div class="idioma-card disponible"><span class="idioma-flag">🇩🇪</span><div class="idioma-name">Deutsch</div><div class="idioma-status">✓ Disponible</div></div>
+      <div class="idioma-card disponible"><span class="idioma-flag">🇮🇹</span><div class="idioma-name">Italiano</div><div class="idioma-status">✓ Disponible</div></div>
+      <div class="idioma-card disponible"><span class="idioma-flag">🇯🇵</span><div class="idioma-name">日本語</div><div class="idioma-status">✓ Disponible</div></div>
+      <div class="idioma-card disponible"><span class="idioma-flag">🇸🇦</span><div class="idioma-name">العربية</div><div class="idioma-status">✓ Disponible</div></div>
+      <div class="idioma-card proximo"><span class="idioma-flag">🇨🇳</span><div class="idioma-name">中文</div><div class="idioma-status">⏳ Próximamente</div></div>
+      <div class="idioma-card proximo"><span class="idioma-flag">🇷🇺</span><div class="idioma-name">Русский</div><div class="idioma-status">⏳ Próximamente</div></div>
+      <div class="idioma-card proximo"><span class="idioma-flag">🇰🇷</span><div class="idioma-name">한국어</div><div class="idioma-status">⏳ Próximamente</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:linear-gradient(160deg,var(--navy),#0d1a8a);text-align:center;">
+  <div class="section-inner fade-up">
+    <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:white;margin-bottom:1rem;">¿Quieres conocer al equipo?</h2>
+    <p style="color:rgba(255,255,255,0.7);margin-bottom:2rem;">Conoce a los líderes que hacen posible A.V.I.T. cada día.</p>
+    <a href="lideres.html" style="background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white;padding:14px 36px;border-radius:10px;text-decoration:none;font-weight:700;font-size:1rem;">Ver líderes →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;"><div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div></div>
+        <p>"Tu éxito empieza aquí." — Formamos profesionales técnicos para el mundo digital.</p>
+      </div>
+      <div class="footer-col"><h4>Navegación</h4><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="cursos.html">Cursos</a><a href="servicios.html">Servicios</a></div>
+      <div class="footer-col"><h4>Empresa</h4><a href="lideres.html">Líderes</a><a href="contacto.html">Contacto</a><a href="avit_platform.html">Portal de Acceso</a></div>
+      <div class="footer-col"><h4>Idiomas</h4><a href="#">Español</a><a href="#">English</a><a href="#">Português</a><a href="#" style="opacity:0.4;">Français (próximo)</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 A.V.I.T. Academia Virtual Internacional Técnica.</span><span>Grupo 03 — IPA</span></div>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

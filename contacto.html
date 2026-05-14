@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — A.V.I.T.</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a0f3d;--blue:#1a2ecc;--mid-blue:#2563eb;--light-blue:#3b82f6;--sky:#60a5fa;--pale:#dbeafe;--white:#ffffff;--gray:#f0f4ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:var(--gray);color:var(--navy);}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,15,61,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(59,130,246,0.3);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--light-blue));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:13px;}
+.logo-text{color:white;font-weight:700;font-size:1.1rem;line-height:1.2;}
+.logo-text span{display:block;font-size:0.65rem;font-weight:400;color:var(--sky);letter-spacing:1px;}
+.nav-links{display:flex;align-items:center;gap:0.2rem;}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 14px;border-radius:6px;font-size:0.85rem;font-weight:500;transition:all 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:white;background:rgba(59,130,246,0.25);}
+.nav-access{background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white!important;padding:9px 20px!important;border-radius:8px!important;font-weight:600!important;}
+
+.page-hero{padding:130px 2rem 60px;background:linear-gradient(160deg,var(--navy),#0d1a6e 60%,#0a1a8a);position:relative;overflow:hidden;}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.06) 1px,transparent 1px);background-size:60px 60px;}
+.page-hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:2;}
+.page-tag{display:inline-block;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);color:var(--sky);font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:1.2rem;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);color:white;margin-bottom:1rem;}
+.page-hero h1 span{color:var(--sky);}
+.page-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:550px;line-height:1.8;}
+
+.contact-wrapper{max-width:1280px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1fr 1.5fr;gap:3rem;}
+
+/* INFO */
+.contact-info{display:flex;flex-direction:column;gap:1.5rem;}
+.info-card{background:white;border:1px solid var(--pale);border-radius:16px;padding:1.5rem;display:flex;align-items:flex-start;gap:1rem;transition:all 0.3s;}
+.info-card:hover{border-color:var(--light-blue);box-shadow:0 5px 20px rgba(37,99,235,0.1);}
+.info-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--mid-blue));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.info-label{font-size:0.72rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem;}
+.info-value{font-weight:600;color:var(--navy);font-size:0.9rem;}
+.info-sub{color:#64748b;font-size:0.78rem;margin-top:0.2rem;}
+
+.social-section{background:linear-gradient(160deg,var(--navy),#0d1a8a);border-radius:16px;padding:1.5rem;}
+.social-title{color:white;font-weight:700;margin-bottom:1rem;font-size:0.95rem;}
+.social-links{display:flex;flex-direction:column;gap:0.8rem;}
+.social-link{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;padding:10px;border-radius:10px;background:rgba(255,255,255,0.07);transition:all 0.2s;}
+.social-link:hover{background:rgba(255,255,255,0.15);color:white;}
+.social-link span:first-child{font-size:1.1rem;}
+
+/* FORM */
+.contact-form{background:white;border-radius:20px;padding:2.5rem;box-shadow:0 4px 30px rgba(0,0,0,0.06);}
+.form-title{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);margin-bottom:0.5rem;}
+.form-subtitle{color:#64748b;font-size:0.85rem;margin-bottom:2rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.form-group{margin-bottom:1rem;}
+.form-label{display:block;font-size:0.78rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.5px;}
+.form-input,.form-select,.form-textarea{width:100%;padding:12px 16px;border:2px solid var(--pale);border-radius:10px;font-size:0.9rem;font-family:'Montserrat',sans-serif;outline:none;transition:border 0.2s;background:white;color:var(--navy);}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--light-blue);box-shadow:0 0 0 4px rgba(59,130,246,0.1);}
+.form-textarea{resize:vertical;min-height:120px;}
+.form-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all 0.3s;}
+.form-submit:hover{box-shadow:0 6px 25px rgba(37,99,235,0.4);transform:translateY(-1px);}
+
+/* SUCCESS */
+.success-msg{display:none;text-align:center;padding:2rem;}
+.success-msg .check{font-size:4rem;display:block;margin-bottom:1rem;}
+.success-msg h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:0.5rem;}
+.success-msg p{color:#64748b;}
+
+/* FAQ */
+.faq-section{padding:4rem 2rem;max-width:1280px;margin:0 auto;}
+.faq-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);margin-bottom:0.5rem;text-align:center;}
+.faq-sub{color:#64748b;text-align:center;margin-bottom:3rem;}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.faq-item{background:white;border:1px solid var(--pale);border-radius:14px;overflow:hidden;}
+.faq-q{padding:1.2rem 1.5rem;font-weight:700;font-size:0.9rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background 0.2s;}
+.faq-q:hover{background:var(--gray);}
+.faq-q .arrow{transition:transform 0.3s;font-size:0.8rem;color:#94a3b8;}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease;color:#64748b;font-size:0.85rem;line-height:1.7;}
+.faq-a.open{max-height:200px;}
+.faq-a-inner{padding:0 1.5rem 1.2rem;}
+.faq-item.open .arrow{transform:rotate(180deg);}
+
+footer{background:var(--navy);color:rgba(255,255,255,0.6);padding:3rem 2rem 1.5rem;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+.footer-brand p{margin-top:1rem;font-size:0.85rem;line-height:1.7;max-width:260px;}
+.footer-col h4{color:white;font-weight:700;font-size:0.9rem;margin-bottom:1rem;}
+.footer-col a{display:block;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;margin-bottom:0.5rem;transition:color 0.2s;}
+.footer-col a:hover{color:var(--sky);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;font-size:0.8rem;}
+@media(max-width:900px){.contact-wrapper{grid-template-columns:1fr;}.faq-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.nav-links{display:none;}.footer-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;">
+      <div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="lideres.html">Líderes</a>
+      <a href="contacto.html" class="active">Contacto</a>
+      <a href="avit_platform.html" class="nav-access">🔐 Acceder</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-tag">Contáctanos</div>
+    <h1>Estamos <span>aquí</span> para ti</h1>
+    <p>¿Tienes dudas sobre nuestros cursos, planes empresariales o necesitas soporte? Escríbenos y te respondemos pronto.</p>
+  </div>
+</div>
+
+<div class="contact-wrapper">
+  <div class="contact-info">
+    <div class="info-card">
+      <div class="info-icon">📧</div>
+      <div><div class="info-label">Email</div><div class="info-value">contacto@avit.edu</div><div class="info-sub">Respuesta en menos de 24h</div></div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">📱</div>
+      <div><div class="info-label">WhatsApp</div><div class="info-value">+1 (809) 000-0000</div><div class="info-sub">Lun - Vie · 8am - 6pm</div></div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🌐</div>
+      <div><div class="info-label">Plataforma</div><div class="info-value">100% Virtual</div><div class="info-sub">Operamos desde cualquier lugar</div></div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🕐</div>
+      <div><div class="info-label">Soporte</div><div class="info-value">24 / 7 / 365</div><div class="info-sub">Plataforma siempre disponible</div></div>
+    </div>
+    <div class="social-section">
+      <div class="social-title">Síguenos en redes</div>
+      <div class="social-links">
+        <a href="#" class="social-link"><span>📸</span><span>@avit.academia — Instagram</span></a>
+        <a href="#" class="social-link"><span>👍</span><span>A.V.I.T. Academia — Facebook</span></a>
+        <a href="#" class="social-link"><span>▶️</span><span>A.V.I.T. Oficial — YouTube</span></a>
+        <a href="#" class="social-link"><span>💼</span><span>Academia AVIT — LinkedIn</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form" id="formContainer">
+    <div class="form-title">Envíanos un mensaje</div>
+    <div class="form-subtitle">Completa el formulario y te contactaremos a la brevedad posible.</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Nombre *</label><input type="text" class="form-input" id="nombre" placeholder="Tu nombre"></div>
+      <div class="form-group"><label class="form-label">Apellido *</label><input type="text" class="form-input" id="apellido" placeholder="Tu apellido"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" id="email" placeholder="tu@email.com"></div>
+      <div class="form-group"><label class="form-label">Teléfono</label><input type="tel" class="form-input" id="telefono" placeholder="+1 (809) 000-0000"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Asunto *</label>
+      <select class="form-select" id="asunto">
+        <option value="">Selecciona un asunto...</option>
+        <option>Información sobre cursos</option>
+        <option>Plan empresarial / corporativo</option>
+        <option>Soporte técnico</option>
+        <option>Problemas de acceso</option>
+        <option>Pagos y facturación</option>
+        <option>Trabaja con nosotros</option>
+        <option>Otro</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Mensaje *</label><textarea class="form-textarea" id="mensaje" placeholder="Escribe tu mensaje aquí..."></textarea></div>
+    <button class="form-submit" onclick="enviarFormulario()">Enviar mensaje →</button>
+
+    <div class="success-msg" id="successMsg">
+      <span class="check">✅</span>
+      <h3>¡Mensaje enviado!</h3>
+      <p>Gracias por contactarnos. Te responderemos en menos de 24 horas a tu correo.</p>
+    </div>
+  </div>
+</div>
+
+<div class="faq-section">
+  <div class="faq-title">Preguntas frecuentes</div>
+  <div class="faq-sub">Respuestas a las dudas más comunes de nuestros estudiantes.</div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Cómo me inscribo en un curso? <span class="arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Crea tu cuenta en el portal de acceso, selecciona el curso de tu preferencia, realiza el pago y recibirás tu código de acceso por correo electrónico.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Puedo acceder desde cualquier dispositivo? <span class="arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Sí. A.V.I.T. es 100% online y compatible con computadoras, tablets y smartphones. Solo necesitas conexión a internet.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Cuánto dura el acceso a un curso? <span class="arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">El acceso es mensual según tu suscripción. Mientras mantengas tu plan activo, tendrás acceso ilimitado al contenido de tus cursos.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Los certificados son reconocidos? <span class="arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Nuestros certificados digitales son verificables con un código único y pueden añadirse a tu perfil de LinkedIn y CV profesional.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿En qué idiomas están disponibles los cursos? <span class="arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Actualmente en español, inglés y portugués. Próximamente estarán disponibles en francés, alemán, italiano, japonés y árabe.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Tienen planes para empresas? <span class="arrow">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Sí. Ofrecemos planes corporativos desde RD$4,500/mes para hasta 10 usuarios, con panel administrativo, reportes de progreso y soporte dedicado.</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;"><div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div></div>
+        <p>"Tu éxito empieza aquí." — Formamos profesionales técnicos para el mundo digital.</p>
+      </div>
+      <div class="footer-col"><h4>Navegación</h4><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="cursos.html">Cursos</a><a href="servicios.html">Servicios</a></div>
+      <div class="footer-col"><h4>Empresa</h4><a href="lideres.html">Líderes</a><a href="contacto.html">Contacto</a><a href="avit_platform.html">Portal de Acceso</a></div>
+      <div class="footer-col"><h4>Idiomas</h4><a href="#">Español</a><a href="#">English</a><a href="#">Português</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 A.V.I.T. Academia Virtual Internacional Técnica.</span><span>Grupo 03 — IPA</span></div>
+  </div>
+</footer>
+<script>
+function enviarFormulario(){
+  const n=document.getElementById('nombre').value;
+  const e=document.getElementById('email').value;
+  const a=document.getElementById('asunto').value;
+  const m=document.getElementById('mensaje').value;
+  if(!n||!e||!a||!m){alert('Por favor completa todos los campos obligatorios.');return;}
+  document.getElementById('formContainer').querySelector('.form-title').style.display='none';
+  document.getElementById('formContainer').querySelector('.form-subtitle').style.display='none';
+  document.querySelectorAll('.form-row,.form-group,.form-submit').forEach(el=>el.style.display='none');
+  document.getElementById('successMsg').style.display='block';
+}
+function toggleFaq(el){
+  const item=el.parentElement;
+  const ans=item.querySelector('.faq-a');
+  const isOpen=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen){ans.classList.add('open');item.classList.add('open');}
+}
+</script>
+</body>
+</html>

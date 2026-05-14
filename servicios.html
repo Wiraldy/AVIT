@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Servicios — A.V.I.T.</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a0f3d;--blue:#1a2ecc;--mid-blue:#2563eb;--light-blue:#3b82f6;--sky:#60a5fa;--pale:#dbeafe;--white:#ffffff;--gray:#f0f4ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:var(--white);color:var(--navy);}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,15,61,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(59,130,246,0.3);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--light-blue));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:13px;}
+.logo-text{color:white;font-weight:700;font-size:1.1rem;line-height:1.2;}
+.logo-text span{display:block;font-size:0.65rem;font-weight:400;color:var(--sky);letter-spacing:1px;}
+.nav-links{display:flex;align-items:center;gap:0.2rem;}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 14px;border-radius:6px;font-size:0.85rem;font-weight:500;transition:all 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:white;background:rgba(59,130,246,0.25);}
+.nav-access{background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white!important;padding:9px 20px!important;border-radius:8px!important;font-weight:600!important;}
+
+.page-hero{padding:130px 2rem 80px;background:linear-gradient(160deg,var(--navy),#0d1a6e 60%,#0a1a8a);position:relative;overflow:hidden;}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.06) 1px,transparent 1px);background-size:60px 60px;}
+.page-hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:2;}
+.page-tag{display:inline-block;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);color:var(--sky);font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:1.2rem;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);color:white;margin-bottom:1rem;}
+.page-hero h1 span{color:var(--sky);}
+.page-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:600px;line-height:1.8;}
+
+.section{padding:5rem 2rem;}
+.section-inner{max-width:1280px;margin:0 auto;}
+.section-tag{display:inline-block;background:var(--pale);color:var(--blue);font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:1rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);color:var(--navy);margin-bottom:1rem;}
+.section-subtitle{color:#64748b;font-size:1rem;line-height:1.7;max-width:600px;}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;}
+.service-card{background:white;border:1px solid var(--pale);border-radius:20px;padding:2.5rem;transition:all 0.3s;position:relative;overflow:hidden;}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--light-blue));}
+.service-card:hover{border-color:var(--light-blue);box-shadow:0 10px 40px rgba(37,99,235,0.12);transform:translateY(-4px);}
+.service-icon{font-size:2.5rem;margin-bottom:1.2rem;display:block;}
+.service-title{font-weight:800;font-size:1.1rem;color:var(--navy);margin-bottom:0.7rem;}
+.service-desc{color:#64748b;font-size:0.88rem;line-height:1.7;}
+.service-list{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:0.5rem;}
+.service-list li{display:flex;align-items:center;gap:8px;color:#475569;font-size:0.82rem;}
+.service-list li::before{content:'✓';color:var(--mid-blue);font-weight:700;flex-shrink:0;}
+
+/* PLANS */
+.plans-section{background:var(--gray);}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;}
+.plan-card{background:white;border-radius:20px;padding:2.5rem;text-align:center;border:2px solid var(--pale);transition:all 0.3s;position:relative;}
+.plan-card.featured{border-color:var(--blue);box-shadow:0 10px 40px rgba(37,99,235,0.2);}
+.plan-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white;font-size:0.72rem;font-weight:700;padding:5px 16px;border-radius:100px;white-space:nowrap;}
+.plan-name{font-size:0.8rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;}
+.plan-price{font-size:2.5rem;font-weight:900;color:var(--navy);margin-bottom:0.3rem;}
+.plan-price span{font-size:1rem;color:#94a3b8;font-weight:400;}
+.plan-per{color:#94a3b8;font-size:0.8rem;margin-bottom:1.5rem;}
+.plan-features{list-style:none;text-align:left;margin-bottom:2rem;display:flex;flex-direction:column;gap:0.7rem;}
+.plan-features li{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:#475569;}
+.plan-features li .check{color:#16a34a;font-weight:700;}
+.plan-features li .cross{color:#ef4444;font-weight:700;}
+.plan-btn{display:block;width:100%;padding:13px;border-radius:10px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;}
+.plan-btn.outline{border:2px solid var(--blue);color:var(--blue);background:transparent;}
+.plan-btn.outline:hover{background:var(--pale);}
+.plan-btn.solid{background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white;}
+.plan-btn.solid:hover{box-shadow:0 5px 20px rgba(37,99,235,0.4);}
+
+/* B2B */
+.b2b-section{background:linear-gradient(160deg,var(--navy),#0d1a8a);padding:5rem 2rem;}
+.b2b-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.b2b-text h2{font-family:'Playfair Display',serif;font-size:2.2rem;color:white;margin-bottom:1rem;}
+.b2b-text p{color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:1.5rem;}
+.b2b-btn{display:inline-block;background:white;color:var(--navy);padding:13px 30px;border-radius:10px;font-weight:700;text-decoration:none;transition:all 0.3s;}
+.b2b-btn:hover{box-shadow:0 5px 25px rgba(255,255,255,0.3);}
+.b2b-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.b2b-stat{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:1.5rem;text-align:center;}
+.b2b-stat-num{font-size:2rem;font-weight:900;color:white;display:block;}
+.b2b-stat-label{color:rgba(255,255,255,0.6);font-size:0.8rem;margin-top:0.3rem;}
+
+/* PROCESS */
+.process-grid{display:flex;gap:0;margin-top:3rem;position:relative;}
+.process-grid::before{content:'';position:absolute;top:28px;left:28px;right:28px;height:2px;background:linear-gradient(90deg,var(--blue),var(--light-blue));z-index:0;}
+.process-step{flex:1;text-align:center;position:relative;z-index:1;padding:0 1rem;}
+.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white;font-weight:900;font-size:1.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
+.step-title{font-weight:700;color:var(--navy);font-size:0.9rem;margin-bottom:0.5rem;}
+.step-desc{color:#64748b;font-size:0.8rem;line-height:1.5;}
+
+footer{background:var(--navy);color:rgba(255,255,255,0.6);padding:3rem 2rem 1.5rem;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+.footer-brand p{margin-top:1rem;font-size:0.85rem;line-height:1.7;max-width:260px;}
+.footer-col h4{color:white;font-weight:700;font-size:0.9rem;margin-bottom:1rem;}
+.footer-col a{display:block;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;margin-bottom:0.5rem;transition:color 0.2s;}
+.footer-col a:hover{color:var(--sky);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;font-size:0.8rem;}
+.fade-up{opacity:0;transform:translateY(30px);transition:all 0.6s;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){.services-grid,.plans-grid,.b2b-inner{grid-template-columns:1fr;}.process-grid{flex-direction:column;}.process-grid::before{display:none;}.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.nav-links{display:none;}.footer-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;">
+      <div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="servicios.html" class="active">Servicios</a>
+      <a href="lideres.html">Líderes</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="avit_platform.html" class="nav-access">🔐 Acceder</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-tag">Nuestros Servicios</div>
+    <h1>Lo que <span>ofrecemos</span></h1>
+    <p>Desde cursos individuales hasta formación empresarial completa. A.V.I.T. tiene la solución educativa que tu equipo o tú necesitan.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-tag">Servicios Principales</span>
+      <h2 class="section-title">¿Qué ofrecemos?</h2>
+      <p class="section-subtitle">Soluciones educativas flexibles para estudiantes, profesionales y empresas.</p>
+    </div>
+    <div class="services-grid fade-up">
+      <div class="service-card">
+        <span class="service-icon">🎓</span>
+        <div class="service-title">Cursos Virtuales para Individuos</div>
+        <div class="service-desc">Accede a más de 45 cursos técnicos especializados, a tu ritmo y desde cualquier dispositivo.</div>
+        <ul class="service-list">
+          <li>Más de 45 cursos disponibles</li>
+          <li>Videos e imágenes de alta calidad</li>
+          <li>Acceso 24/7 desde cualquier lugar</li>
+          <li>Certificado al completar</li>
+          <li>Soporte en múltiples idiomas</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🏢</span>
+        <div class="service-title">Capacitación Empresarial</div>
+        <div class="service-desc">Forma y actualiza a los empleados de tu empresa con contenido técnico especializado y medible.</div>
+        <ul class="service-list">
+          <li>Planes corporativos personalizados</li>
+          <li>Seguimiento del progreso del equipo</li>
+          <li>Reportes de desempeño</li>
+          <li>Cursos a medida disponibles</li>
+          <li>Facturación empresarial</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌐</span>
+        <div class="service-title">Formación Multilingüe</div>
+        <div class="service-desc">Aprende en tu idioma preferido. Disponible en español, inglés y portugués, con más en camino.</div>
+        <ul class="service-list">
+          <li>Español, inglés y portugués</li>
+          <li>Próximamente: francés, alemán</li>
+          <li>Instructores nativos calificados</li>
+          <li>Materiales traducidos</li>
+          <li>Comunidad internacional</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📜</span>
+        <div class="service-title">Certificaciones Digitales</div>
+        <div class="service-desc">Al completar cada curso recibes un certificado digital que puedes compartir en LinkedIn y tu CV.</div>
+        <ul class="service-list">
+          <li>Certificado verificable digitalmente</li>
+          <li>Compatible con LinkedIn</li>
+          <li>Código único de validación</li>
+          <li>Diseño profesional</li>
+          <li>Descargable en PDF</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🤝</span>
+        <div class="service-title">Mentorías en Vivo</div>
+        <div class="service-desc">Sesiones individuales o grupales con instructores expertos para resolver dudas y profundizar conocimientos.</div>
+        <ul class="service-list">
+          <li>Sesiones por Zoom / Google Meet</li>
+          <li>Instructores verificados</li>
+          <li>Horarios flexibles</li>
+          <li>Grabación de sesiones</li>
+          <li>Seguimiento personalizado</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🚀</span>
+        <div class="service-title">Bootcamps Intensivos</div>
+        <div class="service-desc">Programas acelerados de 4-8 semanas para dominar una tecnología específica en tiempo récord.</div>
+        <ul class="service-list">
+          <li>Formato intensivo y práctico</li>
+          <li>Proyectos reales</li>
+          <li>Trabajo en equipo</li>
+          <li>Portfolio al finalizar</li>
+          <li>Orientación laboral</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section plans-section">
+  <div class="section-inner">
+    <div class="fade-up" style="text-align:center;">
+      <span class="section-tag">Planes de Capacitación Empresarial</span>
+      <h2 class="section-title">Planes para tu empresa</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Diseñados para equipos de trabajo. Los cursos individuales se adquieren por unidad. Los planes aplican exclusivamente para capacitación corporativa.</p>
+    </div>
+    <div class="plans-grid fade-up">
+      <div class="plan-card">
+        <div class="plan-name">Equipo Starter</div>
+        <div class="plan-price">RD$<span></span>4,500<span>/mes</span></div>
+        <div class="plan-per">hasta 5 colaboradores</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Acceso a cursos seleccionados</li>
+          <li><span class="check">✓</span> Videos y materiales incluidos</li>
+          <li><span class="check">✓</span> Certificados digitales</li>
+          <li><span class="check">✓</span> Soporte por chat</li>
+          <li><span class="cross">✗</span> Panel de administración</li>
+          <li><span class="cross">✗</span> Reportes de progreso</li>
+        </ul>
+        <button class="plan-btn outline" onclick="location.href='contacto.html'">Solicitar información</button>
+      </div>
+      <div class="plan-card featured">
+        <div class="plan-badge">⭐ Más popular</div>
+        <div class="plan-name">Equipo Pro</div>
+        <div class="plan-price">RD$<span></span>9,500<span>/mes</span></div>
+        <div class="plan-per">hasta 15 colaboradores</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Acceso a todos los cursos</li>
+          <li><span class="check">✓</span> Videos e imágenes HD</li>
+          <li><span class="check">✓</span> Certificados ilimitados</li>
+          <li><span class="check">✓</span> Soporte prioritario</li>
+          <li><span class="check">✓</span> Panel de administración</li>
+          <li><span class="check">✓</span> Reportes de progreso del equipo</li>
+        </ul>
+        <button class="plan-btn solid" onclick="location.href='contacto.html'">Contactar ahora</button>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Corporativo</div>
+        <div class="plan-price" style="font-size:1.8rem;">A medida</div>
+        <div class="plan-per">colaboradores ilimitados</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Todo lo del plan Pro</li>
+          <li><span class="check">✓</span> Cursos personalizados</li>
+          <li><span class="check">✓</span> Mentorías ilimitadas</li>
+          <li><span class="check">✓</span> Facturación empresarial</li>
+          <li><span class="check">✓</span> Gestor de cuenta dedicado</li>
+          <li><span class="check">✓</span> Integraciones a medida</li>
+        </ul>
+        <button class="plan-btn outline" onclick="location.href='contacto.html'">Solicitar propuesta</button>
+      </div>
+    </div>
+    <p class="fade-up" style="text-align:center;margin-top:2rem;color:#64748b;font-size:0.85rem;">💡 <strong>¿Buscas un curso individual?</strong> Cada curso se adquiere por separado. <a href="cursos.html" style="color:var(--blue);font-weight:700;">Ver catálogo de cursos →</a></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="fade-up" style="text-align:center;margin-bottom:1rem;">
+      <span class="section-tag">¿Cómo funciona?</span>
+      <h2 class="section-title">Proceso de inscripción</h2>
+    </div>
+    <div class="process-grid fade-up">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Regístrate</div>
+        <div class="step-desc">Crea tu cuenta en el portal de acceso con tu correo y datos personales.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div class="step-title">Elige tu curso</div>
+        <div class="step-desc">Explora el catálogo y selecciona el curso que más te interese.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Inscríbete</div>
+        <div class="step-desc">Realiza el pago y recibe tu código de acceso exclusivo al curso.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div class="step-title">Aprende</div>
+        <div class="step-desc">Accede al contenido en video, materiales y sesiones en vivo.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">5</div>
+        <div class="step-title">Certifícate</div>
+        <div class="step-desc">Al completar, descarga tu certificado digital verificable.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="b2b-section">
+  <div class="b2b-inner">
+    <div class="b2b-text fade-up">
+      <h2>¿Eres una empresa?</h2>
+      <p>Ofrecemos planes corporativos para capacitar a tu equipo de trabajo con las habilidades técnicas más demandadas del mercado. Planes adaptados, reportes y soporte dedicado.</p>
+      <a href="contacto.html" class="b2b-btn">Solicitar propuesta empresarial →</a>
+    </div>
+    <div class="b2b-stats fade-up">
+      <div class="b2b-stat"><span class="b2b-stat-num">45+</span><span class="b2b-stat-label">Cursos disponibles</span></div>
+      <div class="b2b-stat"><span class="b2b-stat-num">6</span><span class="b2b-stat-label">Idiomas</span></div>
+      <div class="b2b-stat"><span class="b2b-stat-num">100%</span><span class="b2b-stat-label">Online</span></div>
+      <div class="b2b-stat"><span class="b2b-stat-num">24/7</span><span class="b2b-stat-label">Disponibilidad</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;"><div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div></div>
+        <p>"Tu éxito empieza aquí." — Formamos profesionales técnicos para el mundo digital.</p>
+      </div>
+      <div class="footer-col"><h4>Navegación</h4><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="cursos.html">Cursos</a><a href="servicios.html">Servicios</a></div>
+      <div class="footer-col"><h4>Empresa</h4><a href="lideres.html">Líderes</a><a href="contacto.html">Contacto</a><a href="avit_platform.html">Portal de Acceso</a></div>
+      <div class="footer-col"><h4>Idiomas</h4><a href="#">Español</a><a href="#">English</a><a href="#">Português</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 A.V.I.T. Academia Virtual Internacional Técnica.</span><span>Grupo 03 — IPA</span></div>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

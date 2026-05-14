@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A.V.I.T — Academia Virtual Internacional Técnica</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#060f1e;
+  --navy2:#0c1e35;
+  --navy3:#122644;
+  --blue:#1d6fca;
+  --blue2:#2d8aff;
+  --accent:#00d4ff;
+  --green:#00b86b;
+  --green2:#00e882;
+  --warn:#ff8c00;
+  --red:#ff3b5c;
+  --text:#e8f0ff;
+  --muted:#6b90b8;
+  --border:rgba(45,138,255,0.18);
+  --card:rgba(12,30,53,0.85);
+  --glass:rgba(18,38,68,0.7);
+  --font:'Sora',sans-serif;
+  --mono:'Space Mono',monospace;
+}
+html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--navy);color:var(--text)}
+body{background:var(--navy);background-image:radial-gradient(ellipse at 20% 50%,rgba(29,111,202,0.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(0,212,255,0.05) 0%,transparent 50%)}
+
+/* ═══════════════════════════════════ SCREENS ═══════════════════════════════════ */
+.screen{display:none;height:100vh;overflow:hidden}
+.screen.active{display:flex;flex-direction:column}
+
+/* ═══════════════════════════════════ AUTH SCREEN ═══════════════════════════════════ */
+#authScreen{align-items:center;justify-content:center;position:relative}
+#authScreen::before{content:'A.V.I.T';position:absolute;font-size:22vw;font-weight:800;color:rgba(29,111,202,0.04);letter-spacing:-0.05em;pointer-events:none;user-select:none;line-height:1}
+.auth-box{width:420px;background:var(--card);border:1px solid var(--border);border-radius:28px;padding:42px 40px;backdrop-filter:blur(20px);position:relative;z-index:1}
+.auth-logo{text-align:center;margin-bottom:32px}
+.auth-logo h1{font-size:2.2rem;font-weight:800;letter-spacing:-0.05em;color:#fff}
+.auth-logo h1 span{color:var(--accent)}
+.auth-logo p{font-size:0.75rem;color:var(--muted);margin-top:4px;letter-spacing:0.08em;text-transform:uppercase}
+.auth-tabs{display:flex;background:var(--navy2);border-radius:14px;padding:4px;margin-bottom:28px}
+.auth-tab{flex:1;padding:9px;text-align:center;border-radius:10px;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;color:var(--muted)}
+.auth-tab.active{background:var(--blue);color:#fff}
+.form-group{margin-bottom:16px}
+.form-label{font-size:0.72rem;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;display:block}
+.form-input{width:100%;background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:11px 15px;color:var(--text);font-size:0.875rem;font-family:var(--font);outline:none;transition:all 0.2s}
+.form-input:focus{border-color:var(--blue2);background:rgba(29,111,202,0.08)}
+.form-input::placeholder{color:rgba(107,144,184,0.5)}
+select.form-input option{background:#0c1e35;color:#e8f0ff}
+.btn-primary{width:100%;padding:13px;background:var(--blue);border:none;border-radius:14px;color:#fff;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font);letter-spacing:0.02em}
+.btn-primary:hover{background:var(--blue2);transform:translateY(-1px)}
+.btn-primary:active{transform:translateY(0)}
+.auth-divider{text-align:center;color:var(--muted);font-size:0.75rem;margin:14px 0}
+.btn-secondary{width:100%;padding:11px;background:transparent;border:1px solid var(--border);border-radius:14px;color:var(--muted);font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-secondary:hover{border-color:var(--blue2);color:var(--text)}
+.auth-error{background:rgba(255,59,92,0.1);border:1px solid rgba(255,59,92,0.3);border-radius:10px;padding:10px 14px;font-size:0.8rem;color:#ff8a9e;margin-bottom:14px;display:none}
+.plan-card{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s}
+.plan-card.selected{border-color:var(--blue2);background:rgba(29,111,202,0.12)}
+.plan-card h4{font-size:0.9rem;font-weight:700;color:var(--text)}
+.plan-card p{font-size:0.72rem;color:var(--muted);margin-top:3px}
+.plan-price{font-size:1.2rem;font-weight:800;color:var(--accent);margin-top:6px}
+.step-indicator{display:flex;gap:8px;margin-bottom:24px;justify-content:center}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--navy2);transition:all 0.2s}
+.step-dot.active{background:var(--blue2);width:24px;border-radius:4px}
+.step-dot.done{background:var(--green)}
+
+/* ═══════════════════════════════════ DASHBOARD ═══════════════════════════════════ */
+#dashScreen{flex-direction:row}
+.sidebar{width:230px;flex-shrink:0;background:var(--navy2);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:0}
+.sb-logo{padding:22px 20px 16px;border-bottom:1px solid var(--border)}
+.sb-logo h2{font-size:1.3rem;font-weight:800;letter-spacing:-0.04em;color:#fff}
+.sb-logo h2 span{color:var(--accent)}
+.sb-logo p{font-size:0.65rem;color:var(--muted);margin-top:2px;letter-spacing:0.06em;text-transform:uppercase}
+.sb-user{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.avatar{width:34px;height:34px;border-radius:10px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;color:#fff;flex-shrink:0}
+.sb-user-info{flex:1;min-width:0}
+.sb-user-name{font-size:0.82rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-user-code{font-size:0.65rem;color:var(--muted);font-family:var(--mono)}
+.nav{padding:12px 10px;flex:1;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;font-size:0.82rem;font-weight:500;cursor:pointer;transition:all 0.15s;color:var(--muted);margin-bottom:2px;position:relative}
+.nav-item i{width:18px;font-size:0.9rem}
+.nav-item:hover{background:var(--navy3);color:var(--text)}
+.nav-item.active{background:rgba(29,111,202,0.2);color:var(--blue2)}
+.nav-item .badge{margin-left:auto;background:var(--blue2);color:#fff;font-size:0.6rem;font-weight:700;padding:2px 6px;border-radius:10px}
+.nav-item .badge.red{background:var(--red)}
+.nav-divider{border-top:1px solid var(--border);margin:8px 4px}
+
+/* CAM WIDGET in sidebar */
+.cam-widget{margin:10px;background:rgba(29,111,202,0.08);border:1px solid var(--border);border-radius:14px;padding:12px}
+.cam-widget-title{font-size:0.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.cam-widget-title i{color:var(--accent)}
+.cam-btns{display:flex;gap:5px}
+.cam-btn{flex:1;padding:6px 0;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:0.7rem;cursor:pointer;transition:all 0.15s;font-family:var(--font);font-weight:600}
+.cam-btn.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.cam-status{font-size:0.65rem;color:var(--green);margin-top:6px;display:none;align-items:center;gap:4px}
+.cam-status.show{display:flex}
+.cam-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* MAIN AREA */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:58px;background:var(--navy2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:16px;flex-shrink:0}
+.topbar-title{font-size:1rem;font-weight:700;color:var(--text);flex:1}
+.topbar-notif{position:relative;cursor:pointer}
+.notif-bell{background:var(--navy3);border:1px solid var(--border);width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.9rem;transition:all 0.15s}
+.notif-bell:hover{color:var(--text);border-color:var(--blue2)}
+.notif-count{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:0.58rem;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.pages{flex:1;overflow:hidden;position:relative}
+.page{display:none;height:100%;overflow-y:auto;padding:26px 28px}
+.page.active{display:block}
+.page::-webkit-scrollbar{width:4px}
+.page::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* ═══ COMPONENTS ═══ */
+.section-hd{font-size:0.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 14px;display:flex;align-items:center;gap:8px}
+.section-hd i{color:var(--blue2)}
+.page-title{font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:6px}
+.page-sub{font-size:0.82rem;color:var(--muted);margin-bottom:22px}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;backdrop-filter:blur(10px)}
+.card-sm{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;backdrop-filter:blur(10px)}
+
+/* STAT GRID */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;backdrop-filter:blur(10px)}
+.stat-num{font-size:1.9rem;font-weight:800;color:var(--blue2)}
+.stat-lab{font-size:0.72rem;color:var(--muted);font-weight:500;margin-top:3px}
+
+/* COURSE CARDS */
+.courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.course-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:all 0.2s;backdrop-filter:blur(10px);cursor:pointer}
+.course-card:hover{border-color:rgba(45,138,255,0.4);transform:translateY(-3px)}
+.course-banner{height:80px;display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative}
+.course-body{padding:16px}
+.course-title{font-size:0.9rem;font-weight:700;color:#fff;line-height:1.3}
+.course-sub{font-size:0.7rem;color:var(--muted);margin:4px 0 12px;line-height:1.4}
+.prog-bg{background:rgba(45,138,255,0.12);border-radius:20px;height:5px}
+.prog-fill{height:100%;border-radius:20px;background:var(--green);transition:width 0.4s}
+.prog-row{display:flex;justify-content:space-between;margin-top:6px;font-size:0.68rem;font-weight:600;color:var(--muted)}
+.btn-ver{display:block;margin-top:12px;background:rgba(29,111,202,0.15);text-align:center;padding:8px;border-radius:20px;font-weight:600;color:var(--blue2);cursor:pointer;border:1px solid rgba(45,138,255,0.2);width:100%;font-size:0.75rem;transition:all 0.2s;font-family:var(--font)}
+.btn-ver:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* DETAIL PAGE */
+.detail-hero{border-radius:20px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
+.detail-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none}
+.detail-pct{font-size:3rem;font-weight:800;color:#fff;line-height:1}
+.detail-pct-lab{font-size:0.7rem;color:rgba(255,255,255,0.6);margin-top:3px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.lec-list{display:flex;flex-direction:column;gap:8px}
+.lec{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px 16px;display:flex;align-items:flex-start;gap:12px;backdrop-filter:blur(10px)}
+.lec-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0}
+.lec-num.pending{background:rgba(29,111,202,0.15);color:var(--blue2)}
+.lec-num.done{background:rgba(0,184,107,0.15);color:var(--green2)}
+.lec-title{font-size:0.82rem;font-weight:600;color:var(--text)}
+.lec-desc{font-size:0.73rem;color:var(--muted);margin-top:3px;line-height:1.4}
+.lec-badge{display:inline-block;font-size:0.62rem;font-weight:600;padding:2px 8px;border-radius:10px;margin-top:6px}
+.lec-badge.done{background:rgba(0,184,107,0.12);color:var(--green2)}
+.lec-badge.pending{background:rgba(45,138,255,0.1);color:var(--blue2)}
+
+/* PDF MODAL */
+.pdf-modal-wrap{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:9000;display:none;align-items:center;justify-content:center}
+.pdf-modal-wrap.open{display:flex}
+.pdf-modal{background:var(--navy2);border:1px solid var(--border);border-radius:24px;width:680px;max-height:85vh;overflow:hidden;display:flex;flex-direction:column}
+.pdf-modal-hd{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.pdf-modal-title{font-size:0.95rem;font-weight:700;color:#fff}
+.pdf-close{background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;transition:color 0.15s}
+.pdf-close:hover{color:#fff}
+.pdf-body{flex:1;overflow-y:auto;padding:24px}
+.pdf-doc{background:#fff;border-radius:14px;padding:40px;color:#111;min-height:500px}
+.pdf-doc h1{font-size:1.6rem;font-weight:700;color:#0a1f35;margin-bottom:8px;border-bottom:3px solid #1d6fca;padding-bottom:12px}
+.pdf-doc h2{font-size:1.1rem;font-weight:700;color:#0a2f44;margin:20px 0 8px}
+.pdf-doc p{font-size:0.875rem;line-height:1.7;color:#333;margin-bottom:10px}
+.pdf-doc ul{padding-left:20px;margin-bottom:10px}
+.pdf-doc ul li{font-size:0.82rem;line-height:1.6;color:#444;margin-bottom:4px}
+.pdf-doc .pdf-header{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.pdf-doc .pdf-logo-sm{font-size:1.1rem;font-weight:800;color:#1d6fca}
+.pdf-doc .pdf-meta{font-size:0.75rem;color:#666}
+.pdf-doc .highlight-box{background:#e8f3ff;border-left:4px solid #1d6fca;border-radius:6px;padding:12px 16px;margin:14px 0;font-size:0.82rem;color:#0a2f44}
+
+/* CHAT PAGE */
+.chat-layout{display:flex;height:calc(100vh - 58px - 52px);gap:0}
+.chat-list{width:260px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;background:var(--navy2)}
+.chat-list-hd{padding:14px 16px;border-bottom:1px solid var(--border);font-size:0.8rem;font-weight:700;color:var(--text)}
+.chat-item{padding:12px 16px;cursor:pointer;transition:all 0.15s;border-bottom:1px solid rgba(45,138,255,0.07);display:flex;align-items:center;gap:10px}
+.chat-item:hover{background:var(--navy3)}
+.chat-item.active{background:rgba(29,111,202,0.12)}
+.chat-avatar{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:700;color:#fff;flex-shrink:0}
+.chat-name{font-size:0.82rem;font-weight:600;color:var(--text)}
+.chat-preview{font-size:0.7rem;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
+.chat-unread{margin-left:auto;background:var(--blue2);color:#fff;font-size:0.58rem;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* CHAT WINDOW */
+.chat-window{flex:1;display:flex;flex-direction:column;background:var(--navy)}
+.chat-win-hd{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--navy2);flex-shrink:0}
+.chat-win-name{font-size:0.9rem;font-weight:700;color:#fff}
+.chat-win-sub{font-size:0.7rem;color:var(--green);display:flex;align-items:center;gap:4px}
+.online-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.chat-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.chat-messages::-webkit-scrollbar{width:4px}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.msg{max-width:70%;padding:10px 14px;border-radius:14px;font-size:0.82rem;line-height:1.5}
+.msg.received{background:var(--navy2);color:var(--text);border:1px solid var(--border);align-self:flex-start;border-radius:4px 14px 14px 14px}
+.msg.sent{background:var(--blue);color:#fff;align-self:flex-end;border-radius:14px 4px 14px 14px}
+.msg-time{font-size:0.62rem;color:var(--muted);margin-top:4px}
+.chat-input-area{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;flex-shrink:0;background:var(--navy2)}
+.chat-input{flex:1;background:var(--navy3);border:1px solid var(--border);border-radius:12px;padding:10px 14px;color:var(--text);font-size:0.82rem;font-family:var(--font);outline:none;resize:none}
+.chat-input:focus{border-color:var(--blue2)}
+.chat-send{background:var(--blue);border:none;border-radius:10px;width:38px;height:38px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0}
+.chat-send:hover{background:var(--blue2)}
+.no-chat-sel{flex:1;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.875rem;background:var(--navy)}
+
+/* CALENDAR */
+.cal-wrap{display:grid;grid-template-columns:1fr 340px;gap:18px}
+.cal-grid-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.cal-nav-btn{background:var(--navy3);border:1px solid var(--border);border-radius:8px;padding:5px 11px;color:var(--muted);cursor:pointer;font-size:0.8rem;transition:all 0.15s}
+.cal-nav-btn:hover{color:var(--text);border-color:var(--blue2)}
+.cal-month{font-size:0.95rem;font-weight:700;color:#fff}
+.cal-days-hd{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+.cal-day-name{text-align:center;font-size:0.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:4px}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:0.78rem;cursor:pointer;transition:all 0.15s;color:var(--muted);position:relative}
+.cal-day:hover{background:var(--navy3);color:var(--text)}
+.cal-day.other{opacity:0.3}
+.cal-day.today{background:var(--blue);color:#fff;font-weight:700}
+.cal-day.has-ev::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent);position:absolute;bottom:4px;left:50%;transform:translateX(-50%)}
+.cal-day.today.has-ev::after{background:#fff}
+.cal-events-panel{display:flex;flex-direction:column;gap:8px}
+.cal-ev{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--blue2);border-radius:12px;padding:12px 14px}
+.cal-ev.warn{border-left-color:var(--warn)}
+.cal-ev.green{border-left-color:var(--green)}
+.cal-ev.red{border-left-color:var(--red)}
+.cal-ev-title{font-size:0.82rem;font-weight:600;color:var(--text)}
+.cal-ev-meta{font-size:0.7rem;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:6px}
+
+/* GRADES */
+.grades-g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.grade-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;text-align:center}
+.grade-big{font-size:2rem;font-weight:800;color:var(--blue2)}
+.grade-lab{font-size:0.72rem;color:var(--muted);margin-top:3px}
+.eval-table{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.eval-row{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid rgba(45,138,255,0.07)}
+.eval-row:last-child{border-bottom:none}
+.eval-row:hover{background:rgba(45,138,255,0.05)}
+.eval-name{flex:1;font-size:0.82rem;font-weight:500;color:var(--text)}
+.eval-score{font-size:0.875rem;font-weight:700;color:var(--blue2)}
+.badge{font-size:0.62rem;padding:3px 10px;border-radius:20px;font-weight:600}
+.badge-ok{background:rgba(0,184,107,0.12);color:var(--green2)}
+.badge-pend{background:rgba(255,140,0,0.1);color:var(--warn)}
+
+/* TASKS */
+.task-list{display:flex;flex-direction:column;gap:8px}
+.task-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;transition:all 0.15s}
+.task-item:hover{border-color:rgba(45,138,255,0.3)}
+.task-cb{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0}
+.task-cb.done{background:var(--green);border-color:var(--green);color:#fff}
+.task-name{font-size:0.82rem;font-weight:600;color:var(--text);flex:1}
+.task-meta{font-size:0.7rem;color:var(--muted)}
+.task-due{font-size:0.68rem;padding:3px 10px;border-radius:20px;font-weight:600;background:rgba(255,140,0,0.1);color:var(--warn);white-space:nowrap}
+.task-item.completed .task-name{text-decoration:line-through;color:var(--muted)}
+
+/* CERTS */
+.cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.cert-card{border-radius:20px;padding:24px;position:relative;overflow:hidden}
+.cert-card::after{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none}
+.cert-icon{font-size:1.8rem;margin-bottom:12px}
+.cert-name{font-size:0.95rem;font-weight:700;color:#fff}
+.cert-date{font-size:0.72rem;color:rgba(255,255,255,0.6);margin-top:4px}
+.cert-dl{display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:6px 14px;font-size:0.72rem;color:#fff;cursor:pointer;transition:all 0.15s}
+.cert-dl:hover{background:rgba(255,255,255,0.2)}
+
+/* PROFILE */
+.profile-hero{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;text-align:center;margin-bottom:18px}
+.avatar-lg{width:70px;height:70px;border-radius:18px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;color:#fff;margin:0 auto 14px}
+.profile-name{font-size:1.2rem;font-weight:700;color:#fff}
+.profile-role{font-size:0.75rem;color:var(--muted);margin-top:3px}
+.profile-stats{display:flex;justify-content:center;gap:32px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.ps{text-align:center}
+.ps-num{font-size:1.3rem;font-weight:800;color:var(--blue2)}
+.ps-lab{font-size:0.68rem;color:var(--muted)}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.field-lab{font-size:0.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:5px}
+.field-val{font-size:0.82rem;font-weight:600;color:var(--text)}
+
+/* NOTIF PANEL */
+.notif-panel{position:absolute;top:58px;right:16px;width:320px;background:var(--navy2);border:1px solid var(--border);border-radius:18px;z-index:500;display:none;backdrop-filter:blur(20px);overflow:hidden}
+.notif-panel.open{display:block}
+.notif-hd{padding:14px 18px;border-bottom:1px solid var(--border);font-size:0.82rem;font-weight:700;color:var(--text);display:flex;justify-content:space-between;align-items:center}
+.notif-clear{font-size:0.7rem;color:var(--blue2);cursor:pointer;font-weight:600}
+.notif-list{max-height:320px;overflow-y:auto}
+.notif-item{padding:12px 18px;border-bottom:1px solid rgba(45,138,255,0.07);cursor:pointer;transition:all 0.15s}
+.notif-item:hover{background:var(--navy3)}
+.notif-item.unread{border-left:3px solid var(--blue2)}
+.notif-msg{font-size:0.78rem;color:var(--text);line-height:1.4}
+.notif-time{font-size:0.65rem;color:var(--muted);margin-top:3px}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:12px 18px;font-size:0.8rem;color:var(--text);box-shadow:0 8px 24px rgba(0,0,0,0.3);z-index:9999;opacity:0;transform:translateY(10px);transition:all 0.25s;pointer-events:none;max-width:300px;backdrop-filter:blur(12px)}
+#toast.show{opacity:1;transform:translateY(0)}
+#toast.type-ok{border-color:rgba(0,184,107,0.4);color:var(--green2)}
+#toast.type-warn{border-color:rgba(255,140,0,0.4);color:var(--warn)}
+#toast.type-info{border-color:rgba(45,138,255,0.4);color:var(--blue2)}
+
+/* BACK BTN */
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:6px 14px;font-size:0.75rem;color:var(--muted);cursor:pointer;margin-bottom:18px;transition:all 0.15s;font-family:var(--font)}
+.back-btn:hover{color:var(--text);border-color:var(--blue2)}
+
+/* REGISTER STEPS */
+.reg-step{display:none}
+.reg-step.active{display:block}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ AUTH SCREEN ═══════════════════════════════ -->
+<div class="screen active" id="authScreen">
+  <div style="position:absolute;top:20px;left:20px;z-index:10;">
+    <button onclick="history.back()" style="display:inline-flex;align-items:center;gap:7px;background:rgba(12,30,53,0.85);border:1px solid rgba(45,138,255,0.25);border-radius:12px;padding:8px 16px;color:rgba(232,240,255,0.7);font-size:0.78rem;font-weight:600;cursor:pointer;font-family:var(--font);transition:all 0.2s;" onmouseover="this.style.color='#e8f0ff';this.style.borderColor='rgba(45,138,255,0.5)'" onmouseout="this.style.color='rgba(232,240,255,0.7)';this.style.borderColor='rgba(45,138,255,0.25)'">← Volver</button>
+  </div>
+  <div class="auth-box" id="authBox">
+    <div class="auth-logo">
+      <h1>A.V.I<span>.</span>T</h1>
+      <p>Academia Virtual Internacional Técnica</p>
+    </div>
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Iniciar Sesión</div>
+      <div class="auth-tab" id="tabReg" onclick="switchAuthTab('register')">Registrarse</div>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <div class="auth-error" id="loginError">Usuario o código incorrecto. Verifica tus datos.</div>
+      <div class="form-group">
+        <label class="form-label">Usuario</label>
+        <input class="form-input" id="loginUser" placeholder="ej: juan.perez" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Código de curso</label>
+        <input class="form-input" id="loginCode" placeholder="ej: AVIT-2025-ARTE01" autocomplete="off">
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Entrar a la plataforma →</button>
+      <div class="auth-divider">¿No tienes cuenta?</div>
+      <button class="btn-secondary" onclick="switchAuthTab('register')">Registrarse en A.V.I.T</button>
+    </div>
+
+    <!-- REGISTER FORM (multi-step) -->
+    <div id="registerForm" style="display:none">
+      <div class="step-indicator" id="stepDots">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+      </div>
+
+      <!-- Step 1: Datos personales -->
+      <div class="reg-step active" id="regStep1">
+        <div class="form-group">
+          <label class="form-label">Nombre completo</label>
+          <input class="form-input" id="regNombre" placeholder="Tu nombre completo">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Correo electrónico</label>
+          <input class="form-input" id="regEmail" placeholder="tu@correo.com" type="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Teléfono</label>
+          <input class="form-input" id="regTel" placeholder="+1 (809) 000-0000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">País de residencia</label>
+          <select class="form-input" id="regPais">
+            <option value="">Selecciona país</option>
+            <option>República Dominicana</option>
+            <option>Puerto Rico</option>
+            <option>Colombia</option>
+            <option>México</option>
+            <option>Venezuela</option>
+            <option>España</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="regNext(1)">Continuar →</button>
+      </div>
+
+      <!-- Step 2: Seleccionar curso -->
+      <div class="reg-step" id="regStep2">
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:14px">Selecciona el curso al que deseas inscribirte:</p>
+        <div class="plan-card" onclick="selectPlan(this,'artes')" data-plan="artes">
+          <h4>🎭 Artes Integradas y Patrimonio Cultural</h4>
+          <p>Danza · Música folklórica · Títeres · Plástica · Escénicas</p>
+          <div class="plan-price">RD$3,800 / mes</div>
+        </div>
+        <div class="plan-card" onclick="selectPlan(this,'diseno')" data-plan="diseno">
+          <h4>🎨 Diseño Visual & Medios Digitales</h4>
+          <p>Composición · Color · Cartel · Grabado · Fotografía · TIC</p>
+          <div class="plan-price">RD$4,200 / mes</div>
+        </div>
+        <div class="plan-card" onclick="selectPlan(this,'web')" data-plan="web">
+          <h4>💻 Desarrollo Web Profesional</h4>
+          <p>HTML · CSS · JavaScript · React · Backend con Node.js</p>
+          <div class="plan-price">RD$5,500 / mes</div>
+        </div>
+        <button class="btn-primary" style="margin-top:14px" onclick="regNext(2)">Continuar →</button>
+      </div>
+
+      <!-- Step 3: Pago -->
+      <div class="reg-step" id="regStep3">
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:14px">Información de pago para completar tu inscripción:</p>
+        <div class="form-group">
+          <label class="form-label">Titular de la tarjeta</label>
+          <input class="form-input" id="regCardName" placeholder="Como aparece en la tarjeta">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Número de tarjeta</label>
+          <input class="form-input" id="regCardNum" placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCard(this)">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="form-group">
+            <label class="form-label">Vence</label>
+            <input class="form-input" id="regExp" placeholder="MM/AA" maxlength="5">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CVV</label>
+            <input class="form-input" id="regCvv" placeholder="000" maxlength="3" type="password">
+          </div>
+        </div>
+        <div style="background:rgba(0,184,107,0.06);border:1px solid rgba(0,184,107,0.2);border-radius:10px;padding:10px 14px;font-size:0.72rem;color:var(--muted);margin-bottom:14px">
+          <i class="fas fa-lock" style="color:var(--green)"></i> Pago seguro encriptado · No almacenamos datos de tarjeta
+        </div>
+        <button class="btn-primary" onclick="regNext(3)">Procesar pago →</button>
+      </div>
+
+      <!-- Step 4: Confirmación -->
+      <div class="reg-step" id="regStep4">
+        <div style="text-align:center;padding:10px 0">
+          <div style="font-size:3rem;margin-bottom:12px">🎉</div>
+          <div style="font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:8px">¡Inscripción completada!</div>
+          <p style="font-size:0.78rem;color:var(--muted);line-height:1.6;margin-bottom:20px">Tu cuenta ha sido creada exitosamente. Guarda tus credenciales de acceso:</p>
+          <div style="background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:left">
+            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em">Usuario</div>
+            <div style="font-family:var(--mono);font-size:0.9rem;color:var(--accent);font-weight:700" id="newUserDisplay"></div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:12px;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em">Código de curso</div>
+            <div style="font-family:var(--mono);font-size:0.9rem;color:var(--accent);font-weight:700" id="newCodeDisplay"></div>
+          </div>
+          <button class="btn-primary" style="margin-top:20px" onclick="goToDashFromReg()">Ir a mi aula virtual →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DASHBOARD SCREEN ═══════════════════════════════ -->
+<div class="screen" id="dashScreen">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-logo">
+      <h2>A.V.I<span>.</span>T</h2>
+      <p>Plataforma académica</p>
+    </div>
+    <div class="sb-user">
+      <div class="avatar" id="sbAvatar">JP</div>
+      <div class="sb-user-info">
+        <div class="sb-user-name" id="sbName">Juan Pérez</div>
+        <div class="sb-user-code" id="sbCode">AVIT-2025-ARTE01</div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="nav-item active" data-page="inicio"><i class="fas fa-home"></i> Inicio</div>
+      <div class="nav-item" data-page="mis-cursos"><i class="fas fa-book-open"></i> Mis Cursos</div>
+      <div class="nav-item" data-page="calendario"><i class="fas fa-calendar-alt"></i> Calendario</div>
+      <div class="nav-item" data-page="tareas"><i class="fas fa-tasks"></i> Tareas <span class="badge" id="taskBadge">8</span></div>
+      <div class="nav-item" data-page="calificaciones"><i class="fas fa-chart-line"></i> Calificaciones</div>
+      <div class="nav-item" data-page="mensajes"><i class="fas fa-comments"></i> Mensajes <span class="badge" id="msgBadge">2</span></div>
+      <div class="nav-divider"></div>
+      <div class="nav-item" data-page="certificados"><i class="fas fa-certificate"></i> Certificados</div>
+      <div class="nav-item" data-page="mi-perfil"><i class="fas fa-id-card"></i> Mi Perfil</div>
+      <div class="nav-divider"></div>
+      <div class="nav-item" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</div>
+    </div>
+    <!-- CAM WIDGET -->
+    <div class="cam-widget">
+      <div class="cam-widget-title"><i class="fas fa-video"></i> Conectar a clase</div>
+      <div class="cam-btns">
+        <button class="cam-btn" id="camM" onclick="connectCam('mañana')">☀ Mañana</button>
+        <button class="cam-btn" id="camT" onclick="connectCam('tarde')">🌙 Tarde</button>
+      </div>
+      <div class="cam-status" id="camStatus">
+        <div class="cam-dot"></div>
+        <span id="camStatusText">En vivo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">Inicio</div>
+      <div class="topbar-notif" id="notifBell" onclick="toggleNotif()">
+        <div class="notif-bell"><i class="fas fa-bell"></i></div>
+        <div class="notif-count" id="notifCount">3</div>
+      </div>
+    </div>
+
+    <!-- NOTIF PANEL -->
+    <div class="notif-panel" id="notifPanel">
+      <div class="notif-hd">Notificaciones <span class="notif-clear" onclick="clearNotifs()">Limpiar todo</span></div>
+      <div class="notif-list" id="notifList"></div>
+    </div>
+
+    <div class="pages" id="pagesWrap">
+
+      <!-- ══ INICIO ══ -->
+      <div class="page active" id="page-inicio">
+        <div class="page-title">¡Bienvenido de vuelta, <span id="welcomeName">Juan</span>! 👋</div>
+        <div class="page-sub">Continúa aprendiendo y alcanza tus metas. Clases virtuales 100% online.</div>
+        <div class="stats-row">
+          <div class="stat-box"><div class="stat-num" id="statCursos">3</div><div class="stat-lab">Cursos activos</div></div>
+          <div class="stat-box"><div class="stat-num">8</div><div class="stat-lab">Tareas pendientes</div></div>
+          <div class="stat-box"><div class="stat-num">92%</div><div class="stat-lab">Promedio general</div></div>
+          <div class="stat-box"><div class="stat-num">2</div><div class="stat-lab">Certificados</div></div>
+        </div>
+        <div class="section-hd"><i class="fas fa-laptop-code"></i> Mis clases</div>
+        <div class="courses-grid" id="homeCourses"></div>
+      </div>
+
+      <!-- ══ MIS CURSOS ══ -->
+      <div class="page" id="page-mis-cursos">
+        <div class="page-title">Mis Cursos</div>
+        <div class="page-sub">Todos tus programas activos en A.V.I.T.</div>
+        <div class="courses-grid" id="allCourses"></div>
+      </div>
+
+      <!-- ══ DETALLE CURSO ══ -->
+      <div class="page" id="page-detalle">
+        <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Volver</button>
+        <div class="detail-hero" id="detailHero">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div style="flex:1">
+              <div style="font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:8px" id="detailTitle"></div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px" id="detailTags"></div>
+            </div>
+            <div style="text-align:right">
+              <div class="detail-pct" id="detailPct"></div>
+              <div class="detail-pct-lab">completado</div>
+            </div>
+          </div>
+          <div style="margin-top:16px;background:rgba(255,255,255,0.1);border-radius:20px;height:6px">
+            <div id="detailBar" style="height:100%;border-radius:20px;background:#fff;transition:width 0.4s"></div>
+          </div>
+        </div>
+        <div class="detail-grid">
+          <div class="card">
+            <div class="section-hd"><i class="fas fa-info-circle"></i> Descripción</div>
+            <p style="font-size:0.8rem;color:var(--muted);line-height:1.7" id="detailDesc"></p>
+          </div>
+          <div class="card">
+            <div class="section-hd"><i class="fas fa-pencil-alt"></i> Tarea pendiente</div>
+            <p style="font-size:0.8rem;color:var(--text);line-height:1.6;font-weight:500;margin-bottom:14px" id="detailTask"></p>
+            <div class="section-hd"><i class="fas fa-file-pdf"></i> Materiales PDF</div>
+            <div id="detailPdfs" style="display:flex;flex-direction:column;gap:6px"></div>
+          </div>
+        </div>
+        <div class="section-hd"><i class="fas fa-list"></i> Unidades del curso</div>
+        <div class="lec-list" id="detailLecciones"></div>
+      </div>
+
+      <!-- ══ CALENDARIO ══ -->
+      <div class="page" id="page-calendario">
+        <div class="page-title">Calendario académico</div>
+        <div class="page-sub">Clases programadas, entregas y notificaciones automáticas.</div>
+        <div class="cal-wrap">
+          <div>
+            <div class="card">
+              <div class="cal-grid-hd">
+                <button class="cal-nav-btn" onclick="calPrev()">◀</button>
+                <span class="cal-month" id="calMonth">Mayo 2025</span>
+                <button class="cal-nav-btn" onclick="calNext()">▶</button>
+              </div>
+              <div class="cal-days-hd">
+                <div class="cal-day-name">L</div><div class="cal-day-name">M</div><div class="cal-day-name">X</div><div class="cal-day-name">J</div><div class="cal-day-name">V</div><div class="cal-day-name">S</div><div class="cal-day-name">D</div>
+              </div>
+              <div class="cal-days" id="calDays"></div>
+            </div>
+          </div>
+          <div>
+            <div class="section-hd"><i class="fas fa-clock"></i> Próximos eventos</div>
+            <div class="cal-events-panel" id="calEvents"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAREAS ══ -->
+      <div class="page" id="page-tareas">
+        <div class="page-title">Tareas pendientes</div>
+        <div class="page-sub">Gestiona y marca como completadas tus actividades.</div>
+        <div class="task-list" id="taskList"></div>
+      </div>
+
+      <!-- ══ CALIFICACIONES ══ -->
+      <div class="page" id="page-calificaciones">
+        <div class="page-title">Calificaciones</div>
+        <div class="page-sub">Historial de evaluaciones y promedio general.</div>
+        <div class="grades-g">
+          <div class="grade-box"><div class="grade-big">92%</div><div class="grade-lab">Promedio general</div></div>
+          <div class="grade-box"><div class="grade-big" style="color:var(--green2)">94%</div><div class="grade-lab">Artes Integradas</div></div>
+          <div class="grade-box"><div class="grade-big" style="color:var(--warn)">90%</div><div class="grade-lab">Diseño Visual</div></div>
+        </div>
+        <div class="section-hd"><i class="fas fa-list"></i> Historial</div>
+        <div class="eval-table">
+          <div class="eval-row"><div class="eval-name">Círculo cromático — práctica</div><div class="eval-score">96%</div><span class="badge badge-ok">Completado</span></div>
+          <div class="eval-row"><div class="eval-name">Análisis musical — merengue</div><div class="eval-score">92%</div><span class="badge badge-ok">Completado</span></div>
+          <div class="eval-row"><div class="eval-name">Composición visual básica</div><div class="eval-score">88%</div><span class="badge badge-ok">Completado</span></div>
+          <div class="eval-row"><div class="eval-name">Técnica de grabado linóleo</div><div class="eval-score">95%</div><span class="badge badge-ok">Completado</span></div>
+          <div class="eval-row"><div class="eval-name">HTML & CSS — proyecto final</div><div class="eval-score">97%</div><span class="badge badge-ok">Completado</span></div>
+          <div class="eval-row"><div class="eval-name">Cartel ecológico digital</div><div class="eval-score">—</div><span class="badge badge-pend">Pendiente</span></div>
+          <div class="eval-row"><div class="eval-name">Máscara con materiales reciclados</div><div class="eval-score">—</div><span class="badge badge-pend">Pendiente</span></div>
+        </div>
+      </div>
+
+      <!-- ══ MENSAJES (CHAT) ══ -->
+      <div class="page" id="page-mensajes" style="padding:0;height:100%">
+        <div class="chat-layout">
+          <div class="chat-list">
+            <div class="chat-list-hd">Mensajes</div>
+            <div id="chatList"></div>
+          </div>
+          <div id="chatWindow" class="no-chat-sel">
+            <div style="text-align:center">
+              <i class="fas fa-comments" style="font-size:2.5rem;color:var(--border);margin-bottom:12px;display:block"></i>
+              Selecciona una conversación
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ CERTIFICADOS ══ -->
+      <div class="page" id="page-certificados">
+        <div class="page-title">Mis Certificados</div>
+        <div class="page-sub">Certificados obtenidos por completar cursos en A.V.I.T.</div>
+        <div class="cert-grid">
+          <div class="cert-card" style="background:linear-gradient(135deg,#0a2f44,#1a5a84)">
+            <div class="cert-icon">🏺</div>
+            <div class="cert-name">Patrimonio Cultural Dominicano</div>
+            <div class="cert-date">Emitido: 15 de enero, 2025</div>
+            <div class="cert-dl" onclick="toast('📥 Descargando certificado...','info')"><i class="fas fa-download"></i> Descargar PDF</div>
+          </div>
+          <div class="cert-card" style="background:linear-gradient(135deg,#1a4010,#2a7a20)">
+            <div class="cert-icon">🎨</div>
+            <div class="cert-name">Fundamentos del Diseño Visual</div>
+            <div class="cert-date">Emitido: 3 de marzo, 2025</div>
+            <div class="cert-dl" onclick="toast('📥 Descargando certificado...','info')"><i class="fas fa-download"></i> Descargar PDF</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;background:rgba(29,111,202,0.07);border:1px solid var(--border);border-radius:16px;padding:18px">
+          <div style="font-size:0.82rem;font-weight:700;color:var(--blue2);margin-bottom:6px"><i class="fas fa-info-circle"></i> Próximo certificado</div>
+          <div style="font-size:0.78rem;color:var(--muted)">Al completar <strong style="color:var(--text)">Artes Integradas y Patrimonio</strong> al 100%, recibirás tu certificado automáticamente. Progreso actual: 74%.</div>
+        </div>
+      </div>
+
+      <!-- ══ MI PERFIL ══ -->
+      <div class="page" id="page-mi-perfil">
+        <div class="page-title">Mi Perfil</div>
+        <div class="profile-hero">
+          <div class="avatar-lg" id="profileAvatar">JP</div>
+          <div class="profile-name" id="profileName">Juan Pérez</div>
+          <div class="profile-role">Estudiante · A.V.I.T · 2025</div>
+          <div class="profile-stats">
+            <div class="ps"><div class="ps-num" id="profileCursos">3</div><div class="ps-lab">Cursos</div></div>
+            <div class="ps"><div class="ps-num">92%</div><div class="ps-lab">Promedio</div></div>
+            <div class="ps"><div class="ps-num">2</div><div class="ps-lab">Certificados</div></div>
+          </div>
+        </div>
+        <div class="profile-grid">
+          <div class="field"><div class="field-lab">Nombre completo</div><div class="field-val" id="pName">Juan Pérez</div></div>
+          <div class="field"><div class="field-lab">Correo electrónico</div><div class="field-val" id="pEmail">juan.perez@avit.edu</div></div>
+          <div class="field"><div class="field-lab">ID Estudiantil</div><div class="field-val" id="pId">AVIT-2025-0042</div></div>
+          <div class="field"><div class="field-lab">Modalidad</div><div class="field-val">Virtual – Tiempo completo</div></div>
+          <div class="field"><div class="field-lab">Fecha de ingreso</div><div class="field-val">Enero 2025</div></div>
+          <div class="field"><div class="field-lab">Estado</div><div class="field-val" style="color:var(--green2)">Activo ✓</div></div>
+        </div>
+      </div>
+
+    </div><!-- /pages -->
+  </div><!-- /main -->
+</div><!-- /dashScreen -->
+
+<!-- PDF MODAL -->
+<div class="pdf-modal-wrap" id="pdfWrap">
+  <div class="pdf-modal">
+    <div class="pdf-modal-hd">
+      <div class="pdf-modal-title" id="pdfTitle">Material académico</div>
+      <button class="pdf-close" onclick="closePdf()">✕</button>
+    </div>
+    <div class="pdf-body">
+      <div class="pdf-doc" id="pdfContent"></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ════════════════════ DATA ════════════════════
+const USERS = {
+  'juan.perez':   { code:'AVIT-2025-ARTE01', name:'Juan Pérez',    initials:'JP', email:'juan.perez@avit.edu',   courses:['artes','diseno','web'] },
+  'maria.gomez':  { code:'AVIT-2025-WEB02',  name:'María Gómez',   initials:'MG', email:'maria.gomez@avit.edu',  courses:['web'] },
+  'carlos.reyes': { code:'AVIT-2025-DIS03',  name:'Carlos Reyes',  initials:'CR', email:'carlos.reyes@avit.edu', courses:['diseno','web'] },
+};
+
+const COURSES = {
+  artes:{
+    id:'artes', title:'🎭 Artes Integradas y Patrimonio', sub:'Danza · Música folklórica · Títeres · Plástica',
+    banner:'linear-gradient(135deg,#1a2a5a,#2d5a8e)', pct:74,
+    tags:['4to–6to Grado','Merengue','Títeres','Plástica','Patrimonio'],
+    desc:'Curso basado en el currículo dominicano. Abarca música y danzas tradicionales (merengue, mangulina), títeres, pantomima, patrimonio material e inmaterial, y escenificación. Desarrolla sensibilidad cultural e identidad nacional.',
+    task:'Crear una máscara con material reciclado y grabar un breve monólogo inspirado en una leyenda dominicana.',
+    pdfs:[
+      {name:'Unidad 1 — Música y Danzas',id:'artes_u1'},
+      {name:'Unidad 2 — Teoría del Color',id:'artes_u2'},
+      {name:'Guía de Títeres',id:'artes_u3'},
+      {name:'Patrimonio Cultural RD',id:'artes_u4'},
+    ],
+    lecciones:[
+      {n:1,title:'Música y Danzas Dominicanas',desc:'Merengue, mangulina. Tambora, güira, guitarra. Identidad cultural.',done:true},
+      {n:2,title:'Artes Visuales — Dibujo y Color',desc:'Círculo cromático, luces y sombras, colores primarios y secundarios.',done:true},
+      {n:3,title:'Títeres y Artes Escénicas',desc:'Títere de guante, pantomima, escenificaciones folklóricas.',done:true},
+      {n:4,title:'Artesanía y Patrimonio',desc:'Máscaras, papel maché, reciclaje, ficha técnica de la obra.',done:false},
+      {n:5,title:'Educación Musical — Bandas',desc:'Voz humana, técnica vocal, bandas rítmicas, conjunto de flautas.',done:false},
+    ]
+  },
+  diseno:{
+    id:'diseno', title:'🎨 Diseño Visual & Medios Digitales', sub:'Composición · Color · Cartel · Grabado · Fotografía',
+    banner:'linear-gradient(135deg,#2a1a5a,#6b2d8e)', pct:63,
+    tags:['Composición','Color','Cartel','Grabado','TIC'],
+    desc:'Fundamentos del lenguaje visual, cartel como medio gráfico, estampado, grabado, y TIC en la expresión artística. Incluye uso de herramientas digitales de diseño.',
+    task:'Diseñar un cartel ecológico sobre patrimonio cultural y subirlo al aula virtual.',
+    pdfs:[
+      {name:'Fundamentos de Composición',id:'dis_u1'},
+      {name:'Manual de Grabado en Linóleo',id:'dis_u2'},
+      {name:'Diseño de Cartel',id:'dis_u3'},
+      {name:'Artes Aplicadas y Reciclaje',id:'dis_u4'},
+    ],
+    lecciones:[
+      {n:1,title:'Composición visual y teoría del color',desc:'Línea, punto, imagen, espacio. Círculo cromático aplicado al diseño.',done:true},
+      {n:2,title:'Medios audiovisuales y publicidad',desc:'Cine, TV, internet. El anuncio publicitario, géneros: ficción, documental.',done:true},
+      {n:3,title:'Técnicas de estampado y grabado',desc:'Cuchillas, gubias. Matrices en linóleo, madera, vegetales crudos.',done:false},
+      {n:4,title:'El cartel y comunicación visual',desc:'Feria artesanal, espacio expositivo, iluminación, ficha técnica.',done:false},
+      {n:5,title:'Reciclaje y artes aplicadas',desc:'Papel maché, objetos 3D con materiales reutilizables, exposición virtual.',done:false},
+    ]
+  },
+  web:{
+    id:'web', title:'💻 Desarrollo Web Profesional', sub:'HTML · CSS · JavaScript · React · Node.js',
+    banner:'linear-gradient(135deg,#0d3a1a,#1a6e35)', pct:41,
+    tags:['HTML5','CSS3','JavaScript','React','Node.js','Git'],
+    desc:'Curso completo de desarrollo web desde cero hasta nivel profesional. Aprenderás a construir sitios y aplicaciones web modernas, responsive y dinámicas usando las tecnologías más demandadas del mercado.',
+    task:'Construir un portafolio web personal con al menos 3 proyectos usando HTML, CSS y JavaScript.',
+    pdfs:[
+      {name:'HTML5 Fundamentos',id:'web_u1'},
+      {name:'CSS3 y Diseño Responsive',id:'web_u2'},
+      {name:'JavaScript Moderno (ES6+)',id:'web_u3'},
+      {name:'Introducción a React',id:'web_u4'},
+    ],
+    lecciones:[
+      {n:1,title:'HTML5 — Estructura y semántica',desc:'Tags, atributos, formularios, accesibilidad, SEO básico.',done:true},
+      {n:2,title:'CSS3 — Estilos y Flexbox/Grid',desc:'Selectores, responsive design, animaciones, variables CSS.',done:true},
+      {n:3,title:'JavaScript — Fundamentos y DOM',desc:'Variables, funciones, eventos, fetch, manipulación del DOM.',done:false},
+      {n:4,title:'React — Componentes y Hooks',desc:'JSX, useState, useEffect, props, routing con React Router.',done:false},
+      {n:5,title:'Backend con Node.js y Express',desc:'APIs REST, bases de datos, autenticación, despliegue en producción.',done:false},
+    ]
+  }
+};
+
+const PDF_CONTENT = {
+  artes_u1:{title:'Unidad 1 — Música y Danzas Dominicanas',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Artes Integradas y Patrimonio Cultural · Período 1</div></div><h1>Música y Danzas Dominicanas</h1><h2>1.1 El Merengue</h2><p>El merengue es el baile nacional de la República Dominicana y uno de los géneros musicales más representativos del Caribe. Se caracteriza por su ritmo acelerado, su compás de 2/4 y el uso de instrumentos como la tambora, la güira y el acordeón.</p><div class="highlight-box">El merengue fue declarado Patrimonio Cultural Inmaterial de la Humanidad por la UNESCO en 2016.</div><h2>1.2 La Mangulina</h2><p>La mangulina es un ritmo folklórico dominicano de tempo moderado, más suave que el merengue. Es un baile de pareja que se originó en las zonas rurales del país.</p><ul><li>Compás: 3/4</li><li>Instrumentos: guitarra, balsié, maracas</li><li>Origen: regiones del Cibao</li></ul><h2>1.3 Instrumentos Folklóricos</h2><p>Los instrumentos tradicionales dominicanos son parte esencial de nuestra identidad cultural:</p><ul><li><strong>Tambora:</strong> tambor de dos parches, símbolo del merengue típico</li><li><strong>Güira:</strong> instrumento de metal raspado, ritmo percusivo</li><li><strong>Guitarra:</strong> cuerdas, base armónica en la mangulina</li><li><strong>Balsié:</strong> instrumento de cuerda frotada, sonido grave</li></ul>`},
+  artes_u2:{title:'Unidad 2 — Teoría del Color',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Artes Integradas y Patrimonio Cultural · Período 2</div></div><h1>Teoría del Color</h1><h2>El Círculo Cromático</h2><p>El círculo cromático es una representación visual de los colores organizados por su relación entre sí. Fue desarrollado por Johannes Itten en la Bauhaus como herramienta fundamental para artistas y diseñadores.</p><h2>Clasificación de los Colores</h2><ul><li><strong>Primarios:</strong> Rojo, Amarillo, Azul — no se obtienen mezclando otros</li><li><strong>Secundarios:</strong> Naranja, Verde, Violeta — mezcla de dos primarios</li><li><strong>Terciarios:</strong> Combinación de un primario y un secundario adyacente</li></ul><div class="highlight-box">Los colores complementarios son aquellos ubicados en posiciones opuestas en el círculo cromático. Su combinación crea el mayor contraste visual.</div><h2>Luz y Sombra</h2><p>La comprensión de la luz y la sombra permite crear volumen y profundidad en las composiciones artísticas. La dirección de la fuente de luz determina las zonas de luz, penumbra y sombra de los objetos.</p>`},
+  dis_u1:{title:'Fundamentos de Composición Visual',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Diseño Visual & Medios Digitales · Período 1</div></div><h1>Composición Visual</h1><h2>Elementos del Lenguaje Visual</h2><p>La composición visual es el proceso de organizar los elementos visuales dentro de un espacio para crear una obra coherente y efectiva.</p><ul><li><strong>Punto:</strong> unidad mínima de la imagen visual</li><li><strong>Línea:</strong> sucesión de puntos, define contornos y dirección</li><li><strong>Plano:</strong> superficie delimitada por líneas</li><li><strong>Textura:</strong> cualidad superficial de los materiales</li></ul><div class="highlight-box">La Regla de los Tercios: divide la imagen en 9 partes iguales con 2 líneas horizontales y 2 verticales. Los puntos de intersección son los focos ideales de atención.</div><h2>Principios de Diseño</h2><ul><li><strong>Equilibrio:</strong> distribución visual del peso en la composición</li><li><strong>Contraste:</strong> diferencia entre elementos (claro/oscuro, grande/pequeño)</li><li><strong>Ritmo:</strong> repetición ordenada de elementos visuales</li><li><strong>Jerarquía:</strong> organización de elementos por importancia visual</li></ul>`},
+  dis_u2:{title:'Manual de Grabado en Linóleo',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Diseño Visual & Medios Digitales · Técnicas de Impresión</div></div><h1>Grabado en Linóleo</h1><h2>¿Qué es el Grabado en Linóleo?</h2><p>El grabado en linóleo es una técnica de impresión en relieve donde se talla una imagen sobre una plancha de linóleo usando gubias y cuchillas. Las zonas talladas no imprimirán tinta, mientras que las zonas en relieve sí lo harán.</p><h2>Materiales necesarios</h2><ul><li>Plancha de linóleo (o suela de zapato como alternativa)</li><li>Gubias en diferentes tamaños (V, U, recta)</li><li>Tinta de grabado</li><li>Rodillo para aplicar tinta</li><li>Papel de impresión</li></ul><div class="highlight-box">Recuerda: la imagen debe dibujarse en espejo sobre la plancha, ya que al imprimir quedará invertida.</div><h2>Proceso Paso a Paso</h2><ul><li>1. Dibuja tu diseño sobre papel vegetal</li><li>2. Transfiere el diseño a la plancha con papel carbón</li><li>3. Talla la plancha con las gubias (de las zonas grandes a los detalles)</li><li>4. Aplica la tinta con el rodillo uniformemente</li><li>5. Coloca el papel y presiona con firmeza</li><li>6. Levanta el papel con cuidado para revelar tu grabado</li></ul>`},
+  web_u1:{title:'HTML5 — Fundamentos y Estructura',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Desarrollo Web Profesional · Módulo 1</div></div><h1>HTML5: La Estructura de la Web</h1><h2>¿Qué es HTML?</h2><p>HTML (HyperText Markup Language) es el lenguaje estándar para crear páginas web. Define la estructura y el contenido de una página mediante etiquetas (tags).</p><h2>Estructura básica</h2><p>Todo documento HTML tiene esta estructura fundamental:</p><div class="highlight-box">&lt;!DOCTYPE html&gt;<br>&lt;html lang="es"&gt;<br>&nbsp;&nbsp;&lt;head&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Mi página&lt;/title&gt;<br>&nbsp;&nbsp;&lt;/head&gt;<br>&nbsp;&nbsp;&lt;body&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Hola mundo&lt;/h1&gt;<br>&nbsp;&nbsp;&lt;/body&gt;<br>&lt;/html&gt;</div><h2>Etiquetas Semánticas HTML5</h2><ul><li><strong>&lt;header&gt;</strong> — cabecera de la página o sección</li><li><strong>&lt;nav&gt;</strong> — menú de navegación</li><li><strong>&lt;main&gt;</strong> — contenido principal</li><li><strong>&lt;section&gt;</strong> — sección temática</li><li><strong>&lt;article&gt;</strong> — contenido independiente</li><li><strong>&lt;footer&gt;</strong> — pie de página</li></ul>`},
+  web_u2:{title:'CSS3 y Diseño Responsive',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Desarrollo Web Profesional · Módulo 2</div></div><h1>CSS3: Estilos y Diseño Responsive</h1><h2>¿Qué es CSS?</h2><p>CSS (Cascading Style Sheets) controla la presentación visual de los documentos HTML. Define colores, fuentes, espaciado, disposición y animaciones.</p><h2>Flexbox</h2><p>Flexbox es un modelo de diseño unidimensional ideal para distribuir elementos en filas o columnas.</p><div class="highlight-box">.contenedor {<br>&nbsp;&nbsp;display: flex;<br>&nbsp;&nbsp;justify-content: center;<br>&nbsp;&nbsp;align-items: center;<br>&nbsp;&nbsp;gap: 16px;<br>}</div><h2>CSS Grid</h2><p>Grid es un sistema de diseño bidimensional para crear layouts complejos de filas y columnas.</p><h2>Media Queries — Responsive Design</h2><ul><li>Mobile first: diseña primero para móvil, luego amplía</li><li>Breakpoints comunes: 480px, 768px, 1024px, 1280px</li><li>Unidades relativas: %, vw, vh, rem, em</li></ul>`},
+  artes_u3:{title:'Guía de Títeres y Artes Escénicas',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Artes Integradas · Unidad 3</div></div><h1>Títeres y Artes Escénicas</h1><h2>Tipos de Títeres</h2><ul><li><strong>Títere de guante:</strong> se coloca en la mano como un guante, el titiritero anima la cabeza y los brazos</li><li><strong>Títere de boca:</strong> tiene mecanismo en la mandíbula inferior, expresivo para diálogos</li><li><strong>Marioneta:</strong> figura controlada por hilos desde arriba</li></ul><div class="highlight-box">Para construir un títere de guante básico necesitas: tela de fieltro, hilo, aguja, relleno (algodón), botones para ojos y materiales decorativos.</div><h2>La Pantomima</h2><p>Arte escénico donde el actor expresa sentimientos y situaciones únicamente mediante el movimiento del cuerpo y gestos, sin usar palabras.</p><h2>Costumbrismo Dominicano</h2><p>El costumbrismo refleja las tradiciones, costumbres y formas de vida de la sociedad dominicana a través de representaciones artísticas.</p>`},
+  artes_u4:{title:'Patrimonio Cultural Dominicano',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Artes Integradas · Unidad 4</div></div><h1>Patrimonio Cultural Dominicano</h1><h2>Patrimonio Material</h2><p>Comprende los bienes tangibles de valor histórico, artístico o cultural:</p><ul><li>Zona Colonial de Santo Domingo (Patrimonio de la Humanidad UNESCO)</li><li>La Catedral Primada de América</li><li>Fortaleza Ozama</li><li>Petroglifos taínos</li></ul><h2>Patrimonio Inmaterial</h2><p>Incluye tradiciones, expresiones, conocimientos y técnicas transmitidas de generación en generación:</p><ul><li>El merengue y la bachata (UNESCO)</li><li>Carnaval dominicano y sus manifestaciones regionales</li><li>Artesanías: cerámica taína, higüeros pintados, pilones tallados</li></ul><div class="highlight-box">La máscara del Carnaval es uno de los elementos más representativos del patrimonio artesanal dominicano. Cada región tiene su propio diseño y tradición.</div><h2>Técnicas Artesanales</h2><p>El papel maché, el higüero pintado y la cerámica son técnicas tradicionales que aún se practican y transmiten en comunidades de todo el país.</p>`},
+  dis_u3:{title:'Diseño de Cartel',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Diseño Visual · Unidad 4</div></div><h1>El Cartel como Medio de Comunicación Visual</h1><h2>Definición y función</h2><p>El cartel es un soporte gráfico diseñado para comunicar un mensaje de forma visual e impactante. Combina imagen, texto y color para captar la atención del espectador.</p><h2>Elementos del cartel efectivo</h2><ul><li><strong>Jerarquía visual:</strong> el mensaje principal debe destacar sobre el resto</li><li><strong>Tipografía:</strong> legible, adecuada al tema y reducida (máximo 2-3 familias)</li><li><strong>Color:</strong> paleta coherente con el mensaje y la audiencia</li><li><strong>Imagen:</strong> fotografía, ilustración o composición gráfica impactante</li><li><strong>Espacio:</strong> el espacio en blanco también comunica</li></ul><div class="highlight-box">Regla de oro: un cartel debe entenderse en 3 segundos. Si el mensaje no es inmediato, el diseño falla.</div><h2>Cartel Ecológico</h2><p>Para el cartel ecológico de patrimonio cultural, considera: paleta de colores naturales (verdes, tierras, azules), imágenes de elementos del patrimonio, tipografía legible y mensaje directo sobre conservación.</p>`},
+  dis_u4:{title:'Artes Aplicadas y Reciclaje',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Diseño Visual · Unidad 5</div></div><h1>Reciclaje y Artes Aplicadas</h1><h2>Arte con materiales reutilizables</h2><p>El arte con materiales reciclados transforma desechos en obras con valor estético, promoviendo conciencia ambiental y creatividad.</p><h2>Técnica del Papel Maché</h2><ul><li>Materiales: papel periódico, engrudo (harina y agua), globo o molde</li><li>Proceso: cortar tiras, mojar en engrudo, aplicar capas sobre el molde</li><li>Secar completamente entre capas (mínimo 24 horas)</li><li>Pintar y decorar cuando esté completamente seco</li></ul><div class="highlight-box">El papel maché es ideal para crear máscaras, figuras tridimensionales y esculturas de bajo costo y gran impacto visual.</div><h2>Exposición Virtual</h2><p>Para la exposición virtual, documenta tu proceso fotográficamente: materiales, proceso de construcción y obra final. Incluye una ficha técnica con: título, técnica, materiales, dimensiones y concepto artístico.</p>`},
+  web_u3:{title:'JavaScript Moderno (ES6+)',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Desarrollo Web · Módulo 3</div></div><h1>JavaScript Moderno</h1><h2>Variables y tipos de datos</h2><div class="highlight-box">const nombre = "Juan";  // constante<br>let edad = 25;           // variable<br>let activo = true;       // booleano</div><h2>Funciones Arrow</h2><div class="highlight-box">// Función tradicional<br>function saludar(nombre) { return "Hola " + nombre; }<br><br>// Arrow function<br>const saludar = (nombre) => "Hola " + nombre;</div><h2>Fetch API — Peticiones HTTP</h2><p>Fetch permite hacer peticiones a servidores y APIs de forma asíncrona:</p><div class="highlight-box">fetch('https://api.ejemplo.com/datos')<br>&nbsp;&nbsp;.then(res => res.json())<br>&nbsp;&nbsp;.then(data => console.log(data))<br>&nbsp;&nbsp;.catch(err => console.error(err));</div><h2>Manipulación del DOM</h2><ul><li>document.querySelector() — seleccionar elementos</li><li>element.addEventListener() — escuchar eventos</li><li>element.innerHTML — modificar contenido HTML</li><li>element.classList — manipular clases CSS</li></ul>`},
+  web_u4:{title:'Introducción a React',body:`<div class="pdf-header"><div class="pdf-logo-sm">A.V.I.T</div><div class="pdf-meta">Desarrollo Web · Módulo 4</div></div><h1>React — Biblioteca JavaScript para UI</h1><h2>¿Qué es React?</h2><p>React es una biblioteca JavaScript desarrollada por Meta para construir interfaces de usuario mediante componentes reutilizables. Es la tecnología más demandada en el desarrollo web actual.</h2><h2>Componente funcional básico</h2><div class="highlight-box">import React, { useState } from 'react';<br><br>function Contador() {<br>&nbsp;&nbsp;const [count, setCount] = useState(0);<br><br>&nbsp;&nbsp;return (<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Contador: {count}&lt;/p&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button onClick={() => setCount(count + 1)}&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Incrementar<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/button&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>&nbsp;&nbsp;);<br>}</div><h2>Hooks principales</h2><ul><li><strong>useState:</strong> maneja el estado del componente</li><li><strong>useEffect:</strong> efectos secundarios (peticiones, eventos)</li><li><strong>useContext:</strong> comparte datos entre componentes</li><li><strong>useMemo / useCallback:</strong> optimización de rendimiento</li></ul>`}
+};
+
+const CHATS = [
+  {id:'c1',name:'Prof. Rosario Marte',initials:'RM',color:'#1d6fca',course:'Artes Integradas',unread:1,messages:[
+    {from:'them',text:'Buen día Juan, ¿cómo vas con la máscara de papel maché?',time:'9:10 AM'},
+    {from:'them',text:'Excelente trabajo en el collage de la semana pasada. Tu técnica de composición es muy buena.',time:'9:12 AM'},
+    {from:'me',text:'¡Buenos días profe! Estoy en la segunda capa de papel maché. Ya casi termino el molde base.',time:'9:45 AM'},
+    {from:'them',text:'Perfecto. Recuerda que tienes hasta el viernes. Cualquier duda aquí estoy.',time:'9:47 AM'},
+  ]},
+  {id:'c2',name:'Prof. Carlos Heredia',initials:'CH',color:'#267c3a',course:'Diseño Visual',unread:1,messages:[
+    {from:'them',text:'Juan, la exposición de artes visuales será el próximo viernes a las 5 PM.',time:'Ayer 4:30 PM'},
+    {from:'them',text:'Recuerda subir el cartel ecológico antes del jueves al aula virtual.',time:'Ayer 4:32 PM'},
+    {from:'me',text:'Entendido profe, ya tengo el borrador del cartel listo.',time:'Ayer 6:00 PM'},
+    {from:'them',text:'Bien. ¿Tienes dudas sobre la composición visual? Puedes enviarme el avance.',time:'Ayer 6:05 PM'},
+  ]},
+  {id:'c3',name:'Prof. Ana Lucía Mejía',initials:'AM',color:'#8e1a6e',course:'Desarrollo Web',unread:0,messages:[
+    {from:'them',text:'Hola Juan, ¿ya revisaste el material de JavaScript del módulo 3?',time:'Hace 2 días'},
+    {from:'me',text:'Sí profe, estuve practicando los ejercicios de Fetch API. Muy interesante.',time:'Hace 2 días'},
+    {from:'them',text:'Excelente. La próxima clase veremos React. Te recomiendo instalar Node.js antes.',time:'Hace 2 días'},
+  ]},
+  {id:'c4',name:'Secretaría A.V.I.T',initials:'SA',color:'#e67e22',course:'Administración',unread:0,messages:[
+    {from:'them',text:'Tu certificado de Patrimonio Cultural está listo para descargar en el portal.',time:'Hace 3 días'},
+    {from:'them',text:'Recuerda que el pago del mes próximo vence el día 1. Puedes pagarlo en línea.',time:'Hace 3 días'},
+  ]},
+];
+
+const TASKS = [
+  {id:'t1',name:'Crear máscara con material reciclado',meta:'Artes Integradas · Unidad 4',due:'Vence 25 mayo',done:false},
+  {id:'t2',name:'Diseñar cartel ecológico sobre patrimonio cultural',meta:'Diseño Visual · Unidad 4',due:'Vence 28 mayo',done:false},
+  {id:'t3',name:'Análisis del círculo cromático',meta:'Artes Integradas · Unidad 2',due:'Vence 20 mayo',done:false},
+  {id:'t4',name:'Grabar monólogo basado en leyenda dominicana',meta:'Artes Integradas · Unidad 3',due:'Vence 22 mayo',done:false},
+  {id:'t5',name:'Técnica de estampado en tela (matriz vegetal)',meta:'Diseño Visual · Unidad 3',due:'Vence 23 mayo',done:false},
+  {id:'t6',name:'Análisis de spot publicitario',meta:'Diseño Visual · Unidad 2',due:'Vence 19 mayo',done:false},
+  {id:'t7',name:'Ensayo de danza folklórica',meta:'Artes Integradas · Unidad 1',due:'Vence 17 mayo',done:false},
+  {id:'t8',name:'Portafolio web — 3 proyectos',meta:'Desarrollo Web · Unidad 5',due:'Vence 30 mayo',done:false},
+];
+
+const NOTIFS = [
+  {msg:'⏰ Mañana vence: Análisis del spot publicitario (Diseño Visual)',time:'Hace 2 horas',unread:true},
+  {msg:'📅 Hoy a las 8:00 AM — Clase virtual Artes Integradas en vivo',time:'Hace 4 horas',unread:true},
+  {msg:'💬 Nuevo mensaje de Prof. Carlos Heredia',time:'Ayer 4:35 PM',unread:true},
+  {msg:'✅ Calificación publicada: Técnica de grabado linóleo — 95%',time:'Hace 2 días',unread:false},
+  {msg:'📥 Tu certificado de Patrimonio Cultural está listo',time:'Hace 3 días',unread:false},
+];
+
+// ════════════════════ STATE ════════════════════
+let currentUser = null;
+let prevPage = 'inicio';
+let currentChatId = null;
+let regStep = 1;
+let selectedPlan = null;
+let newUserData = {};
+let calDate = new Date(2025, 4, 14); // mayo 2025
+
+// ════════════════════ AUTH ════════════════════
+function switchAuthTab(tab){
+  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
+  document.getElementById('tabReg').classList.toggle('active', tab==='register');
+  document.getElementById('loginForm').style.display = tab==='login'?'block':'none';
+  document.getElementById('registerForm').style.display = tab==='register'?'block':'none';
+  regStep = 1;
+  selectedPlan = null;
+  document.querySelectorAll('.reg-step').forEach((s,i)=>{s.classList.toggle('active',i===0)});
+  updateStepDots(1);
+}
+
+function doLogin(){
+  const u = document.getElementById('loginUser').value.trim().toLowerCase();
+  const c = document.getElementById('loginCode').value.trim().toUpperCase();
+  const err = document.getElementById('loginError');
+  const user = USERS[u];
+  if(user && user.code === c){
+    err.style.display='none';
+    currentUser = {...user, username: u};
+    loadDashboard();
+  } else {
+    err.style.display='block';
+  }
+}
+
+function selectPlan(el, plan){
+  document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPlan = plan;
+}
+
+function updateStepDots(active){
+  const dots = document.querySelectorAll('.step-dot');
+  dots.forEach((d,i)=>{
+    d.classList.remove('active','done');
+    if(i+1 < active) d.classList.add('done');
+    else if(i+1 === active) d.classList.add('active');
+  });
+}
+
+function regNext(step){
+  if(step===1){
+    const n=document.getElementById('regNombre').value.trim();
+    const e=document.getElementById('regEmail').value.trim();
+    if(!n||!e){toast('Por favor completa todos los campos','warn');return;}
+    newUserData.name=n; newUserData.email=e;
+  }
+  if(step===2){
+    if(!selectedPlan){toast('Selecciona un curso para continuar','warn');return;}
+    newUserData.plan=selectedPlan;
+  }
+  if(step===3){
+    const cn=document.getElementById('regCardNum').value.replace(/\s/g,'');
+    if(cn.length<16){toast('Número de tarjeta inválido','warn');return;}
+    const initials = newUserData.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const userSlug = newUserData.name.toLowerCase().replace(/\s+/g,'.');
+    const planCodes = {artes:'ARTE01',diseno:'DIS03',web:'WEB02'};
+    const planYears = {artes:'0099',diseno:'0099',web:'0099'};
+    newUserData.username = userSlug;
+    newUserData.code = 'AVIT-2025-'+planCodes[selectedPlan];
+    newUserData.initials = initials;
+    document.getElementById('newUserDisplay').textContent = userSlug;
+    document.getElementById('newCodeDisplay').textContent = newUserData.code;
+    const courseMap = {artes:['artes'],diseno:['diseno'],web:['web']};
+    currentUser = {
+      name: newUserData.name, email: newUserData.email,
+      initials, username: userSlug, code: newUserData.code,
+      courses: courseMap[selectedPlan]
+    };
+  }
+  const next = step+1;
+  document.getElementById('regStep'+step).classList.remove('active');
+  document.getElementById('regStep'+next).classList.add('active');
+  regStep = next;
+  updateStepDots(next);
+}
+
+function goToDashFromReg(){ loadDashboard(); }
+
+function formatCard(el){
+  let v = el.value.replace(/\D/g,'').substring(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+
+// ════════════════════ DASHBOARD ════════════════════
+function loadDashboard(){
+  document.getElementById('authScreen').classList.remove('active');
+  document.getElementById('dashScreen').classList.add('active');
+  const u = currentUser;
+  document.getElementById('sbAvatar').textContent = u.initials;
+  document.getElementById('sbName').textContent = u.name;
+  document.getElementById('sbCode').textContent = u.code;
+  document.getElementById('welcomeName').textContent = u.name.split(' ')[0];
+  document.getElementById('profileAvatar').textContent = u.initials;
+  document.getElementById('profileName').textContent = u.name;
+  document.getElementById('pName').textContent = u.name;
+  document.getElementById('pEmail').textContent = u.email;
+  document.getElementById('pId').textContent = u.code;
+  const nc = u.courses.length;
+  document.getElementById('statCursos').textContent = nc;
+  document.getElementById('profileCursos').textContent = nc;
+  renderCourseCards('homeCourses', u.courses);
+  renderCourseCards('allCourses', u.courses);
+  renderTasks();
+  renderCalendar();
+  renderChatList();
+  renderNotifs();
+  showPage('inicio');
+  // schedule notif 1 day before deadline
+  setTimeout(()=>{
+    addNotif('⏰ Recordatorio: mañana vence "Ensayo de danza folklórica"');
+  }, 8000);
+}
+
+function renderCourseCards(containerId, courseIds){
+  const el = document.getElementById(containerId);
+  el.innerHTML = courseIds.map(id=>{
+    const c = COURSES[id];
+    return `<div class="course-card" onclick="openDetail('${id}')">
+      <div class="course-banner" style="background:${c.banner}"><span style="font-size:2rem">${c.title.split(' ')[0]}</span></div>
+      <div class="course-body">
+        <div class="course-title">${c.title}</div>
+        <div class="course-sub">${c.sub}</div>
+        <div class="prog-bg"><div class="prog-fill" style="width:${c.pct}%"></div></div>
+        <div class="prog-row"><span>Progreso</span><span>${c.pct}%</span></div>
+        <button class="btn-ver">Revisar curso →</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openDetail(courseId){
+  const c = COURSES[courseId];
+  prevPage = document.querySelector('.page.active')?.id?.replace('page-','') || 'inicio';
+  document.getElementById('detailTitle').textContent = c.title;
+  document.getElementById('detailHero').style.background = c.banner;
+  document.getElementById('detailPct').textContent = c.pct+'%';
+  document.getElementById('detailBar').style.width = c.pct+'%';
+  document.getElementById('detailDesc').textContent = c.desc;
+  document.getElementById('detailTask').textContent = c.task;
+  const tagsEl = document.getElementById('detailTags');
+  tagsEl.innerHTML = c.tags.map(t=>`<span style="background:rgba(255,255,255,0.12);border-radius:20px;padding:3px 10px;font-size:0.68rem;color:rgba(255,255,255,0.85);font-weight:600">${t}</span>`).join('');
+  const pdfsEl = document.getElementById('detailPdfs');
+  pdfsEl.innerHTML = c.pdfs.map(p=>`<button onclick="openPdf('${p.id}')" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(45,138,255,0.2);border-radius:10px;padding:8px 12px;color:var(--blue2);font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:var(--font);width:100%;text-align:left" onmouseover="this.style.background='rgba(29,111,202,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'"><i class="fas fa-file-pdf" style="color:#ff6b6b"></i>${p.name}</button>`).join('');
+  const lecEl = document.getElementById('detailLecciones');
+  lecEl.innerHTML = c.lecciones.map(l=>`
+    <div class="lec">
+      <div class="lec-num ${l.done?'done':'pending'}">${l.done?'<i class="fas fa-check" style="font-size:0.6rem"></i>':l.n}</div>
+      <div>
+        <div class="lec-title">${l.title}</div>
+        <div class="lec-desc">${l.desc}</div>
+        <span class="lec-badge ${l.done?'done':'pending'}">${l.done?'✓ Completado':'• Recurso disponible'}</span>
+      </div>
+    </div>`).join('');
+  showPage('detalle');
+}
+
+function goBack(){ showPage(prevPage); }
+
+// ════════════════════ PAGES ════════════════════
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const p = document.getElementById('page-'+id);
+  if(p) p.classList.add('active');
+  const n = document.querySelector(`[data-page="${id}"]`);
+  if(n) n.classList.add('active');
+  const titles = {'inicio':'Inicio','mis-cursos':'Mis Cursos','detalle':'Detalle del Curso','calendario':'Calendario','tareas':'Tareas','calificaciones':'Calificaciones','mensajes':'Mensajes','certificados':'Certificados','mi-perfil':'Mi Perfil'};
+  document.getElementById('topbarTitle').textContent = titles[id]||'A.V.I.T';
+  document.getElementById('notifPanel').classList.remove('open');
+}
+
+document.querySelectorAll('.nav-item[data-page]').forEach(item=>{
+  item.addEventListener('click',()=>showPage(item.getAttribute('data-page')));
+});
+
+document.getElementById('logoutBtn').addEventListener('click',()=>{
+  currentUser=null;
+  window.location.href='index.html';
+});
+
+// ════════════════════ TASKS ════════════════════
+function renderTasks(){
+  const el = document.getElementById('taskList');
+  el.innerHTML = TASKS.map(t=>`
+    <div class="task-item ${t.done?'completed':''}" id="task-${t.id}">
+      <div class="task-cb ${t.done?'done':''}" onclick="toggleTask('${t.id}')">
+        ${t.done?'<i class="fas fa-check" style="font-size:0.65rem;color:#fff"></i>':''}
+      </div>
+      <div style="flex:1">
+        <div class="task-name">${t.name}</div>
+        <div class="task-meta">${t.meta}</div>
+      </div>
+      <div class="task-due">${t.due}</div>
+    </div>`).join('');
+  updateTaskBadge();
+}
+
+function toggleTask(id){
+  const t = TASKS.find(x=>x.id===id);
+  t.done=!t.done;
+  renderTasks();
+  if(t.done) toast('✅ Tarea completada','ok');
+}
+
+function updateTaskBadge(){
+  const pending = TASKS.filter(t=>!t.done).length;
+  document.getElementById('taskBadge').textContent = pending;
+}
+
+// ════════════════════ CALENDAR ════════════════════
+const CAL_EVENTS_DATA = [
+  {day:14,title:'Clase Mañana — Artes Integradas',meta:'8:00 AM · Clase virtual en vivo',type:'blue'},
+  {day:14,title:'Clase Tarde — Diseño Visual',meta:'3:30 PM · Clase virtual en vivo',type:'green'},
+  {day:16,title:'Clase Mañana — Desarrollo Web',meta:'8:00 AM · Clase virtual en vivo',type:'blue'},
+  {day:17,title:'⏰ Vence: Ensayo de danza folklórica',meta:'Artes Integradas · Tarea',type:'warn'},
+  {day:19,title:'⏰ Vence: Análisis spot publicitario',meta:'Diseño Visual · Tarea',type:'warn'},
+  {day:21,title:'Clase Mañana — Artes Integradas',meta:'8:00 AM · Clase virtual',type:'blue'},
+  {day:22,title:'⏰ Vence: Monólogo leyenda dominicana',meta:'Artes Integradas · Tarea',type:'warn'},
+  {day:23,title:'⏰ Vence: Estampado en tela',meta:'Diseño Visual · Tarea',type:'warn'},
+  {day:25,title:'⚠ ENTREGA: Máscara papel maché',meta:'Artes Integradas · Entrega final',type:'red'},
+  {day:28,title:'⚠ ENTREGA: Cartel ecológico digital',meta:'Diseño Visual · Entrega final',type:'red'},
+  {day:30,title:'⚠ ENTREGA: Portafolio web',meta:'Desarrollo Web · Entrega final',type:'red'},
+];
+
+function renderCalendar(){
+  const year = calDate.getFullYear(), month = calDate.getMonth();
+  const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  document.getElementById('calMonth').textContent = monthNames[month]+' '+year;
+  const first = new Date(year,month,1).getDay();
+  const firstMon = first===0?6:first-1;
+  const daysInMonth = new Date(year,month+1,0).getDate();
+  const today = new Date();
+  const isThisMonth = today.getMonth()===month && today.getFullYear()===year;
+  const eventDays = new Set(CAL_EVENTS_DATA.map(e=>e.day));
+  let html='';
+  for(let i=0;i<firstMon;i++) html+=`<div class="cal-day other"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const isToday = isThisMonth && d===today.getDate();
+    const hasEv = eventDays.has(d);
+    html+=`<div class="cal-day ${isToday?'today':''} ${hasEv?'has-ev':''}" onclick="showDayEvents(${d})">${d}</div>`;
+  }
+  document.getElementById('calDays').innerHTML=html;
+  renderUpcomingEvents();
+}
+
+function renderUpcomingEvents(){
+  const today = 14; // simulate
+  const upcoming = CAL_EVENTS_DATA.filter(e=>e.day>=today).slice(0,5);
+  document.getElementById('calEvents').innerHTML = upcoming.map(e=>`
+    <div class="cal-ev ${e.type}">
+      <div class="cal-ev-title">${e.title}</div>
+      <div class="cal-ev-meta"><i class="fas fa-calendar"></i> ${e.day} Mayo 2025 &nbsp;·&nbsp; ${e.meta}</div>
+    </div>`).join('');
+}
+
+function showDayEvents(day){
+  const evs = CAL_EVENTS_DATA.filter(e=>e.day===day);
+  if(evs.length===0){toast('Sin eventos este día','info');return;}
+  const names = evs.map(e=>e.title).join(' | ');
+  toast('📅 '+names,'info');
+}
+
+function calPrev(){calDate.setMonth(calDate.getMonth()-1);renderCalendar();}
+function calNext(){calDate.setMonth(calDate.getMonth()+1);renderCalendar();}
+
+// ════════════════════ CHAT ════════════════════
+function renderChatList(){
+  const el = document.getElementById('chatList');
+  el.innerHTML = CHATS.map(c=>`
+    <div class="chat-item" id="chatitem-${c.id}" onclick="openChat('${c.id}')">
+      <div class="chat-avatar" style="background:${c.color}">${c.initials}</div>
+      <div style="flex:1;min-width:0">
+        <div class="chat-name">${c.name}</div>
+        <div class="chat-preview">${c.messages[c.messages.length-1].text}</div>
+      </div>
+      ${c.unread?`<div class="chat-unread">${c.unread}</div>`:''}
+    </div>`).join('');
+  updateMsgBadge();
+}
+
+function openChat(id){
+  const c = CHATS.find(x=>x.id===id);
+  currentChatId = id;
+  c.unread=0;
+  document.querySelectorAll('.chat-item').forEach(el=>el.classList.remove('active'));
+  document.getElementById('chatitem-'+id).classList.add('active');
+  renderChatList();
+  const win = document.getElementById('chatWindow');
+  win.className = 'chat-window';
+  win.innerHTML = `
+    <div class="chat-win-hd">
+      <div class="chat-avatar" style="background:${c.color};width:36px;height:36px;font-size:0.78rem">${c.initials}</div>
+      <div>
+        <div class="chat-win-name">${c.name}</div>
+        <div class="chat-win-sub"><div class="online-dot"></div> En línea · ${c.course}</div>
+      </div>
+    </div>
+    <div class="chat-messages" id="chatMsgs">
+      ${c.messages.map(m=>`
+        <div>
+          <div class="msg ${m.from==='me'?'sent':'received'}">${m.text}</div>
+          <div class="msg-time" style="text-align:${m.from==='me'?'right':'left'}">${m.time}</div>
+        </div>`).join('')}
+    </div>
+    <div class="chat-input-area">
+      <textarea class="chat-input" id="chatInput" placeholder="Escribe un mensaje..." rows="1" onkeydown="chatKeydown(event,'${id}')"></textarea>
+      <button class="chat-send" onclick="sendMsg('${id}')"><i class="fas fa-paper-plane"></i></button>
+    </div>`;
+  const msgs = document.getElementById('chatMsgs');
+  if(msgs) msgs.scrollTop = msgs.scrollHeight;
+}
+
+function chatKeydown(e, id){
+  if(e.key==='Enter' && !e.shiftKey){e.preventDefault();sendMsg(id);}
+}
+
+function sendMsg(id){
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  const c = CHATS.find(x=>x.id===id);
+  const now = new Date();
+  const time = now.getHours()+':'+(now.getMinutes()<10?'0':'')+now.getMinutes();
+  c.messages.push({from:'me',text,time});
+  input.value='';
+  openChat(id);
+  // Auto-response after delay
+  setTimeout(()=>{
+    const responses = ['Entendido, gracias!','Perfecto, cualquier duda me avisas.','Muy bien. Sigue así.','De acuerdo, revisaré tu avance.','Excelente, mucho ánimo!'];
+    c.messages.push({from:'them',text:responses[Math.floor(Math.random()*responses.length)],time:'Ahora'});
+    if(currentChatId===id) openChat(id);
+  }, 1200);
+}
+
+function updateMsgBadge(){
+  const total = CHATS.reduce((a,c)=>a+c.unread,0);
+  const el = document.getElementById('msgBadge');
+  el.textContent=total;
+  el.style.display=total>0?'inline':'none';
+}
+
+// ════════════════════ PDF ════════════════════
+function openPdf(id){
+  const pdf = PDF_CONTENT[id];
+  if(!pdf){toast('Documento no disponible','warn');return;}
+  document.getElementById('pdfTitle').textContent = pdf.title;
+  document.getElementById('pdfContent').innerHTML = pdf.body;
+  document.getElementById('pdfWrap').classList.add('open');
+}
+
+function closePdf(){document.getElementById('pdfWrap').classList.remove('open');}
+document.getElementById('pdfWrap').addEventListener('click',e=>{if(e.target===document.getElementById('pdfWrap'))closePdf();});
+
+// ════════════════════ NOTIFS ════════════════════
+function renderNotifs(){
+  const el = document.getElementById('notifList');
+  el.innerHTML = NOTIFS.map((n,i)=>`
+    <div class="notif-item ${n.unread?'unread':''}">
+      <div class="notif-msg">${n.msg}</div>
+      <div class="notif-time">${n.time}</div>
+    </div>`).join('');
+  updateNotifCount();
+}
+
+function updateNotifCount(){
+  const c = NOTIFS.filter(n=>n.unread).length;
+  const el = document.getElementById('notifCount');
+  el.textContent=c;
+  el.style.display=c>0?'flex':'none';
+}
+
+function toggleNotif(){
+  document.getElementById('notifPanel').classList.toggle('open');
+  NOTIFS.forEach(n=>n.unread=false);
+  renderNotifs();
+}
+
+function clearNotifs(){
+  document.getElementById('notifList').innerHTML='<div style="padding:16px;text-align:center;font-size:0.78rem;color:var(--muted)">Sin notificaciones nuevas</div>';
+  document.getElementById('notifCount').style.display='none';
+}
+
+function addNotif(msg){
+  NOTIFS.unshift({msg,time:'Ahora',unread:true});
+  renderNotifs();
+  showBrowserNotif(msg);
+}
+
+function showBrowserNotif(msg){
+  toast('🔔 '+msg,'warn');
+}
+
+document.addEventListener('click',e=>{
+  const panel=document.getElementById('notifPanel');
+  const bell=document.getElementById('notifBell');
+  if(panel.classList.contains('open')&&!panel.contains(e.target)&&!bell.contains(e.target)){
+    panel.classList.remove('open');
+  }
+});
+
+// ════════════════════ CAM ════════════════════
+function connectCam(turno){
+  document.getElementById('camM').classList.toggle('on',turno==='mañana');
+  document.getElementById('camT').classList.toggle('on',turno==='tarde');
+  const hora = turno==='mañana'?'8:00 AM':'3:30 PM';
+  const status = document.getElementById('camStatus');
+  status.classList.add('show');
+  document.getElementById('camStatusText').textContent = `Clase de ${turno} · ${hora}`;
+  toast(`📹 Conectado a clase de ${turno} — ${hora}`,'ok');
+}
+
+// ════════════════════ TOAST ════════════════════
+let toastT;
+function toast(msg, type='info'){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.className='show type-'+type;
+  clearTimeout(toastT);
+  toastT=setTimeout(()=>el.className='',3000);
+}
+</script>
+</body>
+</html>

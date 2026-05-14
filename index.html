@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A.V.I.T. - Academia Virtual Internacional Técnica</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0a0f3d;
+  --blue: #1a2ecc;
+  --mid-blue: #2563eb;
+  --light-blue: #3b82f6;
+  --sky: #60a5fa;
+  --pale: #dbeafe;
+  --white: #ffffff;
+  --gray: #f0f4ff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:var(--white);color:var(--navy);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,15,61,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(59,130,246,0.3);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--light-blue));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:13px;letter-spacing:0.5px;}
+.logo-text{color:white;font-weight:700;font-size:1.1rem;line-height:1.2;}
+.logo-text span{display:block;font-size:0.65rem;font-weight:400;color:var(--sky);letter-spacing:1px;}
+.nav-links{display:flex;align-items:center;gap:0.2rem;}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 14px;border-radius:6px;font-size:0.85rem;font-weight:500;transition:all 0.2s;}
+.nav-links a:hover{color:white;background:rgba(59,130,246,0.2);}
+.nav-links a.active{color:white;background:rgba(59,130,246,0.25);}
+.nav-access{background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white!important;padding:9px 20px!important;border-radius:8px!important;font-weight:600!important;font-size:0.85rem!important;transition:all 0.2s!important;}
+.nav-access:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(37,99,235,0.5);background:linear-gradient(135deg,var(--mid-blue),var(--light-blue))!important;}
+
+/* HERO */
+.hero{min-height:100vh;background:linear-gradient(160deg,var(--navy) 0%,#0d1a6e 50%,#0a1a8a 100%);position:relative;display:flex;align-items:center;overflow:hidden;padding-top:70px;}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.3) 0%,transparent 70%);animation:pulse 4s ease-in-out infinite;}
+.hero::after{content:'';position:absolute;bottom:-150px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,0.2) 0%,transparent 70%);animation:pulse 5s ease-in-out infinite 1s;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.08) 1px,transparent 1px);background-size:60px 60px;}
+.hero-content{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);border-radius:100px;padding:6px 16px;color:var(--sky);font-size:0.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:1.5rem;}
+.hero-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--sky);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);line-height:1.1;color:white;margin-bottom:1.5rem;}
+.hero h1 span{color:var(--sky);}
+.hero p{color:rgba(255,255,255,0.7);font-size:1.05rem;line-height:1.8;margin-bottom:2.5rem;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:0.95rem;transition:all 0.3s;box-shadow:0 4px 20px rgba(37,99,235,0.4);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,99,235,0.6);}
+.btn-secondary{background:transparent;color:white;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:600;font-size:0.95rem;border:2px solid rgba(255,255,255,0.3);transition:all 0.3s;}
+.btn-secondary:hover{border-color:white;background:rgba(255,255,255,0.1);}
+.hero-visual{position:relative;}
+.hero-card{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:2rem;animation:float 6s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
+.hero-card-header{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;}
+.hero-card-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--blue),var(--light-blue));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
+.hero-card-title{color:white;font-weight:700;}
+.hero-card-sub{color:rgba(255,255,255,0.5);font-size:0.8rem;}
+.course-list{display:flex;flex-direction:column;gap:0.8rem;}
+.course-item{background:rgba(255,255,255,0.05);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;}
+.course-dot{width:10px;height:10px;border-radius:50%;background:var(--light-blue);flex-shrink:0;}
+.course-name{color:rgba(255,255,255,0.85);font-size:0.85rem;font-weight:500;}
+.course-progress{margin-left:auto;background:rgba(37,99,235,0.3);color:var(--sky);padding:3px 10px;border-radius:100px;font-size:0.7rem;font-weight:600;}
+.stats-row{display:flex;gap:1rem;margin-top:1.5rem;}
+.stat{background:rgba(37,99,235,0.2);border-radius:10px;padding:12px;flex:1;text-align:center;}
+.stat-num{color:white;font-size:1.5rem;font-weight:900;display:block;}
+.stat-label{color:rgba(255,255,255,0.5);font-size:0.7rem;font-weight:500;}
+
+/* STATS BAR */
+.stats-bar{background:linear-gradient(135deg,var(--blue),var(--mid-blue));padding:3rem 2rem;}
+.stats-bar-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;}
+.stats-item{text-align:center;}
+.stats-num{font-size:2.5rem;font-weight:900;color:white;display:block;}
+.stats-desc{color:rgba(255,255,255,0.75);font-size:0.85rem;margin-top:0.3rem;}
+
+/* SECTION */
+.section{padding:5rem 2rem;}
+.section-inner{max-width:1280px;margin:0 auto;}
+.section-tag{display:inline-block;background:var(--pale);color:var(--blue);font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:1rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--navy);margin-bottom:1rem;line-height:1.2;}
+.section-subtitle{color:#64748b;font-size:1rem;line-height:1.7;max-width:600px;}
+
+/* COURSES */
+.courses-section{background:var(--gray);}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:3rem;}
+.course-card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 15px rgba(0,0,0,0.06);transition:all 0.3s;border:1px solid transparent;}
+.course-card:hover{transform:translateY(-5px);box-shadow:0 10px 40px rgba(37,99,235,0.15);border-color:var(--light-blue);}
+.course-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;}
+.course-thumb::after{content:'';position:absolute;inset:0;background:inherit;opacity:0.15;}
+.course-body{padding:1.2rem;}
+.course-cat{font-size:0.7rem;font-weight:700;color:var(--mid-blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;}
+.course-title{font-weight:700;font-size:0.95rem;color:var(--navy);margin-bottom:0.5rem;}
+.course-desc{color:#64748b;font-size:0.8rem;line-height:1.5;margin-bottom:1rem;}
+.course-footer{display:flex;align-items:center;justify-content:space-between;}
+.course-code{background:var(--pale);color:var(--blue);padding:4px 10px;border-radius:6px;font-size:0.7rem;font-weight:700;font-family:monospace;}
+.course-enroll{background:var(--blue);color:white;border:none;padding:7px 16px;border-radius:8px;font-size:0.78rem;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.course-enroll:hover{background:var(--mid-blue);}
+
+/* VALUES */
+.values-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.5rem;margin-top:3rem;}
+.value-card{background:white;border-radius:16px;padding:2rem;border:1px solid var(--pale);transition:all 0.3s;}
+.value-card:hover{border-color:var(--light-blue);box-shadow:0 5px 25px rgba(37,99,235,0.1);}
+.value-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--pale),rgba(37,99,235,0.1));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem;}
+.value-title{font-weight:700;color:var(--navy);margin-bottom:0.5rem;}
+.value-text{color:#64748b;font-size:0.85rem;line-height:1.6;}
+
+/* CTA */
+.cta-section{background:linear-gradient(160deg,var(--navy),#0d1a8a);padding:5rem 2rem;text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.2) 0%,transparent 70%);}
+.cta-inner{position:relative;z-index:2;}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:white;margin-bottom:1rem;}
+.cta-section p{color:rgba(255,255,255,0.7);font-size:1.05rem;margin-bottom:2.5rem;}
+
+/* FOOTER */
+footer{background:var(--navy);color:rgba(255,255,255,0.6);padding:3rem 2rem 1.5rem;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+.footer-brand .logo-text{color:white;}
+.footer-brand p{margin-top:1rem;font-size:0.85rem;line-height:1.7;max-width:260px;}
+.footer-col h4{color:white;font-weight:700;font-size:0.9rem;margin-bottom:1rem;}
+.footer-col a{display:block;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;margin-bottom:0.5rem;transition:color 0.2s;}
+.footer-col a:hover{color:var(--sky);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-content{grid-template-columns:1fr;}
+  .hero-visual{display:none;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .stats-bar-inner{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:600px){
+  .nav-links{display:none;}
+  .footer-grid{grid-template-columns:1fr;}
+  .stats-bar-inner{grid-template-columns:1fr 1fr;}
+}
+
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(30px);transition:all 0.6s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;">
+      <div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Inicio</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="lideres.html">Líderes</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="avit_platform.html" class="nav-access">🔐 Acceder</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">✦ Plataforma educativa online</div>
+      <h1>Tu <span>éxito</span><br>empieza aquí.</h1>
+      <p>Aprende habilidades técnicas desde la comodidad de tu hogar. Cursos especializados en tecnología, diseño, bases de datos, ciberseguridad y mucho más — en español, inglés y portugués.</p>
+      <div class="hero-btns">
+        <a href="cursos.html" class="btn-primary">Ver todos los cursos →</a>
+        <a href="nosotros.html" class="btn-secondary">Conoce A.V.I.T.</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <div class="hero-card-icon">🎓</div>
+          <div>
+            <div class="hero-card-title">Panel del Estudiante</div>
+            <div class="hero-card-sub">Academia Virtual Internacional Técnica</div>
+          </div>
+        </div>
+        <div class="course-list">
+          <div class="course-item"><div class="course-dot"></div><span class="course-name">Desarrollo Web</span><span class="course-progress">75%</span></div>
+          <div class="course-item"><div class="course-dot"></div><span class="course-name">Base de Datos MySQL</span><span class="course-progress">60%</span></div>
+          <div class="course-item"><div class="course-dot"></div><span class="course-name">Ciberseguridad</span><span class="course-progress">40%</span></div>
+          <div class="course-item"><div class="course-dot"></div><span class="course-name">Marketing Digital</span><span class="course-progress">30%</span></div>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><span class="stat-num">45+</span><span class="stat-label">Cursos</span></div>
+          <div class="stat"><span class="stat-num">3</span><span class="stat-label">Idiomas</span></div>
+          <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Online</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stats-item"><span class="stats-num">45+</span><div class="stats-desc">Cursos Disponibles</div></div>
+    <div class="stats-item"><span class="stats-num">3</span><div class="stats-desc">Idiomas de Enseñanza</div></div>
+    <div class="stats-item"><span class="stats-num">100%</span><div class="stats-desc">Modalidad Virtual</div></div>
+    <div class="stats-item"><span class="stats-num">∞</span><div class="stats-desc">Acceso Flexible</div></div>
+  </div>
+</div>
+
+<section class="section courses-section">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-tag">Nuestros Cursos</span>
+      <h2 class="section-title">Cursos destacados</h2>
+      <p class="section-subtitle">Domina las habilidades más demandadas del mercado tecnológico actual.</p>
+    </div>
+    <div class="courses-grid fade-up">
+      <div class="course-card">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#0a0f3d,#1a2ecc);">💻</div>
+        <div class="course-body">
+          <div class="course-cat">Programación</div>
+          <div class="course-title">Desarrollo Web Completo</div>
+          <div class="course-desc">HTML, CSS, JavaScript y más. Crea sitios web profesionales desde cero.</div>
+          <div class="course-footer"><span class="course-code">AVIT-WEB01</span><button class="course-enroll" onclick="location.href='avit_platform.html'">Inscribirse</button></div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#1a2ecc,#2563eb);">🗄️</div>
+        <div class="course-body">
+          <div class="course-cat">Bases de Datos</div>
+          <div class="course-title">Base de Datos MySQL & SQL</div>
+          <div class="course-desc">Aprende a diseñar, crear y gestionar bases de datos relacionales.</div>
+          <div class="course-footer"><span class="course-code">AVIT-DB01</span><button class="course-enroll" onclick="location.href='avit_platform.html'">Inscribirse</button></div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#2563eb,#3b82f6);">🛡️</div>
+        <div class="course-body">
+          <div class="course-cat">Seguridad</div>
+          <div class="course-title">Ciberseguridad Informática</div>
+          <div class="course-desc">Protección de sistemas, redes y datos en el entorno digital.</div>
+          <div class="course-footer"><span class="course-code">AVIT-SEC01</span><button class="course-enroll" onclick="location.href='avit_platform.html'">Inscribirse</button></div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#3b82f6,#60a5fa);">🎨</div>
+        <div class="course-body">
+          <div class="course-cat">Diseño</div>
+          <div class="course-title">Marketing Digital y Diseño Gráfico</div>
+          <div class="course-desc">Photoshop, Illustrator, redes sociales y estrategias digitales.</div>
+          <div class="course-footer"><span class="course-code">AVIT-DG01</span><button class="course-enroll" onclick="location.href='avit_platform.html'">Inscribirse</button></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="cursos.html" class="btn-primary">Ver los 45+ cursos →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;" class="fade-up">
+      <div>
+        <span class="section-tag">¿Por qué A.V.I.T.?</span>
+        <h2 class="section-title">Aprende sin límites de distancia o tiempo</h2>
+        <p class="section-subtitle">Nuestro proyecto nace para eliminar las barreras del aprendizaje técnico — transporte, horarios, costos. Todo desde la seguridad de tu hogar.</p>
+        <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem;">
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:40px;height:40px;background:var(--pale);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;">🌍</div>
+            <div><strong style="color:var(--navy);">Accesible desde cualquier lugar</strong><p style="color:#64748b;font-size:0.85rem;margin-top:3px;">No importa tu provincia o país — si tienes internet, puedes aprender.</p></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:40px;height:40px;background:var(--pale);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;">🕐</div>
+            <div><strong style="color:var(--navy);">Flexibilidad horaria total</strong><p style="color:#64748b;font-size:0.85rem;margin-top:3px;">Aprende a tu ritmo, con contenido disponible las 24 horas.</p></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:40px;height:40px;background:var(--pale);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;">📜</div>
+            <div><strong style="color:var(--navy);">Certificación al completar</strong><p style="color:#64748b;font-size:0.85rem;margin-top:3px;">Obtén tu certificado reconocido y mejora tu perfil profesional.</p></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div style="width:40px;height:40px;background:var(--pale);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;">🌐</div>
+            <div><strong style="color:var(--navy);">3 idiomas disponibles</strong><p style="color:#64748b;font-size:0.85rem;margin-top:3px;">Español, inglés y portugués — próximamente francés y más.</p></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="background:linear-gradient(160deg,var(--navy),#0d1a8a);border-radius:24px;padding:2.5rem;color:white;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:1.5rem;">Nuestros valores</h3>
+          <div style="display:flex;flex-direction:column;gap:1rem;">
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.07);padding:12px 16px;border-radius:10px;"><span>⭐</span><span style="font-size:0.9rem;">Responsabilidad y compromiso</span></div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.07);padding:12px 16px;border-radius:10px;"><span>🤝</span><span style="font-size:0.9rem;">Respeto y profesionalismo</span></div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.07);padding:12px 16px;border-radius:10px;"><span>🔍</span><span style="font-size:0.9rem;">Transparencia total</span></div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.07);padding:12px 16px;border-radius:10px;"><span>💪</span><span style="font-size:0.9rem;">Perseverancia ante todo</span></div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.07);padding:12px 16px;border-radius:10px;"><span>🌈</span><span style="font-size:0.9rem;">Inclusión sin fronteras</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner fade-up">
+    <h2>¿Listo para comenzar tu camino?</h2>
+    <p>Únete a A.V.I.T. y transforma tu futuro profesional hoy mismo.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="cursos.html" class="btn-primary" style="font-size:1rem;padding:16px 36px;">Explorar cursos</a>
+      <a href="avit_platform.html" class="btn-secondary" style="font-size:1rem;padding:16px 36px;">Ingresar al portal</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;">
+          <div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div>
+        </div>
+        <p>"Tu éxito empieza aquí." — Formamos profesionales técnicos para el mundo digital.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <a href="index.html">Inicio</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="cursos.html">Cursos</a>
+        <a href="servicios.html">Servicios</a>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <a href="lideres.html">Líderes</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="avit_platform.html">Portal de Acceso</a>
+      </div>
+      <div class="footer-col">
+        <h4>Idiomas</h4>
+        <a href="#">Español</a>
+        <a href="#">English</a>
+        <a href="#">Português</a>
+        <a href="#" style="opacity:0.4;">Français (próximo)</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 A.V.I.T. Academia Virtual Internacional Técnica. Todos los derechos reservados.</span>
+      <span>Grupo 03 — IPA</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
