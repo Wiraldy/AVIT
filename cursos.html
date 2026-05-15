@@ -1,1 +1,418 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Cursos — AVIT</title> <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"> <style> :root{--navy:#0a0f3d;--blue:#1a2ecc;--mid-blue:#2563eb;--light-blue:#3b82f6;--sky:#60a5fa;--pale:#dbeafe;--white:#ffffff;--gray:#f0f4ff;} *{margin:0;padding:0;box-sizing:border-box;} body{font-family:'Montserrat',sans-serif;background:var(--gray);color:var(--navy);} nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,15,61,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(59,130,246,0.3);} .nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;} .logo{display:flex;align-items:center;gap:12px;text-decoration:none;} .logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--light-blue));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:13px;} .logo-text{color:white;font-weight:700;font-size:1.1rem;line-height:1.2;} .logo-text span{display:block;font-size:0.65rem;font-weight:400;color:var(--sky);letter-spacing:1px;} .nav-links{display:flex;align-items:center;gap:0.2rem;} .nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 14px;border-radius:6px;font-size:0.85rem;font-weight:500;transition:all 0.2s;} .nav-links a:hover,.nav-links a.active{color:white;background:rgba(59,130,246,0.25);} .nav-access{background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white!important;padding:9px 20px!important;border-radius:8px!important;font-weight:600!important;} .page-hero{padding:130px 2rem 60px;background:linear-gradient(160deg,var(--navy),#0d1a6e 60%,#0a1a8a);position:relative;overflow:hidden;} .page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.06) 1px,transparent 1px);background-size:60px 60px;} .page-hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:2;} .page-tag{display:inline-block;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);color:var(--sky);font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:1.2rem;} .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);color:white;margin-bottom:1rem;} .page-hero h1 span{color:var(--sky);} .page-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:550px;line-height:1.8;} /* FILTROS */ .filters-bar{background:white;border-bottom:1px solid var(--pale);padding:1rem 2rem;position:sticky;top:70px;z-index:900;} .filters-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;} .filter-btn{padding:7px 18px;border-radius:100px;border:2px solid var(--pale);background:white;color:#64748b;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Montserrat',sans-serif;} .filter-btn:hover,.filter-btn.active{background:var(--blue);color:white;border-color:var(--blue);} .search-box{margin-left:auto;position:relative;} .search-box input{padding:8px 16px 8px 38px;border:2px solid var(--pale);border-radius:100px;font-size:0.85rem;font-family:'Montserrat',sans-serif;outline:none;width:220px;transition:border 0.2s;} .search-box input:focus{border-color:var(--light-blue);} .search-box::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:0.85rem;} /* DISEÑO DE CURSOS */ .courses-wrapper{max-width:1280px;margin:0 auto;padding:2rem;} .courses-count{color:#64748b;font-size:0.85rem;margin-bottom:1.5rem;font-weight:500;} .courses-count strong{color:var(--navy);} .courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem;} .course-card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);transition:all 0.3s;border:1px solid transparent;display:flex;flex-direction:column;} .course-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(37,99,235,0.15);border-color:var(--light-blue);} .course-thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;} .course-badge{position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.4);color:white;font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:0.5px;} .course-body{padding:1.2rem;flex:1;display:flex;flex-direction:column;} .course-cat{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.4rem;} .course-title{font-weight:700;font-size:0.93rem;color:var(--navy);margin-bottom:0.4rem;line-height:1.4;} .course-desc{color:#64748b;font-size:0.78rem;line-height:1.5;flex:1;margin-bottom:1rem;} .course-meta{display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;} .course-lang{background:#f1f5f9;color:#475569;font-size:0.68rem;font-weight:600;padding:3px 8px;border-radius:6px;} .course-dur{color:#94a3b8;font-size:0.72rem;} .course-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;} .course-code{background:var(--pale);color:var(--blue);padding:4px 10px;border-radius:6px;font-size:0.68rem;font-weight:700;font-family:monospace;} .course-enroll{background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white;border:none;padding:8px 18px;border-radius:8px;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Montserrat',sans-serif;} .course-enroll:hover{box-shadow:0 4px 15px rgba(37,99,235,0.4);transform:translateY(-1px);} .no-results{text-align:center;padding:4rem;color:#94a3b8;display:none;} .no-results p{font-size:1.1rem;margin-top:1rem;} footer{background:var(--navy);color:rgba(255,255,255,0.6);padding:3rem 2rem 1.5rem;} .footer-inner{max-width:1280px;margin:0 auto;} .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;} .footer-brand p{margin-top:1rem;font-size:0.85rem;line-height:1.7;max-width:260px;} .footer-col h4{color:white;font-weight:700;font-size:0.9rem;margin-bottom:1rem;} .footer-col a{display:block;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;margin-bottom:0.5rem;transition:color 0.2s;} .footer-col a:hover{color:var(--sky);} .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;font-size:0.8rem;} @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;}} @media(max-width:600px){.nav-links{display:none;}.search-box{display:none;}.footer-grid{grid-template-columns:1fr;}} </style> </head> <body> <nav> <div class="nav-inner"> <a href="index.html" class="logo"> <img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;"> <div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div> </a> <div class="nav-links"> <a href="index.html">Inicio</a> <a href="nosotros.html">Nosotros</a> <a href="cursos.html" class="active">Cursos</a> <a href="servicios.html">Servicios</a> <a href="lideres.html">Líderes</a> <a href="contacto.html">Contacto</a> <a href="avit_platform.html" class="nav-access">🔐 Acceder</a> </div> </div> </nav> <div class="page-hero"> <div class="page-hero-grid"></div> <div class="page-hero-inner"> <div class="page-tag">Catálogo Completo</div> <h1>Nuestros <span>45+ Cursos</span></h1> <p>Domina las habilidades más demandadas del mercado tecnológico actual. Aprende a tu ritmo, desde donde estés.</p> </div> </div> <div class="filters-bar"> <div class="filters-inner"> <button class="filter-btn active" data-cat="all">Todos</button> <button class="filter-btn" data-cat="programacion">Programación</button> <button class="filter-btn" data-cat="bases-datos">Bases de Datos</button> <button class="filter-btn" data-cat="diseno">Diseño</button> <button class="filter-btn" data-cat="seguridad">Seguridad</button> <button class="filter-btn" data-cat="redes">Redes</button> <button class="filter-btn" data-cat="idiomas">Idiomas</button> <button class="filter-btn" data-cat="negocios">Negocios</button> <div class="search-box"><input type="text" id="searchInput" placeholder="Buscar curso..."></div> </div> </div> <div class="courses-wrapper"> <div class="courses-count" id="courseCount"></div> <div class="courses-grid" id="coursesGrid"></div> <div class="no-results" id="noResults"><span style="font-size:3rem;">🔍</span><p>No se encontraron cursos con ese filtro.</p></div> </div> <footer> <div class="footer-inner"> <div class="footer-grid"> <div class="footer-brand"> <div class="logo"><img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;"><div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div></div> <p>"Tu éxito empieza aquí." — Formamos profesionales técnicos para el mundo digital.</p> </div> <div class="footer-col"><h4>Navegación</h4><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="cursos.html">Cursos</a><a href="servicios.html">Servicios</a></div> <div class="footer-col"><h4>Empresa</h4><a href="lideres.html">Líderes</a><a href="contacto.html">Contacto</a><a href="avit_platform.html">Portal de Acceso</a></div> <div class="footer-col"><h4>Idiomas</h4><a href="#">Español</a><a href="#">English</a><a href="#">Português</a></div> </div> <div class="footer-bottom"><span>© 2025 AVIT Academia Virtual Internacional Técnica.</span><span>Grupo 03 — IPA</span></div> </div> </footer> <script> const cursos = [ // PROGRAMACION {id:1,cat:'programacion',icon:'💻',bg:'linear-gradient(135deg,#0a0f3d,#1a2ecc)',title:'Desarrollo Web Completo',desc:'HTML5, CSS3, JavaScript ES6+. y responsivos desde cero.',code:'AVIT-WEB01',dur:'80 hrs',langs:['ES','EN','PT'],badge:'Popular'}, {id:2,cat:'programacion',icon:'⚛️',bg:'linear-gradient(135deg,#1a2ecc,#2563eb)',title:'React.js desde Cero',desc:'Componentes, hooks, state management y despliegue de aplicaciones modernas.',code:'AVIT-WEB02',dur:'60 hrs',langs:['ES','EN'],badge:''}, {id:3,cat:'programacion',icon:'🟩',bg:'linear-gradient(135deg,#0d4b1a,#16a34a)',title:'Node.js y Express',desc:'Desarrollo backend con JavaScript. APIs REST, autenticación y bases de datos.',code:'AVIT-WEB03',dur:'70 hrs',langs:['ES','EN'],badge:''}, {id:4,cat:'programacion',icon:'🐍',bg:'linear-gradient(135deg,#1a3a6e,#2563eb)',title:'Python para Principiantes',desc:'Fundamentos de Python, lógica de programación y proyectos prácticos.',code:'AVIT-PY01',dur:'55 hrs',langs:['ES','EN','PT'],badge:'Nuevo'}, {id:5,cat:'programacion',icon:'🤖',bg:'linear-gradient(135deg,#0a0f3d,#7c3aed)',title:'Python para Inteligencia Artificial',desc:'Machine Learning, redes neuronales y análisis de datos con Python.',code:'AVIT-PY02',dur:'90 hrs',langs:['ES','EN'],badge:''}, {id:6,cat:'programacion',icon:'📱',bg:'linear-gradient(135deg,#0a2a4a,#0ea5e9)',title:'Desarrollo de Apps Móviles',desc:'Crea aplicaciones para Android e iOS con React Nativo.',código:'AVIT-APP01',dur:'75 hrs',langs:['ES','EN'],badge:''}, {id:7,cat:'programacion',icon:'☕',bg:'linear-gradient(135deg,#5c1a0a,#dc2626)',title:'Java Orientado a Objetos',desc:'Programación orientada a objetos, patrones de diseño y proyectos empresarial.',code:'AVIT-JAVA01',dur:'65 hrs',langs:['ES','EN'],badge:''}, {id:8,cat:'programacion',icon:'🔷',bg:'linear-gradient(135deg,#0a1a5c,#3b82f6)',title:'TypeScript Avanzado',desc:'Tipado estático, interfaces, generics y mejores prácticas con TypeScript.',code:'AVIT-TS01',dur:'45 hrs',langs:['ES','EN'],badge:''}, {id:9,cat:'programacion',icon:'🌐',bg:'linear-gradient(135deg,#0a2a1a,#059669)',title:'PHP y Laravel',desc:'Desarrollo web backend con PHP 8 y ​​el framework Laravel.',code:'AVIT-PHP01',dur:'70 horas',idiomas:['ES'],insignia:''}, {id:10,cat:'programacion',icon:'🎮',bg:'linear-gradient(135deg,#1a0a3d,#7c3aed)',title:'Desarrollo de Videojuegos con Unity',desc:'Crea videojuegos 2D y 3D usando Unity y C#.',code:'AVIT-GAME01',dur:'100 hrs',langs:['ES','EN'],badge:''}, // BASES DE DATOS {id:11,cat:'bases-datos',icon:'🗄️',bg:'linear-gradient(135deg,#0a1a3d,#1e40af)',title:'MySQL y SQL Completo',desc:'Diseño, creación y gestión de bases de datos relacionales con MySQL.',código:'AVIT-DB01',dur:'50 hrs',langs:['ES','EN','PT'],badge:'Popular'}, {id:12,cat:'bases-datos',icon:'🍃',bg:'linear-gradient(135deg,#0a2a1a,#15803d)',title:'MongoDB y NoSQL',desc:'Bases de datos no relacionales, documentos, colecciones y agregaciones.',code:'AVIT-DB02',dur:'40 hrs',langs:['ES','EN'],badge:''}, {id:13,cat:'bases-datos',icon:'🐘',bg:'linear-gradient(135deg,#1a2a4a,#1d4ed8)',title:'PostgreSQL Profesional',desc:'PostgreSQL avanzado: procedimientos almacenados, disparadores, optimización y replicación.',code:'AVIT-DB03',dur:'55 hrs',langs:['ES','EN'],badge:''}, {id:14,cat:'bases-datos',icon:'📊',bg:'linear-gradient(135deg,#2a0a1a,#be185d)',title:'Power BI y Análisis de Datos',desc:'Visualización de datos, Dashboards interactivos y business Intelligence.',code:'AVIT-DB04',dur:'45 hrs',langs:['ES','EN'],badge:'Nuevo'}, {id:15,cat:'bases-datos',icon:'☁️',bg:'linear-gradient(135deg,#0a1a3d,#0284c7)',title:'Bases de Datos en la Nube',desc:'AWS RDS, Firebase, Supabase y gestión de datos en entornos cloud.',code:'AVIT-DB05',dur:'50 hrs',langs:['ES','EN'],badge:''}, // DISEÑO {id:16,cat:'diseno',icon:'🎨',bg:'linear-gradient(135deg,#1a0a2a,#9333ea)',title:'Diseño Gráfico con Photoshop',desc:'Fundamentos de diseño digital, retoque fotográfico y composición visual.',code:'AVIT-DG01',dur:'60 hrs',langs:['ES','EN','PT'],badge:'Popular'}, {id:17,cat:'diseno',icon:'✏️',bg:'linear-gradient(135deg,#0a1a2a,#0369a1)',title:'Illustrator y Diseño Vectorial',desc:'Creación de logos, íconos, ilustraciones y diseño vectorial profesional.',code:'AVIT-DG02',dur:'50 hrs',langs:['ES','EN'],badge:''}, {id:18,cat:'diseno',icon:'🖼️',bg:'linear-gradient(135deg,#2a0a0a,#dc2626)',title:'UI/UX Design con Figma',desc:'Diseño de interfaces, prototipado, wireframes y experiencia de usuario.',code:'AVIT-DG03',dur:'65 hrs',langs:['ES','EN'],badge:'Nuevo'}, {id:19,cat:'diseno',icon:'📣',bg:'linear-gradient(135deg,#1a1a0a,#ca8a04)',title:'Marketing Digital Completo',desc:'SEO, SEM, redes sociales, email marketing y analítica digital.',code:'AVIT-MKT01',dur:'70 hrs',langs:['ES','EN','PT'],badge:''}, {id:20,cat:'diseno',icon:'🎬',bg:'linear-gradient(135deg,#0a0a1a,#4f46e5)',title:'Edición de Video con Premiere',desc:'Edición profesional, efectos visuales, gradación de color y exportación.',code:'AVIT-VID01',dur:'55 hrs',langs:['ES'],badge:''}, {id:21,cat:'diseno',icon:'🎥',bg:'linear-gradient(135deg,#1a0a0a,#b91c1c)',title:'After Effects y Motion Graphics',desc:'Animaciones, motion Graphics y efectos visuales para video y web.',code:'AVIT-VID02',dur:'60 hrs',langs:['ES','EN'],badge:''}, {id:22,cat:'diseno',icon:'📐',bg:'linear-gradient(135deg,#0a1a2a,#0891b2)',title:'AutoCAD y Diseño Técnico',desc:'Diseño asistido por computadora para arquitectura e ingeniería.',code:'AVIT-CAD01',dur:'75 hrs',langs:['ES'],badge:''}, // SEGURIDAD {id:23,cat:'seguridad',icon:'🛡️',bg:'linear-gradient(135deg,#0a0f3d,#1e3a5f)',title:'Ciberseguridad Fundamental',desc:'Principios de seguridad, amenazas, vulnerabilidades y mejores prácticas.',code:'AVIT-SEC01',dur:'60 hrs',langs:['ES','EN','PT'],badge:'Popular'}, {id:24,cat:'seguridad',icon:'🔐',bg:'linear-gradient(135deg,#0f0a1a,#4c1d95)',title:'Hacking Ético y Pentesting',desc:'Pruebas de penetración, herramientas de hacking ético y seguridad ofensiva.',code:'AVIT-SEC02',dur:'90 hrs',langs:['ES','EN'],badge:''}, {id:25,cat:'seguridad',icon:'🔒',bg:'linear-gradient(135deg,#1a0a0a,#7f1d1d)',title:'Seguridad en Redes',desc:'Firewalls, VPNs, protocolos seguros y protección de infraestructura.',code:'AVIT-SEC03',dur:'55 hrs',langs:['ES','EN'],badge:''}, {id:26,cat:'seguridad',icon:'🕵️',bg:'linear-gradient(135deg,#0a0f2a,#1e3a8a)',title:'Análisis Forense Digital',desc:'Investigación de incidentes, recuperación de datos y análisis de malware.',code:'AVIT-SEC04',dur:'70 hrs',langs:['ES','EN'],badge:'Nuevo'}, {id:27,cat:'seguridad',icon:'☁️',bg:'linear-gradient(135deg,#0a1a2a,#075985)',title:'Seguridad en la Nube',desc:'AWS Security, Azure Security Center y mejores prácticas nube.',código:'AVIT-SEC05',dur:'50 hrs',langs:['ES','EN'],badge:''}, // REDES {id:28,cat:'redes',icon:'🌐',bg:'linear-gradient(135deg,#0a1a3a,#1d4ed8)',title:'Redes y Networking Básico',desc:'TCP/IP, protocolos, topologías de red y configuración básica.',code:'AVIT-NET01',dur:'50 hrs',langs:['ES','EN','PT'],badge:''}, {id:29,cat:'redes',icon:'🔧',bg:'linear-gradient(135deg,#1a0a0a,#991b1b)',title:'Cisco CCNA Preparación',desc:'Preparación para la certificación CCNA: enrutamiento, conmutación y más.',código:'AVIT-NET02',dur:'80 hrs',langs:['ES','EN'],badge:''}, {id:30,cat:'redes',icon:'🖥️',bg:'linear-gradient(135deg,#0a1a0a,#166534)',title:'Administración de Servidores Linux',desc:'Linux, administración de sistemas, automatización con Bash y Shell.',code:'AVIT-NET03',dur:'65 hrs',langs:['ES','EN'],badge:''}, {id:31,cat:'redes',icon:'🚀',bg:'linear-gradient(135deg,#0a0a1a,#1e1b4b)',title:'DevOps y CI/CD',desc:'Acciones de Docker, Kubernetes, Jenkins, GitHub y metodologías DevOps.',code:'AVIT-NET04',dur:'85 hrs',langs:['ES','EN'],badge:'Nuevo'}, {id:32,cat:'redes',icon:'📡',bg:'linear-gradient(135deg,#0a1a2a,#0c4a6e)',title:'Administración de Windows Server',desc:'Active Directory, Group Policy, DNS, DHCP y gestión de usuarios.',code:'AVIT-NET05',dur:'60 hrs',langs:['ES'],badge:''}, // IDIOMAS {id:33,cat:'idiomas',icon:'🇺🇸',bg:'linear-gradient(135deg,#1a0a1a,#7c3aed)',title:'Español para Tecnología',desc:'Inglés orientado al mundo técnico IT: vocabulario, comunicación y entrevistas.',code:'AVIT-ENG01',dur:'80 hrs',langs:['ES'],badge:'Popular'}, {id:34,cat:'idiomas',icon:'🇧🇷',bg:'linear-gradient(135deg,#0a1a0a,#15803d)',title:'Portugués Básico a Avanzado',desc:'Aprende portugués desde cero hasta nivel conversacional avanzado.',code:'AVIT-PT01',dur:'70 hrs',langs:['ES'],badge:''}, {id:35,cat:'idiomas',icon:'🇫🇷',bg:'linear-gradient(135deg,#0a0a1a,#1d4ed8)',title:'Francés para Principiantes',desc:'Fundamentos del idioma francés, pronunciación y conversación básica.',code:'AVIT-FR01',dur:'65 hrs',langs:['ES'],badge:'Nuevo'}, {id:36,cat:'idiomas',icon:'🇩🇪',bg:'linear-gradient(135deg,#1a1a0a,#92400e)',title:'Alemán Empresarial',desc:'Alemán orientado a negocios y comunicación en entornos profesionales.',code:'AVIT-DE01',dur:'70 horas',idiomas:['ES'],insignia:''}, {id:37,cat:'idiomas',icon:'🇯🇵',bg:'linear-gradient(135deg,#1a0a0a,#dc2626)',title:'Japonés Básico',desc:'Hiragana, Katakana, vocabulario esencial y frases cotidianas en japonés.',code:'AVIT-JP01',dur:'80 hrs',langs:['ES'],badge:'Nuevo'}, // NEGOCIOS {id:38,cat:'negocios',icon:'📈',bg:'linear-gradient(135deg,#0a1a0a,#065f46)',title:'Emprendimiento Digital',desc:'Crea y escala tu negocio online: modelo de negocio, pitch y financiación.',código:'AVIT-BIZ01',dur:'50 hrs',langs:['ES','EN','PT'],badge:''}, {id:39,cat:'negocios',icon:'💼',bg:'linear-gradient(135deg,#0a0a1a,#1e3a8a)',title:'Gestión de Proyectos con Scrum',desc:'Metodologías ágiles, Scrum, Kanban y gestión eficiente de equipos.',code:'AVIT-BIZ02',dur:'40 hrs',langs:['ES','EN'],badge:''}, {id:40,cat:'negocios',icon:'🤝',bg:'linear-gradient(135deg,#1a0a0a,#9f1239)',title:'Liderazgo y Management',desc:'Habilidades de liderazgo, gestión de equipos, comunicación y negociación.',code:'AVIT-BIZ03',dur:'45 hrs',langs:['ES','EN'],badge:''}, {id:41,cat:'negocios',icon:'💰',bg:'linear-gradient(135deg,#1a1a0a,#713f12)',title:'Finanzas Personales y Empresariales',desc:'Contabilidad básica, flujo de caja, inversiones y planeación financiera.',code:'AVIT-BIZ04',dur:'50 hrs',langs:['ES'],badge:''}, {id:42,cat:'negocios',icon:'🛒',bg:'linear-gradient(135deg,#0a1a1a,#134e4a)',title:'E-commerce y Ventas Online',desc:'Crea tu tienda online, estrategias de venta, dropshipping y logística.',code:'AVIT-BIZ05',dur:'55 hrs',langs:['ES','EN'],badge:'Nuevo'}, {id:43,cat:'negocios',icon:'📊',bg:'linear-gradient(135deg,#1a0a1a,#6b21a8)',title:'Excel Avanzado para Negocios',desc:'Macros, tablas dinámicas, fórmulas avanzadas y automatización con VBA.',code:'AVIT-BIZ06',dur:'40 hrs',idiomas:['ES','EN'],badge:''}, {id:44,cat:'programacion',icon:'🧠',bg:'linear-gradient(135deg,#0a0f3d,#4338ca)',title:'Fundamentos de Algoritmos',desc:'Lógica de programación, algoritmos, estructuras de datos y complejidad.',code:'AVIT-ALG01',dur:'50 hrs',langs:['ES','EN'],badge:''}, {id:45,cat:'seguridad',icon:'🔑',bg:'linear-gradient(135deg,#0f1a0a,#166534)',title:'Criptografía y Blockchain',desc:'Principios criptográficos, blockchain, contratos inteligentes y Web3.',code:'AVIT-BC01',dur:'60 hrs',langs:['ES','EN'],badge:'Nuevo'}, {id:46,cat:'diseno',icon:'🎙️',bg:'linear-gradient(135deg,#1a0a1a,#831843)',title:'Producción de Podcasts y Audio',desc:'Grabación, edición, distribución y monetización de podcasts profesionales.',code:'AVIT-POD01',dur:'35 hrs',langs:['ES'],badge:''}, {id:47,cat:'redes',icon:'🌩️',bg:'linear-gradient(135deg,#0a0a2a,#1e40af)',title:'AWS Cloud Practitioner',desc:'Preparación para la certificación AWS Cloud Practitioner. Servicios cloud esenciales.',code:'AVIT-AWS01',dur:'55 hrs',langs:['ES','EN'],badge:''}, ]; const catColors = { 'programacion':'#1a2ecc','bases-datos':'#0369a1','diseno':'#9333ea', 'seguridad':'#dc2626','redes':'#15803d','idiomas':'#ca8a04','negocios':'#065f46' }; const catNames = { 'programacion':'Programación','bases-datos':'Bases de Datos','diseno':'Diseño', 'seguridad':'Seguridad','redes':'Redes','idiomas':'Idiomas','negocios':'Negocios' }; let currentCat = 'todos'; dejar término de búsqueda = ''; función renderCourses() { const grid = document.getElementById('cursosGrid'); const noResults = document.getElementById('noResults'); const countEl = document.getElementById('cursoCount'); const filtered = courses.filter(c => { const matchCat = currentCat === 'all' || c.cat === currentCat; const matchSearch = c.title.toLowerCase().includes(searchTerm) || c.code.toLowerCase().includes(searchTerm) || c.desc.toLowerCase().includes(searchTerm); return matchCat && matchSearch; }); countEl.innerHTML = `Mostrando <strong>${filtered.length}</strong> de <strong>${courses.length}</strong> cursos`; if(filtered.length === 0) { grid.innerHTML = ''; noResults.style.display = 'block'; return; } noResults.style.display = 'none'; grid.innerHTML = filtered.map(c => ` <div class="course-card"> <div class="course-thumb" style="background:${c.bg};"> ${c.icon} ${c.insignia ? `<span class="course-badge">${c.badge}</span>` : ''} </div> <div class="course-body"> <div class="course-cat" style="color:${catColors[c.cat]||'#1a2ecc'}">${catNames[c.cat]||c.cat}</div> <div class="course-title">${c.title}</div> <div class="course-desc">${c.desc}</div> <div class="course-meta"> ${c.langs.map(l=>`<span class="course-lang">${l}</span>`).join('')} <span class="course-dur">⏱ ${c.dur}</span> </div> <div class="course-footer"> <span class="course-code">${c.code}</span> <button class="course-enroll" onclick="enrollCourse('${c.code}','${c.title.replace(/'/g,"\\'")}')">Inscribirse</button> </div> </div> </div> `).join(''); } function enrollCourse(code, title) { sessionStorage.setItem('enrollCode', code); sessionStorage.setItem('enrollTitle', title); window.location.href = 'avit_platform.html'; } document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentCat = btn.dataset.cat; renderCourses(); }); }); document.getElementById('searchInput').addEventListener('input', e => { searchTerm = e.target.value.toLowerCase(); renderCourses(); }); renderCourses(); </script> </body> </html>título) { sessionStorage.setItem('enrollCode', code); sessionStorage.setItem('enrollTitle', title); window.location.href = 'avit_platform.html'; } document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentCat = btn.dataset.cat; renderCourses(); }); }); document.getElementById('searchInput').addEventListener('input', e => { searchTerm = e.target.value.toLowerCase(); renderCourses(); }); renderCourses(); </script> </body> </html>título) { sessionStorage.setItem('enrollCode', code); sessionStorage.setItem('enrollTitle', title); window.location.href = 'avit_platform.html'; } document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentCat = btn.dataset.cat; renderCourses(); }); }); document.getElementById('searchInput').addEventListener('input', e => { searchTerm = e.target.value.toLowerCase(); renderCourses(); }); renderCourses(); </script> </body> </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cursos — A.V.I.T.</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a0f3d;--blue:#1a2ecc;--mid-blue:#2563eb;--light-blue:#3b82f6;--sky:#60a5fa;--pale:#dbeafe;--white:#ffffff;--gray:#f0f4ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:var(--gray);color:var(--navy);}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,15,61,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(59,130,246,0.3);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--light-blue));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:13px;}
+.logo-text{color:white;font-weight:700;font-size:1.1rem;line-height:1.2;}
+.logo-text span{display:block;font-size:0.65rem;font-weight:400;color:var(--sky);letter-spacing:1px;}
+.nav-links{display:flex;align-items:center;gap:0.2rem;}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 14px;border-radius:6px;font-size:0.85rem;font-weight:500;transition:all 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:white;background:rgba(59,130,246,0.25);}
+.nav-access{background:linear-gradient(135deg,var(--blue),var(--mid-blue));color:white!important;padding:9px 20px!important;border-radius:8px!important;font-weight:600!important;}
+
+.page-hero{padding:130px 2rem 60px;background:linear-gradient(160deg,var(--navy),#0d1a6e 60%,#0a1a8a);position:relative;overflow:hidden;}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.06) 1px,transparent 1px);background-size:60px 60px;}
+.page-hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:2;}
+.page-tag{display:inline-block;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);color:var(--sky);font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:1.2rem;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);color:white;margin-bottom:1rem;}
+.page-hero h1 span{color:var(--sky);}
+.page-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:550px;line-height:1.8;}
+
+.filters-bar{background:white;border-bottom:1px solid var(--pale);padding:1rem 2rem;position:sticky;top:70px;z-index:900;}
+.filters-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.filter-btn{padding:7px 18px;border-radius:100px;border:2px solid var(--pale);background:white;color:#64748b;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Montserrat',sans-serif;}
+.filter-btn:hover,.filter-btn.active{background:var(--blue);color:white;border-color:var(--blue);}
+.search-box{margin-left:auto;position:relative;}
+.search-box input{padding:8px 16px 8px 38px;border:2px solid var(--pale);border-radius:100px;font-size:0.85rem;font-family:'Montserrat',sans-serif;outline:none;width:220px;transition:border 0.2s;}
+.search-box input:focus{border-color:var(--light-blue);}
+.search-box::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:0.85rem;}
+
+.courses-wrapper{max-width:1280px;margin:0 auto;padding:2rem;}
+.courses-count{color:#64748b;font-size:0.85rem;margin-bottom:1.5rem;font-weight:500;}
+.courses-count strong{color:var(--navy);}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
+
+.course-card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);transition:all 0.3s;border:1px solid transparent;display:flex;flex-direction:column;}
+.course-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(37,99,235,0.15);border-color:var(--light-blue);}
+
+/* THUMB: ahora más alto para que el precio sea visible */
+.course-thumb{height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:3rem;position:relative;gap:8px;}
+.course-badge{position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.45);color:white;font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:0.5px;}
+
+/* BLOQUE DE PRECIO — siempre visible, centrado en el thumb */
+.thumb-price{
+  background:rgba(255,255,255,0.18);
+  border:1.5px solid rgba(255,255,255,0.5);
+  backdrop-filter:blur(8px);
+  color:#fff;
+  font-size:1.15rem;
+  font-weight:900;
+  padding:6px 18px;
+  border-radius:100px;
+  letter-spacing:0.5px;
+  text-shadow:0 1px 4px rgba(0,0,0,0.3);
+}
+.thumb-price.premium{border-color:#fde68a;color:#fde68a;}
+.thumb-price.high{border-color:#93c5fd;color:#bfdbfe;}
+
+.course-body{padding:1.2rem;flex:1;display:flex;flex-direction:column;}
+.course-cat{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.4rem;}
+.course-title{font-weight:700;font-size:0.93rem;color:var(--navy);margin-bottom:0.4rem;line-height:1.4;}
+.course-desc{color:#64748b;font-size:0.78rem;line-height:1.5;flex:1;margin-bottom:0.8rem;}
+.course-meta{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem;flex-wrap:wrap;}
+.course-lang{background:#f1f5f9;color:#475569;font-size:0.68rem;font-weight:600;padding:3px 8px;border-radius:6px;}
+.course-dur{color:#94a3b8;font-size:0.72rem;}
+
+/* BANDA DE PRECIO EN BODY — clara y grande */
+.course-price-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:0.9rem;
+  padding:10px 14px;
+  background:linear-gradient(90deg,#eff6ff,#dbeafe);
+  border-radius:10px;
+  border:1px solid #bfdbfe;
+}
+.course-price-label{font-size:0.68rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.course-price-amount{font-size:1.2rem;font-weight:900;color:var(--blue);}
+.course-price-amount .currency{font-size:0.75rem;font-weight:700;color:#475569;margin-right:1px;}
+.course-price-note{font-size:0.65rem;color:#94a3b8;font-weight:500;}
+
+.course-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.course-code{background:var(--pale);color:var(--blue);padding:4px 10px;border-radius:6px;font-size:0.68rem;font-weight:700;font-family:monospace;}
+
+/* BOTÓN — verde para destacar acción positiva */
+.course-enroll{
+  background:linear-gradient(135deg,#059669,#10b981);
+  color:white;
+  border:none;
+  padding:10px 22px;
+  border-radius:9px;
+  font-size:0.8rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:all 0.2s;
+  font-family:'Montserrat',sans-serif;
+  letter-spacing:0.3px;
+}
+.course-enroll:hover{box-shadow:0 4px 15px rgba(16,185,129,0.45);transform:translateY(-1px);}
+.course-enroll:active{transform:translateY(0);}
+
+/* MODAL DE INSCRIPCIÓN */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9000;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal-box{background:white;border-radius:20px;padding:2rem;width:min(480px,90vw);box-shadow:0 20px 60px rgba(0,0,0,0.25);position:relative;animation:modalIn 0.25s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94a3b8;line-height:1;}
+.modal-icon{font-size:2.5rem;margin-bottom:0.75rem;text-align:center;}
+.modal-title{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:0.3rem;text-align:center;}
+.modal-course-name{font-size:0.85rem;color:#64748b;text-align:center;margin-bottom:1.2rem;}
+.modal-price-block{background:linear-gradient(135deg,var(--navy),#1a2ecc);border-radius:12px;padding:1rem 1.5rem;text-align:center;margin-bottom:1.4rem;}
+.modal-price-block .lbl{font-size:0.7rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.modal-price-block .amount{font-size:2rem;font-weight:900;color:#fff;}
+.modal-price-block .note{font-size:0.7rem;color:rgba(255,255,255,0.55);margin-top:2px;}
+.modal-form{display:flex;flex-direction:column;gap:0.75rem;}
+.modal-form input{padding:10px 14px;border:2px solid var(--pale);border-radius:9px;font-size:0.85rem;font-family:'Montserrat',sans-serif;outline:none;transition:border 0.2s;}
+.modal-form input:focus{border-color:var(--light-blue);}
+.modal-submit{background:linear-gradient(135deg,#059669,#10b981);color:white;border:none;padding:13px;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all 0.2s;margin-top:0.25rem;}
+.modal-submit:hover{box-shadow:0 4px 15px rgba(16,185,129,0.4);}
+.modal-divider{display:flex;align-items:center;gap:0.75rem;margin:0.25rem 0;}
+.modal-divider::before,.modal-divider::after{content:'';flex:1;height:1px;background:var(--pale);}
+.modal-divider span{font-size:0.7rem;color:#94a3b8;white-space:nowrap;}
+.modal-login-link{text-align:center;font-size:0.8rem;color:#64748b;}
+.modal-login-link a{color:var(--blue);font-weight:700;text-decoration:none;}
+.modal-login-link a:hover{text-decoration:underline;}
+
+.no-results{text-align:center;padding:4rem;color:#94a3b8;display:none;}
+.no-results p{font-size:1.1rem;margin-top:1rem;}
+
+footer{background:var(--navy);color:rgba(255,255,255,0.6);padding:3rem 2rem 1.5rem;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+.footer-brand p{margin-top:1rem;font-size:0.85rem;line-height:1.7;max-width:260px;}
+.footer-col h4{color:white;font-weight:700;font-size:0.9rem;margin-bottom:1rem;}
+.footer-col a{display:block;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;margin-bottom:0.5rem;transition:color 0.2s;}
+.footer-col a:hover{color:var(--sky);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;font-size:0.8rem;}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.nav-links{display:none;}.search-box{display:none;}.footer-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- MODAL INSCRIPCIÓN -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-icon">🎓</div>
+    <div class="modal-title">¡Inscríbete ahora!</div>
+    <div class="modal-course-name" id="modalCourseName"></div>
+    <div class="modal-price-block">
+      <div class="lbl">Precio del curso</div>
+      <div class="amount" id="modalPrice"></div>
+      <div class="note">Pago único · Acceso de por vida</div>
+    </div>
+    <div class="modal-form">
+      <input type="text" placeholder="Tu nombre completo" id="mNombre">
+      <input type="email" placeholder="Correo electrónico" id="mEmail">
+      <input type="tel" placeholder="Teléfono / WhatsApp" id="mTel">
+      <button class="modal-submit" onclick="submitEnroll()">✅ Confirmar inscripción</button>
+    </div>
+    <div class="modal-divider"><span>¿Ya tienes cuenta?</span></div>
+    <div class="modal-login-link"><a href="avit_platform.html">Acceder al portal →</a></div>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;">
+      <div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="cursos.html" class="active">Cursos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="lideres.html">Líderes</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="avit_platform.html" class="nav-access">🔐 Acceder</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-tag">Catálogo Completo</div>
+    <h1>Nuestros <span>47 Cursos</span></h1>
+    <p>Domina las habilidades más demandadas del mercado tecnológico actual. Aprende a tu ritmo, desde donde estés.</p>
+  </div>
+</div>
+
+<div class="filters-bar">
+  <div class="filters-inner">
+    <button class="filter-btn active" data-cat="all">Todos</button>
+    <button class="filter-btn" data-cat="programacion">Programación</button>
+    <button class="filter-btn" data-cat="bases-datos">Bases de Datos</button>
+    <button class="filter-btn" data-cat="diseno">Diseño</button>
+    <button class="filter-btn" data-cat="seguridad">Seguridad</button>
+    <button class="filter-btn" data-cat="redes">Redes</button>
+    <button class="filter-btn" data-cat="idiomas">Idiomas</button>
+    <button class="filter-btn" data-cat="negocios">Negocios</button>
+    <div class="search-box"><input type="text" id="searchInput" placeholder="Buscar curso..."></div>
+  </div>
+</div>
+
+<div class="courses-wrapper">
+  <div class="courses-count" id="courseCount"></div>
+  <div class="courses-grid" id="coursesGrid"></div>
+  <div class="no-results" id="noResults"><span style="font-size:3rem;">🔍</span><p>No se encontraron cursos con ese filtro.</p></div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <img src="avit.png" alt="AVIT Logo" style="width:44px;height:44px;border-radius:10px;object-fit:contain;">
+          <div class="logo-text">Academia Virtual<span>Internacional Técnica</span></div>
+        </div>
+        <p>"Tu éxito empieza aquí." — Formamos profesionales técnicos para el mundo digital.</p>
+      </div>
+      <div class="footer-col"><h4>Navegación</h4><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="cursos.html">Cursos</a><a href="servicios.html">Servicios</a></div>
+      <div class="footer-col"><h4>Empresa</h4><a href="lideres.html">Líderes</a><a href="contacto.html">Contacto</a><a href="avit_platform.html">Portal de Acceso</a></div>
+      <div class="footer-col"><h4>Idiomas</h4><a href="#">Español</a><a href="#">English</a><a href="#">Português</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 A.V.I.T. Academia Virtual Internacional Técnica.</span><span>Grupo 03 — IPA</span></div>
+  </div>
+</footer>
+
+<script>
+const courses = [
+  // PROGRAMACION
+  {id:1,cat:'programacion',icon:'💻',bg:'linear-gradient(135deg,#0a0f3d,#1a2ecc)',title:'Desarrollo Web Completo',desc:'HTML5, CSS3, JavaScript ES6+. Crea sitios web modernos y responsivos desde cero.',code:'AVIT-WEB01',dur:'80 hrs',langs:['ES','EN','PT'],badge:'Popular',price:3500,priceClass:'high'},
+  {id:2,cat:'programacion',icon:'⚛️',bg:'linear-gradient(135deg,#1a2ecc,#2563eb)',title:'React.js desde Cero',desc:'Componentes, hooks, state management y despliegue de aplicaciones modernas.',code:'AVIT-WEB02',dur:'60 hrs',langs:['ES','EN'],badge:'',price:2500,priceClass:''},
+  {id:3,cat:'programacion',icon:'🟩',bg:'linear-gradient(135deg,#0d4b1a,#16a34a)',title:'Node.js y Express',desc:'Desarrollo backend con JavaScript. APIs REST, autenticación y bases de datos.',code:'AVIT-WEB03',dur:'70 hrs',langs:['ES','EN'],badge:'',price:2800,priceClass:''},
+  {id:4,cat:'programacion',icon:'🐍',bg:'linear-gradient(135deg,#1a3a6e,#2563eb)',title:'Python para Principiantes',desc:'Fundamentos de Python, lógica de programación y proyectos prácticos.',code:'AVIT-PY01',dur:'55 hrs',langs:['ES','EN','PT'],badge:'Nuevo',price:1500,priceClass:''},
+  {id:5,cat:'programacion',icon:'🤖',bg:'linear-gradient(135deg,#0a0f3d,#7c3aed)',title:'Python para Inteligencia Artificial',desc:'Machine Learning, redes neuronales y análisis de datos con Python.',code:'AVIT-PY02',dur:'90 hrs',langs:['ES','EN'],badge:'',price:4000,priceClass:'premium'},
+  {id:6,cat:'programacion',icon:'📱',bg:'linear-gradient(135deg,#0a2a4a,#0ea5e9)',title:'Desarrollo de Apps Móviles',desc:'Crea aplicaciones para Android e iOS con React Native.',code:'AVIT-APP01',dur:'75 hrs',langs:['ES','EN'],badge:'',price:3200,priceClass:'high'},
+  {id:7,cat:'programacion',icon:'☕',bg:'linear-gradient(135deg,#5c1a0a,#dc2626)',title:'Java Orientado a Objetos',desc:'Programación orientada a objetos, patrones de diseño y proyectos empresariales.',code:'AVIT-JAVA01',dur:'65 hrs',langs:['ES','EN'],badge:'',price:2500,priceClass:''},
+  {id:8,cat:'programacion',icon:'🔷',bg:'linear-gradient(135deg,#0a1a5c,#3b82f6)',title:'TypeScript Avanzado',desc:'Tipado estático, interfaces, generics y mejores prácticas con TypeScript.',code:'AVIT-TS01',dur:'45 hrs',langs:['ES','EN'],badge:'',price:1800,priceClass:''},
+  {id:9,cat:'programacion',icon:'🌐',bg:'linear-gradient(135deg,#0a2a1a,#059669)',title:'PHP y Laravel',desc:'Desarrollo web backend con PHP 8 y el framework Laravel.',code:'AVIT-PHP01',dur:'70 hrs',langs:['ES'],badge:'',price:2200,priceClass:''},
+  {id:10,cat:'programacion',icon:'🎮',bg:'linear-gradient(135deg,#1a0a3d,#7c3aed)',title:'Desarrollo de Videojuegos con Unity',desc:'Crea videojuegos 2D y 3D usando Unity y C#.',code:'AVIT-GAME01',dur:'100 hrs',langs:['ES','EN'],badge:'',price:4000,priceClass:'premium'},
+  // BASES DE DATOS
+  {id:11,cat:'bases-datos',icon:'🗄️',bg:'linear-gradient(135deg,#0a1a3d,#1e40af)',title:'MySQL y SQL Completo',desc:'Diseño, creación y gestión de bases de datos relacionales con MySQL.',code:'AVIT-DB01',dur:'50 hrs',langs:['ES','EN','PT'],badge:'Popular',price:1500,priceClass:''},
+  {id:12,cat:'bases-datos',icon:'🍃',bg:'linear-gradient(135deg,#0a2a1a,#15803d)',title:'MongoDB y NoSQL',desc:'Bases de datos no relacionales, documentos, colecciones y agregaciones.',code:'AVIT-DB02',dur:'40 hrs',langs:['ES','EN'],badge:'',price:1200,priceClass:''},
+  {id:13,cat:'bases-datos',icon:'🐘',bg:'linear-gradient(135deg,#1a2a4a,#1d4ed8)',title:'PostgreSQL Profesional',desc:'PostgreSQL avanzado: stored procedures, triggers, optimización y replicación.',code:'AVIT-DB03',dur:'55 hrs',langs:['ES','EN'],badge:'',price:2000,priceClass:''},
+  {id:14,cat:'bases-datos',icon:'📊',bg:'linear-gradient(135deg,#2a0a1a,#be185d)',title:'Power BI y Análisis de Datos',desc:'Visualización de datos, dashboards interactivos y business intelligence.',code:'AVIT-DB04',dur:'45 hrs',langs:['ES','EN'],badge:'Nuevo',price:1800,priceClass:''},
+  {id:15,cat:'bases-datos',icon:'☁️',bg:'linear-gradient(135deg,#0a1a3d,#0284c7)',title:'Bases de Datos en la Nube',desc:'AWS RDS, Firebase, Supabase y gestión de datos en entornos cloud.',code:'AVIT-DB05',dur:'50 hrs',langs:['ES','EN'],badge:'',price:2200,priceClass:''},
+  // DISEÑO
+  {id:16,cat:'diseno',icon:'🎨',bg:'linear-gradient(135deg,#1a0a2a,#9333ea)',title:'Diseño Gráfico con Photoshop',desc:'Fundamentos de diseño digital, retoque fotográfico y composición visual.',code:'AVIT-DG01',dur:'60 hrs',langs:['ES','EN','PT'],badge:'Popular',price:2000,priceClass:''},
+  {id:17,cat:'diseno',icon:'✏️',bg:'linear-gradient(135deg,#0a1a2a,#0369a1)',title:'Illustrator y Diseño Vectorial',desc:'Creación de logos, íconos, ilustraciones y diseño vectorial profesional.',code:'AVIT-DG02',dur:'50 hrs',langs:['ES','EN'],badge:'',price:1800,priceClass:''},
+  {id:18,cat:'diseno',icon:'🖼️',bg:'linear-gradient(135deg,#2a0a0a,#dc2626)',title:'UI/UX Design con Figma',desc:'Diseño de interfaces, prototipado, wireframes y experiencia de usuario.',code:'AVIT-DG03',dur:'65 hrs',langs:['ES','EN'],badge:'Nuevo',price:2500,priceClass:''},
+  {id:19,cat:'diseno',icon:'📣',bg:'linear-gradient(135deg,#1a1a0a,#ca8a04)',title:'Marketing Digital Completo',desc:'SEO, SEM, redes sociales, email marketing y analítica digital.',code:'AVIT-MKT01',dur:'70 hrs',langs:['ES','EN','PT'],badge:'',price:2800,priceClass:''},
+  {id:20,cat:'diseno',icon:'🎬',bg:'linear-gradient(135deg,#0a0a1a,#4f46e5)',title:'Edición de Video con Premiere',desc:'Edición profesional, efectos visuales, color grading y exportación.',code:'AVIT-VID01',dur:'55 hrs',langs:['ES'],badge:'',price:2000,priceClass:''},
+  {id:21,cat:'diseno',icon:'🎥',bg:'linear-gradient(135deg,#1a0a0a,#b91c1c)',title:'After Effects y Motion Graphics',desc:'Animaciones, motion graphics y efectos visuales para video y web.',code:'AVIT-VID02',dur:'60 hrs',langs:['ES','EN'],badge:'',price:2200,priceClass:''},
+  {id:22,cat:'diseno',icon:'📐',bg:'linear-gradient(135deg,#0a1a2a,#0891b2)',title:'AutoCAD y Diseño Técnico',desc:'Diseño asistido por computadora para arquitectura e ingeniería.',code:'AVIT-CAD01',dur:'75 hrs',langs:['ES'],badge:'',price:3000,priceClass:'high'},
+  // SEGURIDAD
+  {id:23,cat:'seguridad',icon:'🛡️',bg:'linear-gradient(135deg,#0a0f3d,#1e3a5f)',title:'Ciberseguridad Fundamental',desc:'Principios de seguridad, amenazas, vulnerabilidades y mejores prácticas.',code:'AVIT-SEC01',dur:'60 hrs',langs:['ES','EN','PT'],badge:'Popular',price:2200,priceClass:''},
+  {id:24,cat:'seguridad',icon:'🔐',bg:'linear-gradient(135deg,#0f0a1a,#4c1d95)',title:'Ethical Hacking y Pentesting',desc:'Pruebas de penetración, herramientas de hacking ético y seguridad ofensiva.',code:'AVIT-SEC02',dur:'90 hrs',langs:['ES','EN'],badge:'',price:4000,priceClass:'premium'},
+  {id:25,cat:'seguridad',icon:'🔒',bg:'linear-gradient(135deg,#1a0a0a,#7f1d1d)',title:'Seguridad en Redes',desc:'Firewalls, VPNs, protocolos seguros y protección de infraestructura.',code:'AVIT-SEC03',dur:'55 hrs',langs:['ES','EN'],badge:'',price:1800,priceClass:''},
+  {id:26,cat:'seguridad',icon:'🕵️',bg:'linear-gradient(135deg,#0a0f2a,#1e3a8a)',title:'Análisis Forense Digital',desc:'Investigación de incidentes, recuperación de datos y análisis de malware.',code:'AVIT-SEC04',dur:'70 hrs',langs:['ES','EN'],badge:'Nuevo',price:3000,priceClass:'high'},
+  {id:27,cat:'seguridad',icon:'☁️',bg:'linear-gradient(135deg,#0a1a2a,#075985)',title:'Seguridad en la Nube',desc:'AWS Security, Azure Security Center y mejores prácticas cloud.',code:'AVIT-SEC05',dur:'50 hrs',langs:['ES','EN'],badge:'',price:2500,priceClass:''},
+  // REDES
+  {id:28,cat:'redes',icon:'🌐',bg:'linear-gradient(135deg,#0a1a3a,#1d4ed8)',title:'Redes y Networking Básico',desc:'TCP/IP, protocolos, topologías de red y configuración básica.',code:'AVIT-NET01',dur:'50 hrs',langs:['ES','EN','PT'],badge:'',price:1000,priceClass:''},
+  {id:29,cat:'redes',icon:'🔧',bg:'linear-gradient(135deg,#1a0a0a,#991b1b)',title:'Cisco CCNA Preparación',desc:'Preparación para la certificación CCNA: routing, switching y más.',code:'AVIT-NET02',dur:'80 hrs',langs:['ES','EN'],badge:'',price:3500,priceClass:'high'},
+  {id:30,cat:'redes',icon:'🖥️',bg:'linear-gradient(135deg,#0a1a0a,#166534)',title:'Administración de Servidores Linux',desc:'Linux, administración de sistemas, automatización con Bash y Shell.',code:'AVIT-NET03',dur:'65 hrs',langs:['ES','EN'],badge:'',price:2500,priceClass:''},
+  {id:31,cat:'redes',icon:'🚀',bg:'linear-gradient(135deg,#0a0a1a,#1e1b4b)',title:'DevOps y CI/CD',desc:'Docker, Kubernetes, Jenkins, GitHub Actions y metodologías DevOps.',code:'AVIT-NET04',dur:'85 hrs',langs:['ES','EN'],badge:'Nuevo',price:4000,priceClass:'premium'},
+  {id:32,cat:'redes',icon:'📡',bg:'linear-gradient(135deg,#0a1a2a,#0c4a6e)',title:'Administración de Windows Server',desc:'Active Directory, Group Policy, DNS, DHCP y gestión de usuarios.',code:'AVIT-NET05',dur:'60 hrs',langs:['ES'],badge:'',price:2000,priceClass:''},
+  // IDIOMAS
+  {id:33,cat:'idiomas',icon:'🇺🇸',bg:'linear-gradient(135deg,#1a0a1a,#7c3aed)',title:'Inglés para Tecnología',desc:'Inglés técnico orientado al mundo IT: vocabulario, comunicación y entrevistas.',code:'AVIT-ENG01',dur:'80 hrs',langs:['ES'],badge:'Popular',price:2800,priceClass:''},
+  {id:34,cat:'idiomas',icon:'🇧🇷',bg:'linear-gradient(135deg,#0a1a0a,#15803d)',title:'Portugués Básico a Avanzado',desc:'Aprende portugués desde cero hasta nivel conversacional avanzado.',code:'AVIT-PT01',dur:'70 hrs',langs:['ES'],badge:'',price:2200,priceClass:''},
+  {id:35,cat:'idiomas',icon:'🇫🇷',bg:'linear-gradient(135deg,#0a0a1a,#1d4ed8)',title:'Francés para Principiantes',desc:'Fundamentos del idioma francés, pronunciación y conversación básica.',code:'AVIT-FR01',dur:'65 hrs',langs:['ES'],badge:'Nuevo',price:2000,priceClass:''},
+  {id:36,cat:'idiomas',icon:'🇩🇪',bg:'linear-gradient(135deg,#1a1a0a,#92400e)',title:'Alemán Empresarial',desc:'Alemán orientado a negocios y comunicación en entornos profesionales.',code:'AVIT-DE01',dur:'70 hrs',langs:['ES'],badge:'',price:2500,priceClass:''},
+  {id:37,cat:'idiomas',icon:'🇯🇵',bg:'linear-gradient(135deg,#1a0a0a,#dc2626)',title:'Japonés Básico',desc:'Hiragana, Katakana, vocabulario esencial y frases cotidianas en japonés.',code:'AVIT-JP01',dur:'80 hrs',langs:['ES'],badge:'Nuevo',price:3000,priceClass:'high'},
+  // NEGOCIOS
+  {id:38,cat:'negocios',icon:'📈',bg:'linear-gradient(135deg,#0a1a0a,#065f46)',title:'Emprendimiento Digital',desc:'Crea y escala tu negocio online: modelo de negocio, pitch y financiamiento.',code:'AVIT-BIZ01',dur:'50 hrs',langs:['ES','EN','PT'],badge:'',price:1500,priceClass:''},
+  {id:39,cat:'negocios',icon:'💼',bg:'linear-gradient(135deg,#0a0a1a,#1e3a8a)',title:'Gestión de Proyectos con Scrum',desc:'Metodologías ágiles, Scrum, Kanban y gestión eficiente de equipos.',code:'AVIT-BIZ02',dur:'40 hrs',langs:['ES','EN'],badge:'',price:1200,priceClass:''},
+  {id:40,cat:'negocios',icon:'🤝',bg:'linear-gradient(135deg,#1a0a0a,#9f1239)',title:'Liderazgo y Management',desc:'Habilidades de liderazgo, gestión de equipos, comunicación y negociación.',code:'AVIT-BIZ03',dur:'45 hrs',langs:['ES','EN'],badge:'',price:1500,priceClass:''},
+  {id:41,cat:'negocios',icon:'💰',bg:'linear-gradient(135deg,#1a1a0a,#713f12)',title:'Finanzas Personales y Empresariales',desc:'Contabilidad básica, flujo de caja, inversiones y planeación financiera.',code:'AVIT-BIZ04',dur:'50 hrs',langs:['ES'],badge:'',price:1800,priceClass:''},
+  {id:42,cat:'negocios',icon:'🛒',bg:'linear-gradient(135deg,#0a1a1a,#134e4a)',title:'E-commerce y Ventas Online',desc:'Crea tu tienda online, estrategias de venta, dropshipping y logística.',code:'AVIT-BIZ05',dur:'55 hrs',langs:['ES','EN'],badge:'Nuevo',price:2000,priceClass:''},
+  {id:43,cat:'negocios',icon:'📊',bg:'linear-gradient(135deg,#1a0a1a,#6b21a8)',title:'Excel Avanzado para Negocios',desc:'Macros, tablas dinámicas, fórmulas avanzadas y automatización con VBA.',code:'AVIT-BIZ06',dur:'40 hrs',langs:['ES','EN'],badge:'',price:1200,priceClass:''},
+  {id:44,cat:'programacion',icon:'🧠',bg:'linear-gradient(135deg,#0a0f3d,#4338ca)',title:'Fundamentos de Algoritmos',desc:'Lógica de programación, algoritmos, estructuras de datos y complejidad.',code:'AVIT-ALG01',dur:'50 hrs',langs:['ES','EN'],badge:'',price:1500,priceClass:''},
+  {id:45,cat:'seguridad',icon:'🔑',bg:'linear-gradient(135deg,#0f1a0a,#166534)',title:'Criptografía y Blockchain',desc:'Principios criptográficos, blockchain, contratos inteligentes y Web3.',code:'AVIT-BC01',dur:'60 hrs',langs:['ES','EN'],badge:'Nuevo',price:3000,priceClass:'high'},
+  {id:46,cat:'diseno',icon:'🎙️',bg:'linear-gradient(135deg,#1a0a1a,#831843)',title:'Producción de Podcasts y Audio',desc:'Grabación, edición, distribución y monetización de podcasts profesionales.',code:'AVIT-POD01',dur:'35 hrs',langs:['ES'],badge:'',price:1000,priceClass:''},
+  {id:47,cat:'redes',icon:'🌩️',bg:'linear-gradient(135deg,#0a0a2a,#1e40af)',title:'AWS Cloud Practitioner',desc:'Preparación para la certificación AWS Cloud Practitioner. Servicios cloud esenciales.',code:'AVIT-AWS01',dur:'55 hrs',langs:['ES','EN'],badge:'',price:2800,priceClass:''},
+];
+
+const catColors = {
+  'programacion':'#1a2ecc','bases-datos':'#0369a1','diseno':'#9333ea',
+  'seguridad':'#dc2626','redes':'#15803d','idiomas':'#ca8a04','negocios':'#065f46'
+};
+const catNames = {
+  'programacion':'Programación','bases-datos':'Bases de Datos','diseno':'Diseño',
+  'seguridad':'Seguridad','redes':'Redes','idiomas':'Idiomas','negocios':'Negocios'
+};
+
+let currentCat = 'all';
+let searchTerm = '';
+let selectedCourse = null;
+
+function formatPrice(p){
+  return 'RD$\u00a0' + p.toLocaleString('es-DO');
+}
+
+function renderCourses() {
+  const grid = document.getElementById('coursesGrid');
+  const noResults = document.getElementById('noResults');
+  const countEl = document.getElementById('courseCount');
+
+  const filtered = courses.filter(c => {
+    const matchCat = currentCat === 'all' || c.cat === currentCat;
+    const matchSearch = c.title.toLowerCase().includes(searchTerm) || c.code.toLowerCase().includes(searchTerm) || c.desc.toLowerCase().includes(searchTerm);
+    return matchCat && matchSearch;
+  });
+
+  countEl.innerHTML = `Mostrando <strong>${filtered.length}</strong> de <strong>${courses.length}</strong> cursos`;
+
+  if(filtered.length === 0) {
+    grid.innerHTML = '';
+    noResults.style.display = 'block';
+    return;
+  }
+  noResults.style.display = 'none';
+
+  grid.innerHTML = filtered.map(c => `
+    <div class="course-card">
+      <div class="course-thumb" style="background:${c.bg};">
+        <span style="font-size:3rem;">${c.icon}</span>
+        <span class="thumb-price ${c.priceClass}">${formatPrice(c.price)}</span>
+        ${c.badge ? `<span class="course-badge">${c.badge}</span>` : ''}
+      </div>
+      <div class="course-body">
+        <div class="course-cat" style="color:${catColors[c.cat]||'#1a2ecc'}">${catNames[c.cat]||c.cat}</div>
+        <div class="course-title">${c.title}</div>
+        <div class="course-desc">${c.desc}</div>
+        <div class="course-meta">
+          ${c.langs.map(l=>`<span class="course-lang">${l}</span>`).join('')}
+          <span class="course-dur">⏱ ${c.dur}</span>
+        </div>
+        <div class="course-price-row">
+          <div>
+            <div class="course-price-label">Precio del curso</div>
+            <div class="course-price-amount"><span class="currency">RD$</span>${c.price.toLocaleString('es-DO')}</div>
+          </div>
+          <div class="course-price-note">Pago único<br>Acceso de por vida</div>
+        </div>
+        <div class="course-footer">
+          <span class="course-code">${c.code}</span>
+          <button class="course-enroll" onclick="openModal(${c.id})">Inscribirse →</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openModal(id) {
+  selectedCourse = courses.find(c => c.id === id);
+  if(!selectedCourse) return;
+  document.getElementById('modalCourseName').textContent = selectedCourse.title;
+  document.getElementById('modalPrice').textContent = formatPrice(selectedCourse.price);
+  document.getElementById('mNombre').value = '';
+  document.getElementById('mEmail').value = '';
+  document.getElementById('mTel').value = '';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function submitEnroll() {
+  const nombre = document.getElementById('mNombre').value.trim();
+  const email = document.getElementById('mEmail').value.trim();
+  if(!nombre || !email) {
+    alert('Por favor completa tu nombre y correo electrónico.');
+    return;
+  }
+  closeModal();
+  alert(`¡Inscripción recibida, ${nombre}! Pronto te contactaremos a ${email} con los detalles del curso "${selectedCourse.title}".`);
+}
+
+// Cerrar modal al hacer clic fuera
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if(e.target === this) closeModal();
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCat = btn.dataset.cat;
+    renderCourses();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchTerm = e.target.value.toLowerCase();
+  renderCourses();
+});
+
+renderCourses();
+</script>
+</body>
+</html>
