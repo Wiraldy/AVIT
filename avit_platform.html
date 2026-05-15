@@ -37,7 +37,9 @@ body{background:var(--navy);background-image:radial-gradient(ellipse at 20% 50%,
 /* ═══════════════════════════════════ AUTH SCREEN ═══════════════════════════════════ */
 #authScreen{align-items:center;justify-content:center;position:relative}
 #authScreen::before{content:'A.V.I.T';position:absolute;font-size:22vw;font-weight:800;color:rgba(29,111,202,0.04);letter-spacing:-0.05em;pointer-events:none;user-select:none;line-height:1}
-.auth-box{width:420px;background:var(--card);border:1px solid var(--border);border-radius:28px;padding:42px 40px;backdrop-filter:blur(20px);position:relative;z-index:1}
+.auth-box{width:460px;max-height:92vh;overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:28px;padding:36px 38px;backdrop-filter:blur(20px);position:relative;z-index:1}
+.auth-box::-webkit-scrollbar{width:4px}
+.auth-box::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 .auth-logo{text-align:center;margin-bottom:32px}
 .auth-logo h1{font-size:2.2rem;font-weight:800;letter-spacing:-0.05em;color:#fff}
 .auth-logo h1 span{color:var(--accent)}
@@ -64,8 +66,8 @@ select.form-input option{background:#0c1e35;color:#e8f0ff}
 .plan-card p{font-size:0.72rem;color:var(--muted);margin-top:3px}
 .plan-price{font-size:1.2rem;font-weight:800;color:var(--accent);margin-top:6px}
 .step-indicator{display:flex;gap:8px;margin-bottom:24px;justify-content:center}
-.step-dot{width:8px;height:8px;border-radius:50%;background:var(--navy2);transition:all 0.2s}
-.step-dot.active{background:var(--blue2);width:24px;border-radius:4px}
+.step-dot{width:7px;height:7px;border-radius:50%;background:var(--navy2);transition:all 0.2s}
+.step-dot.active{background:var(--blue2);width:20px;border-radius:4px}
 .step-dot.done{background:var(--green)}
 
 /* ═══════════════════════════════════ DASHBOARD ═══════════════════════════════════ */
@@ -334,14 +336,14 @@ select.form-input option{background:#0c1e35;color:#e8f0ff}
 
     <!-- LOGIN FORM -->
     <div id="loginForm">
-      <div class="auth-error" id="loginError">Usuario o código incorrecto. Verifica tus datos.</div>
+      <div class="auth-error" id="loginError">Correo o código incorrecto. Verifica tus datos.</div>
       <div class="form-group">
-        <label class="form-label">Usuario</label>
-        <input class="form-input" id="loginUser" placeholder="ej: juan.perez" autocomplete="off">
+        <label class="form-label">Correo electrónico</label>
+        <input class="form-input" id="loginUser" placeholder="tu@correo.com" autocomplete="off">
       </div>
       <div class="form-group">
-        <label class="form-label">Código de curso</label>
-        <input class="form-input" id="loginCode" placeholder="ej: AVIT-2025-ARTE01" autocomplete="off">
+        <label class="form-label">Código de acceso</label>
+        <input class="form-input" id="loginCode" placeholder="ej: AVIT-2025-WEB02" autocomplete="off">
       </div>
       <button class="btn-primary" onclick="doLogin()">Entrar a la plataforma →</button>
       <div class="auth-divider">¿No tienes cuenta?</div>
@@ -355,61 +357,114 @@ select.form-input option{background:#0c1e35;color:#e8f0ff}
         <div class="step-dot"></div>
         <div class="step-dot"></div>
         <div class="step-dot"></div>
+        <div class="step-dot"></div>
       </div>
 
       <!-- Step 1: Datos personales -->
       <div class="reg-step active" id="regStep1">
-        <div class="form-group">
-          <label class="form-label">Nombre completo</label>
-          <input class="form-input" id="regNombre" placeholder="Tu nombre completo">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="form-group">
+            <label class="form-label">Nombre(s)</label>
+            <input class="form-input" id="regNombre" placeholder="Ej: Juan Carlos">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Apellidos</label>
+            <input class="form-input" id="regApellido" placeholder="Ej: Pérez Soto">
+          </div>
         </div>
         <div class="form-group">
           <label class="form-label">Correo electrónico</label>
           <input class="form-input" id="regEmail" placeholder="tu@correo.com" type="email">
         </div>
         <div class="form-group">
-          <label class="form-label">Teléfono</label>
-          <input class="form-input" id="regTel" placeholder="+1 (809) 000-0000">
+          <label class="form-label">Contraseña</label>
+          <input class="form-input" id="regPassword" placeholder="Mínimo 8 caracteres" type="password">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="form-group">
+            <label class="form-label">Teléfono</label>
+            <input class="form-input" id="regTel" placeholder="+1 (809) 000-0000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Fecha de nacimiento</label>
+            <input class="form-input" id="regNacimiento" type="date">
+          </div>
         </div>
         <div class="form-group">
-          <label class="form-label">País de residencia</label>
-          <select class="form-input" id="regPais">
-            <option value="">Selecciona país</option>
-            <option>República Dominicana</option>
-            <option>Puerto Rico</option>
-            <option>Colombia</option>
-            <option>México</option>
-            <option>Venezuela</option>
-            <option>España</option>
-            <option>Otro</option>
-          </select>
+          <label class="form-label">Cédula / Pasaporte</label>
+          <input class="form-input" id="regCedula" placeholder="Número de identificación">
         </div>
         <button class="btn-primary" onclick="regNext(1)">Continuar →</button>
       </div>
 
-      <!-- Step 2: Seleccionar curso -->
+      <!-- Step 2: Dirección y perfil -->
       <div class="reg-step" id="regStep2">
+        <div class="form-group">
+          <label class="form-label">País de residencia</label>
+          <select class="form-input" id="regPais">
+            <option value="">Selecciona país</option>
+            <option>República Dominicana</option><option>Puerto Rico</option>
+            <option>Colombia</option><option>México</option>
+            <option>Venezuela</option><option>España</option>
+            <option>Argentina</option><option>Chile</option><option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ciudad / Provincia</label>
+          <input class="form-input" id="regCiudad" placeholder="Ej: Santo Domingo">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nivel educativo actual</label>
+          <select class="form-input" id="regNivel">
+            <option value="">Selecciona nivel</option>
+            <option>Secundaria en curso</option><option>Secundaria completada</option>
+            <option>Universidad en curso</option><option>Universidad completada</option>
+            <option>Técnico / Vocacional</option><option>Posgrado</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">¿Cómo nos conociste?</label>
+          <select class="form-input" id="regFuente">
+            <option value="">Selecciona una opción</option>
+            <option>Redes sociales</option><option>Recomendación de un amigo</option>
+            <option>Google / Buscador</option><option>Anuncio en internet</option><option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Motivación (¿por qué quieres estudiar aquí?)</label>
+          <textarea class="form-input" id="regMotivacion" rows="2" placeholder="Cuéntanos brevemente..." style="resize:none"></textarea>
+        </div>
+        <button class="btn-primary" onclick="regNext(2)">Continuar →</button>
+      </div>
+
+      <!-- Step 3: Seleccionar curso -->
+      <div class="reg-step" id="regStep3">
         <p style="font-size:0.78rem;color:var(--muted);margin-bottom:14px">Selecciona el curso al que deseas inscribirte:</p>
         <div class="plan-card" onclick="selectPlan(this,'artes')" data-plan="artes">
           <h4>🎭 Artes Integradas y Patrimonio Cultural</h4>
           <p>Danza · Música folklórica · Títeres · Plástica · Escénicas</p>
-          <div class="plan-price">RD$3,800 / mes</div>
+          <div class="plan-price">$1,000 USD · 6 meses</div>
         </div>
         <div class="plan-card" onclick="selectPlan(this,'diseno')" data-plan="diseno">
           <h4>🎨 Diseño Visual & Medios Digitales</h4>
           <p>Composición · Color · Cartel · Grabado · Fotografía · TIC</p>
-          <div class="plan-price">RD$4,200 / mes</div>
+          <div class="plan-price">$1,500 USD · 8 meses</div>
         </div>
         <div class="plan-card" onclick="selectPlan(this,'web')" data-plan="web">
           <h4>💻 Desarrollo Web Profesional</h4>
           <p>HTML · CSS · JavaScript · React · Backend con Node.js</p>
-          <div class="plan-price">RD$5,500 / mes</div>
+          <div class="plan-price">$4,000 USD · 2 años</div>
         </div>
-        <button class="btn-primary" style="margin-top:14px" onclick="regNext(2)">Continuar →</button>
+        <div class="plan-card" onclick="selectPlan(this,'ia')" data-plan="ia">
+          <h4>🤖 Inteligencia Artificial con Python</h4>
+          <p>ML · Redes neuronales · TensorFlow · Análisis de datos</p>
+          <div class="plan-price">$4,000 USD · 1 año 6 meses</div>
+        </div>
+        <button class="btn-primary" style="margin-top:14px" onclick="regNext(3)">Continuar →</button>
       </div>
 
-      <!-- Step 3: Pago -->
-      <div class="reg-step" id="regStep3">
+      <!-- Step 4: Pago -->
+      <div class="reg-step" id="regStep4">
         <p style="font-size:0.78rem;color:var(--muted);margin-bottom:14px">Información de pago para completar tu inscripción:</p>
         <div class="form-group">
           <label class="form-label">Titular de la tarjeta</label>
@@ -432,22 +487,25 @@ select.form-input option{background:#0c1e35;color:#e8f0ff}
         <div style="background:rgba(0,184,107,0.06);border:1px solid rgba(0,184,107,0.2);border-radius:10px;padding:10px 14px;font-size:0.72rem;color:var(--muted);margin-bottom:14px">
           <i class="fas fa-lock" style="color:var(--green)"></i> Pago seguro encriptado · No almacenamos datos de tarjeta
         </div>
-        <button class="btn-primary" onclick="regNext(3)">Procesar pago →</button>
+        <label style="display:flex;align-items:flex-start;gap:8px;font-size:0.72rem;color:var(--muted);margin-bottom:14px;cursor:pointer">
+          <input type="checkbox" id="regTerms" style="margin-top:2px;flex-shrink:0"> Acepto los <span style="color:var(--blue2);margin:0 3px">Términos y Condiciones</span> y la <span style="color:var(--blue2);margin:0 3px">Política de Privacidad</span> de A.V.I.T.
+        </label>
+        <button class="btn-primary" onclick="regNext(4)">Procesar pago →</button>
       </div>
 
-      <!-- Step 4: Confirmación -->
-      <div class="reg-step" id="regStep4">
+      <!-- Step 5: Confirmación -->
+      <div class="reg-step" id="regStep5">
         <div style="text-align:center;padding:10px 0">
           <div style="font-size:3rem;margin-bottom:12px">🎉</div>
           <div style="font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:8px">¡Inscripción completada!</div>
-          <p style="font-size:0.78rem;color:var(--muted);line-height:1.6;margin-bottom:20px">Tu cuenta ha sido creada exitosamente. Guarda tus credenciales de acceso:</p>
+          <p style="font-size:0.78rem;color:var(--muted);line-height:1.6;margin-bottom:20px">Tu cuenta ha sido creada exitosamente. Guarda tus credenciales:</p>
           <div style="background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:left">
-            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em">Usuario</div>
-            <div style="font-family:var(--mono);font-size:0.9rem;color:var(--accent);font-weight:700" id="newUserDisplay"></div>
-            <div style="font-size:0.7rem;color:var(--muted);margin-top:12px;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em">Código de curso</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em">Correo / Usuario</div>
+            <div style="font-family:var(--mono);font-size:0.85rem;color:var(--accent);font-weight:700" id="newUserDisplay"></div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:12px;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em">Código de acceso</div>
             <div style="font-family:var(--mono);font-size:0.9rem;color:var(--accent);font-weight:700" id="newCodeDisplay"></div>
           </div>
-          <button class="btn-primary" style="margin-top:20px" onclick="goToDashFromReg()">Ir a mi aula virtual →</button>
+          <button class="btn-primary" style="margin-top:20px" onclick="goToDashFromReg()">Entrar a mi aula virtual →</button>
         </div>
       </div>
     </div>
@@ -840,7 +898,15 @@ let currentChatId = null;
 let regStep = 1;
 let selectedPlan = null;
 let newUserData = {};
-let calDate = new Date(2025, 4, 14); // mayo 2025
+let calDate = new Date(2025, 4, 14);
+
+// ════════════════════ LOCALSTORAGE ════════════════════
+function getStoredUsers(){
+  try { return JSON.parse(localStorage.getItem('avit_users')||'{}'); } catch(e){ return {}; }
+}
+function saveStoredUsers(users){
+  localStorage.setItem('avit_users', JSON.stringify(users));
+}
 
 // ════════════════════ AUTH ════════════════════
 function switchAuthTab(tab){
@@ -858,14 +924,21 @@ function doLogin(){
   const u = document.getElementById('loginUser').value.trim().toLowerCase();
   const c = document.getElementById('loginCode').value.trim().toUpperCase();
   const err = document.getElementById('loginError');
-  const user = USERS[u];
-  if(user && user.code === c){
-    err.style.display='none';
-    currentUser = {...user, username: u};
-    loadDashboard();
-  } else {
-    err.style.display='block';
+  // Demo hardcoded users
+  if(u==='juan.perez'&&c==='AVIT-2025-ARTE01'){ err.style.display='none'; currentUser={...USERS['juan.perez'],username:'juan.perez'}; loadDashboard(); return; }
+  if(u==='maria.gomez'&&c==='AVIT-2025-WEB02'){ err.style.display='none'; currentUser={...USERS['maria.gomez'],username:'maria.gomez'}; loadDashboard(); return; }
+  if(u==='carlos.reyes'&&c==='AVIT-2025-DIS03'){ err.style.display='none'; currentUser={...USERS['carlos.reyes'],username:'carlos.reyes'}; loadDashboard(); return; }
+  // Check localStorage users (email-based login)
+  const stored = getStoredUsers();
+  for(const [email, data] of Object.entries(stored)){
+    if((u === email.toLowerCase() || u === data.username) && c === data.code){
+      err.style.display='none';
+      currentUser = {...data};
+      loadDashboard();
+      return;
+    }
   }
+  err.style.display='block';
 }
 
 function selectPlan(el, plan){
@@ -886,31 +959,58 @@ function updateStepDots(active){
 function regNext(step){
   if(step===1){
     const n=document.getElementById('regNombre').value.trim();
+    const ap=document.getElementById('regApellido').value.trim();
     const e=document.getElementById('regEmail').value.trim();
-    if(!n||!e){toast('Por favor completa todos los campos','warn');return;}
-    newUserData.name=n; newUserData.email=e;
+    const pw=document.getElementById('regPassword').value.trim();
+    const ced=document.getElementById('regCedula').value.trim();
+    if(!n||!ap||!e||!pw||!ced){toast('Por favor completa todos los campos requeridos','warn');return;}
+    if(pw.length<8){toast('La contraseña debe tener mínimo 8 caracteres','warn');return;}
+    if(!e.includes('@')){toast('Ingresa un correo electrónico válido','warn');return;}
+    newUserData.nombre=n; newUserData.apellido=ap; newUserData.name=n+' '+ap;
+    newUserData.email=e; newUserData.password=pw; newUserData.cedula=ced;
+    newUserData.tel=document.getElementById('regTel').value.trim();
+    newUserData.nacimiento=document.getElementById('regNacimiento').value;
   }
   if(step===2){
+    const pais=document.getElementById('regPais').value;
+    const ciudad=document.getElementById('regCiudad').value.trim();
+    const nivel=document.getElementById('regNivel').value;
+    if(!pais||!ciudad||!nivel){toast('Por favor completa todos los campos','warn');return;}
+    newUserData.pais=pais; newUserData.ciudad=ciudad; newUserData.nivel=nivel;
+    newUserData.fuente=document.getElementById('regFuente').value;
+    newUserData.motivacion=document.getElementById('regMotivacion').value.trim();
+  }
+  if(step===3){
     if(!selectedPlan){toast('Selecciona un curso para continuar','warn');return;}
     newUserData.plan=selectedPlan;
   }
-  if(step===3){
+  if(step===4){
     const cn=document.getElementById('regCardNum').value.replace(/\s/g,'');
     if(cn.length<16){toast('Número de tarjeta inválido','warn');return;}
+    if(!document.getElementById('regTerms').checked){toast('Debes aceptar los términos y condiciones','warn');return;}
     const initials = newUserData.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-    const userSlug = newUserData.name.toLowerCase().replace(/\s+/g,'.');
-    const planCodes = {artes:'ARTE01',diseno:'DIS03',web:'WEB02'};
-    const planYears = {artes:'0099',diseno:'0099',web:'0099'};
-    newUserData.username = userSlug;
-    newUserData.code = 'AVIT-2025-'+planCodes[selectedPlan];
+    const planCodes = {artes:'ARTE01',diseno:'DIS03',web:'WEB02',ia:'PY02'};
+    const courseMap = {artes:['artes'],diseno:['diseno'],web:['web'],ia:['web']};
     newUserData.initials = initials;
-    document.getElementById('newUserDisplay').textContent = userSlug;
+    newUserData.code = 'AVIT-2025-'+planCodes[selectedPlan];
+    newUserData.username = newUserData.email;
+    newUserData.courses = courseMap[selectedPlan];
+    document.getElementById('newUserDisplay').textContent = newUserData.email;
     document.getElementById('newCodeDisplay').textContent = newUserData.code;
-    const courseMap = {artes:['artes'],diseno:['diseno'],web:['web']};
+    // Save to localStorage
+    const stored = getStoredUsers();
+    stored[newUserData.email] = {
+      name: newUserData.name, email: newUserData.email,
+      initials, code: newUserData.code, username: newUserData.email,
+      courses: newUserData.courses, tel: newUserData.tel,
+      pais: newUserData.pais, ciudad: newUserData.ciudad, nivel: newUserData.nivel,
+      cedula: newUserData.cedula, nacimiento: newUserData.nacimiento
+    };
+    saveStoredUsers(stored);
     currentUser = {
       name: newUserData.name, email: newUserData.email,
-      initials, username: userSlug, code: newUserData.code,
-      courses: courseMap[selectedPlan]
+      initials, username: newUserData.email, code: newUserData.code,
+      courses: newUserData.courses
     };
   }
   const next = step+1;
@@ -918,6 +1018,8 @@ function regNext(step){
   document.getElementById('regStep'+next).classList.add('active');
   regStep = next;
   updateStepDots(next);
+  const box = document.querySelector('.auth-box');
+  if(box) box.scrollTop = 0;
 }
 
 function goToDashFromReg(){ loadDashboard(); }
@@ -926,6 +1028,17 @@ function formatCard(el){
   let v = el.value.replace(/\D/g,'').substring(0,16);
   el.value = v.replace(/(.{4})/g,'$1 ').trim();
 }
+
+// Check if coming from cursos.html with direct register flag
+window.addEventListener('DOMContentLoaded', ()=>{
+  const direct = sessionStorage.getItem('directRegister');
+  const enrollTitle = sessionStorage.getItem('enrollTitle');
+  if(direct === '1'){
+    sessionStorage.removeItem('directRegister');
+    switchAuthTab('register');
+    if(enrollTitle) setTimeout(()=>toast('📚 Inscribiéndote a: '+enrollTitle,'info'), 500);
+  }
+});
 
 // ════════════════════ DASHBOARD ════════════════════
 function loadDashboard(){
